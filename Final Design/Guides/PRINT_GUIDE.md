@@ -2,7 +2,7 @@
 
 ## Current revision: rear horizontal pair corrected
 
-The rear horizontal U01 pair is flipped back to its original orientation; the front horizontal and vertical pairs retain their reversed orientations. The relieved receiver pockets and fit coupon from the preceding revision still fit this configuration, so no additional reprint is needed for this correction. Use the current package rather than receiver STLs from before the pocket-relief revision. Mounting feet and fastener quantities are retained. Read the [orientation revision](../../Documentation/THRUSTER_ORIENTATION.md) and test the revised coupon before printing the full receivers.
+The rear horizontal U01 pair is flipped back to its original orientation; the front horizontal and vertical pairs retain their reversed orientations. The relieved receiver pockets and fit coupon from the preceding revision still fit this configuration, so no additional reprint is needed for this correction. Use the current package rather than receiver STLs from before the pocket-relief revision. Mounting feet and fastener quantities are retained. Read the [orientation revision](../README.md#orientation-and-checks) and test the revised coupon before printing the full receivers.
 
 Use S6_Hybrid_Service_Upgrade.f3d and the complete Service_Upgrade_STLs.zip together. The frame height, original enclosure, U01 thrusters, keyed mounting interfaces and both three-piece side frames are retained. The previous assembly is preserved under Archive/Design History 2026-09-29/S6Hybrid/service_upgrade/Before_service_upgrade.f3d at the project root.
 

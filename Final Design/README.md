@@ -2,7 +2,7 @@
 
 Current service-upgrade revision, organized 29 September 2026. Start with the assembly and printing guide below.
 
-Current orientation revision: rear horizontal pair flipped back; front horizontal and vertical pairs retain their reversed orientations. The current relieved receiver pockets and print files are unchanged by this correction. See [revision details and fit-test requirements](../Documentation/THRUSTER_ORIENTATION.md). Earlier validation reports are historical where superseded by the rear-pair correction reports.
+Current orientation revision: rear horizontal pair flipped back; front horizontal and vertical pairs retain their reversed orientations. The current relieved receiver pockets and print files are unchanged by this correction. See [revision details and fit-test requirements](#orientation-and-checks). Earlier validation reports are historical where superseded by the rear-pair correction reports.
 
 - [Complete Fusion assembly](CAD/S6_Hybrid_Service_Upgrade.f3d)
 - [Print-oriented Fusion parts](CAD/Service_Upgrade_Print_Parts.f3d)
@@ -15,6 +15,12 @@ Current orientation revision: rear horizontal pair flipped back; front horizonta
 - [Future thruster adapter references](Thruster%20Interface%20References/README.md)
 
 Current hardware: 38 custom frame/mount screws, 34 nuts, 56 washers and four M3 inserts. The reused enclosure/electronics CAD also contains 30 screw solids. The BOM explains exclusions and unspecified accessories.
+
+## Orientation and checks
+
+The rear port and rear starboard horizontal thrusters are flipped back to their original orientation. The front horizontal and vertical pairs retain their reversed orientations, giving four vectored horizontal and two vertical units. The current relieved receiver pockets still fit; this correction does not change printed parts or fastener quantities.
+
+The rear-pair correction passed six candidate intersection checks and all 402 sampled service-clearance checks, with no Fusion timeline warnings or errors. The other four thruster transforms were verified unchanged. These are nominal CAD checks; physical rail fit, cable routing, motor mapping, and actual thrust directions still need testing.
 
 This is the current design release, not a physically qualified vehicle. Lifting/attachment loads, final electronics, tether, buoyancy and ballast still require the checks described in the guide. Ten test coupons are not installed parts. The six adapter references are not complete working mounts.
 

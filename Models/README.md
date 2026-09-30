@@ -1,6 +1,6 @@
 # Interactive assembly preview
 
-Current revision: [rear horizontal pair corrected](../Documentation/THRUSTER_ORIENTATION.md); the front horizontal and vertical pairs retain their orientations. The relieved fixed-receiver pockets are retained.
+Current revision: [rear horizontal pair corrected](../Final%20Design/README.md#orientation-and-checks); the front horizontal and vertical pairs retain their orientations. The relieved fixed-receiver pockets are retained.
 
 [Open the detailed STL in GitHub's 3D viewer](club-rov-preview.stl). Drag to rotate, right-drag to pan, and scroll to zoom.
 
