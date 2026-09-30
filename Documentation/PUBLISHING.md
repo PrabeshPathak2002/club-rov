@@ -1,6 +1,6 @@
 # Publishing and attribution
 
-The initial GitHub source set includes project, training, architecture, testing, roadmap, BOM, and printing documentation. It is not a backup of the full local CAD project.
+GitHub includes project, training, architecture, testing, roadmap, BOM, and printing documentation, plus lightweight assembly viewing models and one design screenshot in `Models/`. The README embeds a simplified interactive STL. This is not a backup of the full local CAD project.
 
 ## Local-only assets
 

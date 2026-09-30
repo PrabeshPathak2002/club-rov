@@ -6,6 +6,11 @@
 !/Documentation/
 !/Code/
 !/Final Design/
+!/Models/
+/Models/*
+!/Models/README.md
+!/Models/club-rov-preview.stl
+!/Models/preview.png
 /Documentation/*
 !/Documentation/*.md
 !/Documentation/templates/
