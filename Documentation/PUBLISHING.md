@@ -1,6 +1,6 @@
 # Publishing and attribution
 
-GitHub includes project, training, architecture, testing, roadmap, BOM, and printing documentation, plus lightweight assembly viewing models and one design screenshot in `Models/`. The README embeds a simplified interactive STL. This is not a backup of the full local CAD project.
+GitHub includes project, training, architecture, testing, roadmap, BOM, and printing documentation, plus a detailed assembly viewing model and one design screenshot in `Models/`. The README shows the screenshot beside a View in 3D button linking to the model. This is not a backup of the full local CAD project.
 
 ## Local-only assets
 
