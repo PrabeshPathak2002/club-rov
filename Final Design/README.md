@@ -2,6 +2,8 @@
 
 Current service-upgrade revision, organized 29 September 2026. Start with the assembly and printing guide below.
 
+Current orientation revision: all six thrusters reversed, with matching relief in the six fixed receivers. See [revision details and fit-test requirements](../Documentation/THRUSTER_ORIENTATION.md). Earlier validation reports are historical where superseded by the thruster-reversal reports.
+
 - [Complete Fusion assembly](CAD/S6_Hybrid_Service_Upgrade.f3d)
 - [Print-oriented Fusion parts](CAD/Service_Upgrade_Print_Parts.f3d)
 - [Frame STEP export](CAD/Service_Upgrade_Frame.step) — frame component only, not the complete enclosure/thruster assembly

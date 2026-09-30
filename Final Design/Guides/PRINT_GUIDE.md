@@ -1,5 +1,9 @@
 # ROV service upgrade — PETG / H2D
 
+## Current revision: all six thrusters reversed
+
+All six U01 assemblies now face the opposite axial direction. The six fixed receiver rail pockets and the corresponding rail-fit coupon have been revised for the asymmetric rails. Use the current package rather than earlier receiver STLs. Mounting feet and fastener quantities are retained. Read the [orientation revision](../../Documentation/THRUSTER_ORIENTATION.md) and test the revised coupon before printing the full receivers.
+
 Use S6_Hybrid_Service_Upgrade.f3d and the complete Service_Upgrade_STLs.zip together. The frame height, original enclosure, U01 thrusters, keyed mounting interfaces and both three-piece side frames are retained. The previous assembly is preserved under Archive/Design History 2026-09-29/S6Hybrid/service_upgrade/Before_service_upgrade.f3d at the project root.
 
 ## Changes to the printed parts

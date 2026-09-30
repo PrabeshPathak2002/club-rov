@@ -29,6 +29,8 @@ Rotate, pan, and zoom the detailed model.
 
 ## Status
 
+Latest mechanical revision: [all six thrusters reversed, with matching receiver pockets](Documentation/THRUSTER_ORIENTATION.md). The image and 3D model show this revision.
+
 The current mechanical design and print exports are prepared. Physical assembly, electrical integration, companion firmware, and water qualification remain ahead. Existing geometry checks do not establish a depth or structural load rating.
 
 The design uses a modular PETG frame, an existing 4-inch, 200 mm enclosure, and six APISQUEEN U01 thrusters. An ARK FPV running ArduSub is planned for vehicle control; a Waveshare ESP32-P4-WIFI6-POE-ETH will handle camera and Ethernet communications with a USB MAVLink connection to the ARK. Propulsion uses a planned 4S 4000 mAh pack, a DakeFPV four-channel ESC, and two additional ESCs. PoE and a proposed backup battery support the companion electronics. Sensors and several electrical details remain undecided.

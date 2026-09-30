@@ -1,5 +1,7 @@
 # Interactive assembly preview
 
+Current revision: [all six thrusters reversed](../Documentation/THRUSTER_ORIENTATION.md), with matching fixed-receiver pockets.
+
 [Open the detailed STL in GitHub's 3D viewer](club-rov-preview.stl). Drag to rotate, right-drag to pan, and scroll to zoom.
 
 The root README displays a full-color Fusion screenshot beside a View in 3D button. Both open the detailed binary STL in GitHub's interactive viewer. The STL includes the enclosure flanges and stays below GitHub's 10 MB viewer limit. STL is monochrome; the screenshot shows the design colors.
