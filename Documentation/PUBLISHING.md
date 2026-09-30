@@ -22,7 +22,7 @@ For the portfolio, explain the engineering problem, your specific contributions,
 
 - [x] Confirm GitHub owner, repository name, and visibility: public, [PrabeshPathak2002/club-rov](https://github.com/PrabeshPathak2002/club-rov).
 - [x] Review tracked files for credentials, local paths, and unrelated content.
-- [ ] Create and push the repository; record its URL in the README.
+- [x] Create and push the repository; record its URL in the README.
 - [ ] Complete attribution and select licenses with the relevant owners.
 - [ ] Publish reviewed design downloads and replace local-only links.
 - [ ] Add selected project photos and measured test results.
