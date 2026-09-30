@@ -1,0 +1,30 @@
+# Explicit documentation source set. Excluded files remain on disk.
+/*
+!/.gitignore
+!/README.md
+!/CONTRIBUTING.md
+!/Documentation/
+!/Code/
+!/Final Design/
+/Documentation/*
+!/Documentation/*.md
+!/Documentation/templates/
+/Documentation/templates/*
+!/Documentation/templates/*.md
+/Code/*
+!/Code/README.md
+/Final Design/*
+!/Final Design/README.md
+!/Final Design/BOM/
+!/Final Design/Guides/
+/Final Design/BOM/*
+!/Final Design/BOM/*.md
+!/Final Design/BOM/*.csv
+/Final Design/Guides/*
+!/Final Design/Guides/*.md
+.env
+.env.*
+*.pem
+*.key
+.vscode/
+build/
