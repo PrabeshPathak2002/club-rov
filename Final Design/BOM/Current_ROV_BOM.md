@@ -1,6 +1,6 @@
 # Current ROV bill of materials
 
-Revision: service upgrade, 29 September 2026. This is a design BOM based on the active Future ROV document and its current print exports, not a fully validated purchasing list. Model labels do not prove ownership or final electrical compatibility. Prices are not estimated.
+Revision: M4 side-frame joints, 30 September 2026. This is a design BOM based on the active Future ROV document and its current print exports, not a fully validated purchasing list. Model labels do not prove ownership or final electrical compatibility. Prices are not estimated.
 
 27 printed assembly parts; six U01 thrusters. The 10 supplied fit coupons and six STEP interface references are not installed vehicle parts. PETG spool quantity must come from the slicer, including supports, brim, coupons and waste.
 
@@ -31,12 +31,12 @@ Electrical gap: one four-channel ESC is represented for six thrusters. Two addit
 - **1 part** — Front lower deck half - H2D. PETG; 100% infill requested. Front_lower_deck_half_-_H2D.stl
 - **1 part** — Front upper cover half - H2D. PETG; 100% infill requested. Front_upper_cover_half_-_H2D.stl
 - **1 part** — One-piece service handle - two bolts. PETG; 100% infill requested. One-piece_service_handle_-_two_bolts.stl
-- **1 part** — Starboard rear upright - M3 insert. PETG; 100% infill requested. Starboard_rear_upright_-_M3_insert.stl
-- **1 part** — Starboard front upright - M3 insert. PETG; 100% infill requested. Starboard_front_upright_-_M3_insert.stl
-- **1 part** — Starboard top beam - keyed M3 joints. PETG; 100% infill requested. Starboard_top_beam_-_keyed_M3_joints.stl
-- **1 part** — Port rear upright - M3 insert. PETG; 100% infill requested. Port_rear_upright_-_M3_insert.stl
-- **1 part** — Port front upright - M3 insert. PETG; 100% infill requested. Port_front_upright_-_M3_insert.stl
-- **1 part** — Port top beam - keyed M3 joints. PETG; 100% infill requested. Port_top_beam_-_keyed_M3_joints.stl
+- **1 part** — Starboard rear upright - M4 insert. PETG; 100% infill requested. Starboard_rear_upright_-_M4_insert.stl
+- **1 part** — Starboard front upright - M4 insert. PETG; 100% infill requested. Starboard_front_upright_-_M4_insert.stl
+- **1 part** — Starboard top beam - keyed M4 joints. PETG; 100% infill requested. Starboard_top_beam_-_keyed_M4_joints.stl
+- **1 part** — Port rear upright - M4 insert. PETG; 100% infill requested. Port_rear_upright_-_M4_insert.stl
+- **1 part** — Port front upright - M4 insert. PETG; 100% infill requested. Port_front_upright_-_M4_insert.stl
+- **1 part** — Port top beam - keyed M4 joints. PETG; 100% infill requested. Port_top_beam_-_keyed_M4_joints.stl
 
 ## Custom assembly hardware
 
@@ -44,12 +44,11 @@ Electrical gap: one four-channel ESC is represented for six thrusters. Two addit
 - **4 screw** — M4 x 25 socket-head screw. Dimensions in mm; screw length excludes head. Material/grade to be selected.
 - **2 screw** — M4 x 35 socket-head screw. Dimensions in mm; screw length excludes head. Material/grade to be selected.
 - **12 screw** — M4 x 45 socket-head screw. Dimensions in mm; screw length excludes head. Material/grade to be selected.
-- **4 screw** — M3 x 30 socket-head screw. Dimensions in mm; screw length excludes head. Material/grade to be selected.
+- **4 screw** — M4 x 30 socket-head screw. Dimensions in mm; screw length excludes head. Material/grade to be selected.
 - **34 nut** — M4 hex nut. Nominal 7 mm across flats x 3.2 mm thick; retained pockets are not sized for arbitrary locknuts.
 - **16 washer** — M4 washer: 8 mm OD / 4.4 mm ID / 0.8 mm thick. Collar and rail-clamp washers; radii checked in active Fusion document.
-- **36 washer** — M4 washer: 9 mm OD / 4.4 mm ID / 0.8 mm thick. Frame and mounting washers; radii checked in active Fusion document.
-- **4 washer** — M3 washer: 7 mm OD / 3.2 mm ID / 0.5 mm thick. Wide enough to bridge existing 4.5 mm cover holes.
-- **4 insert** — M3 heat-set insert: 4.6 mm maximum OD x 5.7 mm long. 4.0 mm nominal pilot. Test actual insert in coupon before full printing.
+- **40 washer** — M4 washer: 9 mm OD / 4.4 mm ID / 0.8 mm thick. Frame and mounting washers; radii checked in active Fusion document.
+- **4 insert** — M4 heat-set insert: 6.0 mm maximum OD x 8.1 mm long. 5.6 mm nominal pilot, 10.2 mm deep. Test actual insert in coupon before full printing.
 
 ## Existing enclosure/electronics hardware
 

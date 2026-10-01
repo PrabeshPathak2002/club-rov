@@ -20,22 +20,21 @@ Printed assembly,Rear upper cover half - H2D,1,part,Modeled / STL supplied,PETG;
 Printed assembly,Front lower deck half - H2D,1,part,Modeled / STL supplied,PETG; 100% infill requested. Front_lower_deck_half_-_H2D.stl,Current Fusion service-upgrade revision
 Printed assembly,Front upper cover half - H2D,1,part,Modeled / STL supplied,PETG; 100% infill requested. Front_upper_cover_half_-_H2D.stl,Current Fusion service-upgrade revision
 Printed assembly,One-piece service handle - two bolts,1,part,Modeled / STL supplied,PETG; 100% infill requested. One-piece_service_handle_-_two_bolts.stl,Current Fusion service-upgrade revision
-Printed assembly,Starboard rear upright - M3 insert,1,part,Modeled / STL supplied,PETG; 100% infill requested. Starboard_rear_upright_-_M3_insert.stl,Current Fusion service-upgrade revision
-Printed assembly,Starboard front upright - M3 insert,1,part,Modeled / STL supplied,PETG; 100% infill requested. Starboard_front_upright_-_M3_insert.stl,Current Fusion service-upgrade revision
-Printed assembly,Starboard top beam - keyed M3 joints,1,part,Modeled / STL supplied,PETG; 100% infill requested. Starboard_top_beam_-_keyed_M3_joints.stl,Current Fusion service-upgrade revision
-Printed assembly,Port rear upright - M3 insert,1,part,Modeled / STL supplied,PETG; 100% infill requested. Port_rear_upright_-_M3_insert.stl,Current Fusion service-upgrade revision
-Printed assembly,Port front upright - M3 insert,1,part,Modeled / STL supplied,PETG; 100% infill requested. Port_front_upright_-_M3_insert.stl,Current Fusion service-upgrade revision
-Printed assembly,Port top beam - keyed M3 joints,1,part,Modeled / STL supplied,PETG; 100% infill requested. Port_top_beam_-_keyed_M3_joints.stl,Current Fusion service-upgrade revision
+Printed assembly,Starboard rear upright - M4 insert,1,part,Modeled / STL supplied,PETG; 100% infill requested. Starboard_rear_upright_-_M4_insert.stl,Current Fusion service-upgrade revision
+Printed assembly,Starboard front upright - M4 insert,1,part,Modeled / STL supplied,PETG; 100% infill requested. Starboard_front_upright_-_M4_insert.stl,Current Fusion service-upgrade revision
+Printed assembly,Starboard top beam - keyed M4 joints,1,part,Modeled / STL supplied,PETG; 100% infill requested. Starboard_top_beam_-_keyed_M4_joints.stl,Current Fusion service-upgrade revision
+Printed assembly,Port rear upright - M4 insert,1,part,Modeled / STL supplied,PETG; 100% infill requested. Port_rear_upright_-_M4_insert.stl,Current Fusion service-upgrade revision
+Printed assembly,Port front upright - M4 insert,1,part,Modeled / STL supplied,PETG; 100% infill requested. Port_front_upright_-_M4_insert.stl,Current Fusion service-upgrade revision
+Printed assembly,Port top beam - keyed M4 joints,1,part,Modeled / STL supplied,PETG; 100% infill requested. Port_top_beam_-_keyed_M4_joints.stl,Current Fusion service-upgrade revision
 Custom assembly hardware,M4 x 20 socket-head screw,16,screw,Modeled,Dimensions in mm; screw length excludes head. Material/grade to be selected.,Current Fusion service-upgrade revision
 Custom assembly hardware,M4 x 25 socket-head screw,4,screw,Modeled,Dimensions in mm; screw length excludes head. Material/grade to be selected.,Current Fusion service-upgrade revision
 Custom assembly hardware,M4 x 35 socket-head screw,2,screw,Modeled,Dimensions in mm; screw length excludes head. Material/grade to be selected.,Current Fusion service-upgrade revision
 Custom assembly hardware,M4 x 45 socket-head screw,12,screw,Modeled,Dimensions in mm; screw length excludes head. Material/grade to be selected.,Current Fusion service-upgrade revision
-Custom assembly hardware,M3 x 30 socket-head screw,4,screw,Modeled,Dimensions in mm; screw length excludes head. Material/grade to be selected.,Current Fusion service-upgrade revision
+Custom assembly hardware,M4 x 30 socket-head screw,4,screw,Modeled,Dimensions in mm; screw length excludes head. Material/grade to be selected.,Current Fusion service-upgrade revision
 Custom assembly hardware,M4 hex nut,34,nut,Modeled,Nominal 7 mm across flats x 3.2 mm thick; retained pockets are not sized for arbitrary locknuts.,Current Fusion service-upgrade revision
 Custom assembly hardware,M4 washer: 8 mm OD / 4.4 mm ID / 0.8 mm thick,16,washer,Modeled,Collar and rail-clamp washers; radii checked in active Fusion document.,Current Fusion service-upgrade revision
-Custom assembly hardware,M4 washer: 9 mm OD / 4.4 mm ID / 0.8 mm thick,36,washer,Modeled,Frame and mounting washers; radii checked in active Fusion document.,Current Fusion service-upgrade revision
-Custom assembly hardware,M3 washer: 7 mm OD / 3.2 mm ID / 0.5 mm thick,4,washer,Modeled,Wide enough to bridge existing 4.5 mm cover holes.,Current Fusion service-upgrade revision
-Custom assembly hardware,M3 heat-set insert: 4.6 mm maximum OD x 5.7 mm long,4,insert,Design basis; exact product unconfirmed,4.0 mm nominal pilot. Test actual insert in coupon before full printing.,Current Fusion service-upgrade revision
+Custom assembly hardware,M4 washer: 9 mm OD / 4.4 mm ID / 0.8 mm thick,40,washer,Modeled,Frame and mounting washers; radii checked in active Fusion document.,Current Fusion service-upgrade revision
+Custom assembly hardware,M4 heat-set insert: 6.0 mm maximum OD x 8.1 mm long,4,insert,Design basis; exact product unconfirmed,5.6 mm nominal pilot; 10.2 mm deep. Test actual insert in coupon before full printing.,Current Fusion service-upgrade revision
 Existing enclosure/electronics hardware,90037A105 screw (imported CAD label),6,screw,Modeled in reused assembly,Counted separate screw solids. Thread/length and purchased item not independently verified; do not order solely from this label.,Original enclosure snapshot in active Fusion document
 Existing enclosure/electronics hardware,91290A006 screw (imported CAD label),4,screw,Modeled in reused assembly,Counted separate screw solids. Thread/length and purchased item not independently verified; do not order solely from this label.,Original enclosure snapshot in active Fusion document
 Existing enclosure/electronics hardware,91290A011 screw (imported CAD label),4,screw,Modeled in reused assembly,Counted separate screw solids. Thread/length and purchased item not independently verified; do not order solely from this label.,Original enclosure snapshot in active Fusion document

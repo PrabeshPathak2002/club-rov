@@ -29,7 +29,7 @@ Rotate, pan, and zoom the detailed model.
 
 ## Status
 
-Latest mechanical revision: [rear horizontal thruster pair corrected](Final%20Design/README.md#orientation-and-checks); the front horizontal and vertical pairs retain their orientations. The image and 3D model show this revision.
+Latest mechanical revision: [M4 side-frame joints](Final%20Design/README.md#m4-frame-joints), standardizing the 38 custom frame/mount screws to M4. The [rear horizontal thruster pair remains corrected](Final%20Design/README.md#orientation-and-checks); the front horizontal and vertical pairs retain their orientations. The image and 3D model show this revision.
 
 The current mechanical design and print exports are prepared. Physical assembly, electrical integration, companion firmware, and water qualification remain ahead. Existing geometry checks do not establish a depth or structural load rating.
 
