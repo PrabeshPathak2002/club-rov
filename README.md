@@ -10,14 +10,6 @@ A six-thruster tethered ROV for teaching underwater robotics, testing sensors fo
 
 The assembly preview records the September frame revision. Later mount, battery, stack and endcap revisions are documented separately under [Hardware](Hardware/README.md); they are not all represented in that viewing mesh.
 
-## What works
-
-Bench checks established Ethernet MAVLink telemetry, Raspberry Pi Camera V2.1 video in QGroundControl, a maintenance Wi-Fi dashboard, and password-authorized ESP32 firmware updates with startup rollback. The companion firmware is version 1.2.1, built with ESP-IDF 5.5.2.
-
-On 23 October 2026, all four DAKEFPV ESC channels were read through a Betaflight F722 and configured for forward/reverse operation. The ARK running ArduSub 4.7.2 reports `DS300:1-4 PWM:5-9` with the Vectored frame selected. Physical neutral, motor mapping and thrust-direction tests remain pending: the MR30 connectors have not yet been installed.
-
-The intended operating depth is **20–50 m**, not a demonstrated rating. The current endcap is a fit study, and the selected Bar02 cannot measure the full target depth. See [test status and remaining work](Documentation/STATUS.md).
-
 ## System
 
 - Six APISQUEEN U01 thrusters: four vectored horizontal and two vertical.
@@ -38,9 +30,3 @@ The intended operating depth is **20–50 m**, not a demonstrated rating. The cu
 - [Testing plan](Documentation/TESTING.md) and [recorded bench results](Documentation/STATUS.md)
 - [New member learning path](Documentation/NEW_MEMBERS.md)
 - [Roadmap](Documentation/ROADMAP.md) and [contribution guide](CONTRIBUTING.md)
-
-## Repository scope
-
-`Code/` contains buildable companion sources, a dependency lockfile and the licensed camera driver. `Hardware/` contains selected current custom-part exports and revision notes. `Documentation/` contains setup, training and test records. `Models/` holds the assembly viewing mesh. `Final Design/` documents the September mechanical baseline and is explicitly historical where newer revisions supersede it.
-
-Private credentials, firmware binaries, serial logs, downloaded commercial CAD and development backups stay outside the published source set. [Publishing and attribution](Documentation/PUBLISHING.md) explains the scope and third-party notices. No project-wide reuse license has been selected.
