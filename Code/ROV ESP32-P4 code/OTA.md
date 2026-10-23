@@ -1,5 +1,7 @@
 # Wi-Fi firmware updates
 
+I added OTA updates so I can install new companion firmware through the maintenance dashboard. The update writes an inactive application slot and keeps a recovery path if the new application fails its startup checks.
+
 ## Update from the dashboard
 
 1. Recover the ROV and disarm the flight controller. Keep power stable.
@@ -46,7 +48,7 @@ future images retain your credentials.
 
 ## Partitions and rollback
 
-The verified board has 32 MB flash. NVS and PHY data retain their original
+My board has 32 MB flash. NVS and PHY data retain their original
 offsets. The layout preserves a 4 MiB factory recovery app at 0x10000,
 adds OTA metadata at 0x410000, and provides 4 MiB app slots at 0x420000
 and 0x820000. Updates alternate between the OTA slots; they do not overwrite
@@ -106,18 +108,17 @@ The application registers a shutdown handler that stops camera capture/encoding
 and the Ethernet driver before a software restart. This prevents DMA activity
 from carrying into the next boot on ESP-IDF 5.5.2. See the related upstream
 [ESP32-P4 EMAC restart issue](https://github.com/espressif/esp-idf/issues/19085).
-An initial bench update exposed a watchdog failure during startup and correctly
-rolled back to the factory image. After graceful shutdown was added in 1.2.1,
-the uploaded image booted from ota_0 and passed the PSRAM startup test.
+During the first bench update, a watchdog failure at startup triggered a rollback to the factory image. Version 1.2.1 stops the camera and Ethernet driver before restarting; the next uploaded image booted from ota_0 and passed the PSRAM startup test.
 
 ## Bench validation — 20 October 2026
+
+These are the results from the OTA bench checks:
 
 - ESP-IDF 5.5.2 build and USB migration passed; firmware version 1.2.1.
 - The physical controller's disarmed heartbeat unlocked uploading.
 - Actual HTTP tests returned 401 for absent/wrong passwords, 413 for an incomplete
   image, and 400 for an incompatible header and a corrupted firmware hash.
-- A real browser loaded the dashboard from 192.168.4.1 and uploaded the complete
-  application; device validation returned success and selected ota_0.
+- I uploaded the complete application through the dashboard at 192.168.4.1; device validation returned success and selected ota_0.
 - Desktop and 390 px phone layouts were checked, including offline/startup/armed
   upload locks, failed-upload feedback and clearing the entered password.
 - At 64 seconds, the OTA-installed application logged "Startup check passed;
@@ -127,4 +128,4 @@ the uploaded image booted from ota_0 and passed the PSRAM startup test.
 - Flash writes temporarily reduced video rate and increased intentional command
   drops while forwarding was inhibited; the C6 SDIO driver logged queue pressure
   during the transfer. Normal operation recovered after restart.
-- Exhaustive power-loss and endurance testing have not been performed.
+- I still need exhaustive power-loss and endurance tests.

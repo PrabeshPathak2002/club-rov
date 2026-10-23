@@ -1,4 +1,4 @@
-> Historical September assembly preview. See the [later mechanical revisions](../Hardware/README.md); the viewer has not been regenerated for the newer mounts, battery, stack or endcap.
+> This is my September assembly preview. I have not regenerated it for the newer mounts, battery, stack or endcap; those changes are listed under [hardware revisions](../Hardware/README.md).
 
 # Interactive assembly preview
 
@@ -8,8 +8,8 @@ Preview revision: [M4 side-frame joints](../Final%20Design/README.md#m4-frame-jo
 
 The root README displays a full-color Fusion screenshot beside a View in 3D button. Both open the detailed binary STL in GitHub's interactive viewer. The STL includes the enclosure flanges and stays below GitHub's 10 MB viewer limit. STL is monochrome; the screenshot shows the design colors.
 
-Exported from the active Future ROV Fusion assembly on 30 September 2026. Includes the enclosure, six thrusters, frame, clamps, and handle. Internal electronics, liners, and fasteners are omitted. This mesh is not a printable assembly or a manufacturing reference; use the original individual print parts for fabrication.
+I exported this preview from my `Future ROV` Fusion assembly on 30 September 2026. Includes the enclosure, six thrusters, frame, clamps, and handle. Internal electronics, liners, and fasteners are omitted. This mesh is not a printable assembly or a manufacturing reference; use the original individual print parts for fabrication.
 
-The assembly includes imported enclosure and APISQUEEN U01 reference geometry alongside the custom frame and mounts. No new ownership or reuse license is asserted over third-party designs. See [publishing and attribution](../Documentation/PUBLISHING.md).
+The assembly includes imported enclosure and APISQUEEN U01 reference geometry alongside the custom frame and mounts. Those third-party designs remain credited to their original creators. See [publishing and attribution](../Documentation/PUBLISHING.md).
 
 [GitHub's STL documentation](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams#creating-stl-3d-models)

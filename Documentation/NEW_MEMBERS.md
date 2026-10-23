@@ -1,6 +1,6 @@
 # New member learning path
 
-Begin with an unpowered vehicle or its design files and work with a project mentor. Prior underwater robotics experience is not required.
+I want this ROV to give new club members a practical way to learn underwater robotics. Start with an unpowered vehicle or the design files and work with a project mentor. No prior underwater robotics experience is needed.
 
 ## 1. Understand the vehicle
 
@@ -10,7 +10,7 @@ Deliverable: an annotated sketch and questions for your mentor.
 
 ## 2. Practice mechanical work
 
-Read the [print guide](../Final%20Design/Guides/PRINT_GUIDE.md) and [BOM](../Final%20Design/BOM/Current_ROV_BOM.md). Start with a fit coupon. Record material, orientation, slicer settings, and measured fit. Practice heat-set inserts on a spare coupon with supervision.
+Start with the [current hardware revisions](../Hardware/README.md) and [component list](BOM.md). The [September print guide](../Final%20Design/Guides/PRINT_GUIDE.md) covers the original frame baseline. Start with a fit coupon. Record material, orientation, slicer settings, and measured fit. Practice heat-set inserts on a spare coupon with supervision.
 
 Deliverable: a fit report with dimensions and photos. Fit alone does not establish strength or pressure capability. Use the current revision index in Hardware; the September BOM is a historical baseline.
 

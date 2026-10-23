@@ -1,6 +1,6 @@
 # Current component list — 23 October 2026
 
-This list records the latest selected hardware; it is not a verified purchase order or an assertion that every selected part is already owned.
+This is the hardware I am using or planning to use. I have marked parts that are on hand or still awaiting delivery; I need to check the remaining inventory and quantities before ordering.
 
 - 6 APISQUEEN U01 thrusters, four horizontal vectored and two vertical.
 - 1 ARK FPV FC, on hand, ArduSub 4.7.2.
@@ -21,4 +21,4 @@ This list records the latest selected hardware; it is not a verified purchase or
 - Appropriately sized wire, battery fuse/holder, ring terminals, heat shrink, strain relief, insulation, straps, seals and actual-stack fasteners: quantities remain to be measured.
 - PoE source/tether, compatible charger/balance equipment, surface controls and leak detector: verify inventory before ordering.
 
-The [September mechanical BOM](../Final%20Design/BOM/Current_ROV_BOM.md) retains the old 27-part/two-piece-clamp baseline. It is not a current total after the later single-piece rail receivers and electronics changes. Latest receivers use six M4 × 50 mm retainers, six M4 nuts and six washers across the six mounts; confirm actual stack length before ordering. The ARK/ESC stack uses M3 hardware even though the custom frame joints are M4. No complete revised fastener recount has been performed.
+The [September mechanical BOM](../Final%20Design/BOM/Current_ROV_BOM.md) retains the old 27-part/two-piece-clamp baseline. It is not a current total after the later single-piece rail receivers and electronics changes. Latest receivers use six M4 × 50 mm retainers, six M4 nuts and six washers across the six mounts; confirm actual stack length before ordering. The ARK/ESC stack uses M3 hardware even though the custom frame joints are M4. I still need to recount the complete fastener set after these revisions.

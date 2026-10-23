@@ -1,7 +1,7 @@
 # Software
 
-[ESP32-P4 companion](ROV%20ESP32-P4%20code/README.md) is the current firmware source: Ethernet/USB MAVLink, IMX219 H.264 video, Wi-Fi maintenance dashboard and OTA. Use ESP-IDF 5.5.2 and the dependency lockfile.
+My [ESP32-P4 companion firmware](ROV%20ESP32-P4%20code/README.md) handles Ethernet/USB MAVLink, IMX219 H.264 video, Wi-Fi maintenance dashboard and OTA. Use ESP-IDF 5.5.2 and the dependency lockfile.
 
-The ARK runs upstream ArduSub 4.7.2; its firmware is not forked here. [Electronics setup](../Documentation/ELECTRONICS.md) records the current partial configuration. A complete post-reset parameter export is still needed.
+I use upstream ArduSub 4.7.2 on the ARK. [Electronics setup](../Documentation/ELECTRONICS.md) records the current partial configuration. I still need to capture a complete post-reset parameter export.
 
-ROS 2 Humble / Ubuntu 22.04 integration is planned. No autonomy node or complete surface installation is included yet.
+I plan to use ROS 2 Humble on Ubuntu 22.04 for future autonomy and sensor experiments. I have not added the autonomy nodes or a complete ROS surface setup yet.

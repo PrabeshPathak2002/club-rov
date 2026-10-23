@@ -1,6 +1,6 @@
 # ESP32-P4 ROV companion — 1.2.1
 
-ESP-IDF **5.5.2**, C, Waveshare **ESP32-P4-WIFI6-POE-ETH**. Bench hardware: P4 revision 1.3, 32 MB flash and 32 MB PSRAM; C6 Wi-Fi coprocessor. ARK runs ArduSub and owns motor control.
+I use the Waveshare **ESP32-P4-WIFI6-POE-ETH** as the ROV companion, with firmware written in C using **ESP-IDF 5.5.2**. My board has a P4 revision 1.3, 32 MB flash, 32 MB PSRAM and a C6 Wi-Fi coprocessor. The ARK runs ArduSub and handles motor control.
 
 ## Features
 
@@ -8,7 +8,7 @@ ESP-IDF **5.5.2**, C, Waveshare **ESP32-P4-WIFI6-POE-ETH**. Bench hardware: P4 r
 - Raspberry Pi Camera V2.1 / IMX219 CSI capture, hardware H.264 and RTP/UDP video.
 - WPA2 maintenance hotspot, responsive status dashboard, authenticated application updates and boot rollback.
 
-Ethernet telemetry, video, dashboard and a real OTA update were bench tested. [Project status](../../Documentation/STATUS.md) distinguishes those results from pending propulsion, failsafe and water trials. ROS, backup-power supervision and onboard autonomy are not implemented.
+I have checked Ethernet telemetry, camera video, the dashboard and a real OTA update on the bench. My [build notes](../../Documentation/STATUS.md) track those results and the pending propulsion, failsafe and water tests. ROS, backup-power supervision and onboard autonomy are still future work.
 
 ## Fresh checkout on Windows
 
@@ -22,7 +22,7 @@ idf.py -B build-ota menuconfig
 idf.py -B build-ota build
 ```
 
-Review chip revision and board settings before flashing. The supplied defaults reproduce the pre-v3 bench board and 100 Hz scheduler; do not use `--force` to bypass a revision mismatch. The dependency manager restores packages using `dependencies.lock`. The IMX camera component is vendored under `components/` with its license and upstream revision. No sibling checkout or absolute machine path is required.
+Review chip revision and board settings before flashing. The defaults match my pre-v3 bench board and 100 Hz scheduler; do not use `--force` to bypass a revision mismatch. The dependency manager restores packages using `dependencies.lock`. I use the IMX camera component under `components/`, with its original license and upstream revision retained. No sibling checkout or absolute machine path is required.
 
 Initial USB install/recovery, with propulsion disconnected:
 
@@ -38,7 +38,7 @@ Replace `COM_PORT` with the actual programming port. Exit monitor with Ctrl+]. C
 - MAVLink UDP `14555` on the P4 ↔ `14550` on the surface. Only the configured source IP/port is accepted.
 - Video RTP/H.264 to surface port `5600`, configured 4 Mbit/s; approximately 25 fps at 1632 × 1232 on the bench. [Video setup](VIDEO.md).
 - Hotspot `ROV-Maintenance`; dashboard `http://192.168.4.1`, also `http://192.168.137.2` over Ethernet. [Wi-Fi notes](WIFI.md).
-- ARK USB CDC interface 0; the separate SLCAN interface is not MAVLink. VID/PID were observed as `1209:5740`; configurable source defaults accept any single CDC device.
+- ARK USB CDC interface 0; the separate SLCAN interface is not MAVLink. My ARK enumerates as `1209:5740`; configurable source defaults accept any single CDC device.
 
 ## Source tour
 

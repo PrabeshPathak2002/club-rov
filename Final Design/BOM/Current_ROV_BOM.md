@@ -1,8 +1,8 @@
-> Historical September 2026 baseline. Later mounts, electronics and endcap revisions supersede parts of this document. Use the [current revision index](../../Hardware/README.md) before building or ordering. Historical totals are not a current purchasing list.
+> This is my September 2026 baseline. Later mounts, electronics and endcap revisions supersede parts of this document. Use the [current revision index](../../Hardware/README.md) before building or ordering. Historical totals are not a current purchasing list.
 
 # Current ROV bill of materials
 
-Revision: M4 side-frame joints, 30 September 2026. This is a design BOM based on the active Future ROV document and its current print exports, not a fully validated purchasing list. Model labels do not prove ownership or final electrical compatibility. Prices are not estimated.
+Revision: M4 side-frame joints, 30 September 2026. I generated this design BOM from my Future ROV CAD document and the September print exports. I still need to verify the full purchasing list against the physical build. Model labels do not prove ownership or final electrical compatibility. Prices are not estimated.
 
 27 printed assembly parts; six U01 thrusters. The 10 supplied fit coupons and six STEP interface references are not installed vehicle parts. PETG spool quantity must come from the slicer, including supports, brim, coupons and waste.
 
@@ -12,33 +12,33 @@ Electrical gap: one four-channel ESC is represented for six thrusters. Two addit
 
 ## Printed assembly
 
-- **1 part** — Lower collar and foot -1. PETG; 100% infill requested. Lower_collar_and_foot_-1.stl
-- **1 part** — Removable upper collar -1. PETG; 100% infill requested. Removable_upper_collar_-1.stl
-- **1 part** — Lower collar and foot 1. PETG; 100% infill requested. Lower_collar_and_foot_1.stl
-- **1 part** — Removable upper collar 1. PETG; 100% infill requested. Removable_upper_collar_1.stl
-- **1 part** — H Rear Starboard fixed receiver and support. PETG; 100% infill requested. H_Rear_Starboard_fixed_receiver_and_support.stl
-- **1 part** — H Rear Port fixed receiver and support. PETG; 100% infill requested. H_Rear_Port_fixed_receiver_and_support.stl
-- **1 part** — H Front Starboard fixed receiver and support. PETG; 100% infill requested. H_Front_Starboard_fixed_receiver_and_support.stl
-- **1 part** — H Front Port fixed receiver and support. PETG; 100% infill requested. H_Front_Port_fixed_receiver_and_support.stl
-- **1 part** — V Starboard fixed receiver and support. PETG; 100% infill requested. V_Starboard_fixed_receiver_and_support.stl
-- **1 part** — V Port fixed receiver and support. PETG; 100% infill requested. V_Port_fixed_receiver_and_support.stl
-- **1 part** — H Rear Starboard removable rail jaw. PETG; 100% infill requested. H_Rear_Starboard_removable_rail_jaw.stl
-- **1 part** — H Rear Port removable rail jaw. PETG; 100% infill requested. H_Rear_Port_removable_rail_jaw.stl
-- **1 part** — H Front Starboard removable rail jaw. PETG; 100% infill requested. H_Front_Starboard_removable_rail_jaw.stl
-- **1 part** — V Starboard removable rail jaw. PETG; 100% infill requested. V_Starboard_removable_rail_jaw.stl
-- **1 part** — H Front Port removable rail jaw. PETG; 100% infill requested. H_Front_Port_removable_rail_jaw.stl
-- **1 part** — V Port removable rail jaw. PETG; 100% infill requested. V_Port_removable_rail_jaw.stl
-- **1 part** — Rear lower deck half - H2D. PETG; 100% infill requested. Rear_lower_deck_half_-_H2D.stl
-- **1 part** — Rear upper cover half - H2D. PETG; 100% infill requested. Rear_upper_cover_half_-_H2D.stl
-- **1 part** — Front lower deck half - H2D. PETG; 100% infill requested. Front_lower_deck_half_-_H2D.stl
-- **1 part** — Front upper cover half - H2D. PETG; 100% infill requested. Front_upper_cover_half_-_H2D.stl
-- **1 part** — One-piece service handle - two bolts. PETG; 100% infill requested. One-piece_service_handle_-_two_bolts.stl
-- **1 part** — Starboard rear upright - M4 insert. PETG; 100% infill requested. Starboard_rear_upright_-_M4_insert.stl
-- **1 part** — Starboard front upright - M4 insert. PETG; 100% infill requested. Starboard_front_upright_-_M4_insert.stl
-- **1 part** — Starboard top beam - keyed M4 joints. PETG; 100% infill requested. Starboard_top_beam_-_keyed_M4_joints.stl
-- **1 part** — Port rear upright - M4 insert. PETG; 100% infill requested. Port_rear_upright_-_M4_insert.stl
-- **1 part** — Port front upright - M4 insert. PETG; 100% infill requested. Port_front_upright_-_M4_insert.stl
-- **1 part** — Port top beam - keyed M4 joints. PETG; 100% infill requested. Port_top_beam_-_keyed_M4_joints.stl
+- **1 part** — Lower collar and foot -1. PETG; 100% infill specified. Lower_collar_and_foot_-1.stl
+- **1 part** — Removable upper collar -1. PETG; 100% infill specified. Removable_upper_collar_-1.stl
+- **1 part** — Lower collar and foot 1. PETG; 100% infill specified. Lower_collar_and_foot_1.stl
+- **1 part** — Removable upper collar 1. PETG; 100% infill specified. Removable_upper_collar_1.stl
+- **1 part** — H Rear Starboard fixed receiver and support. PETG; 100% infill specified. H_Rear_Starboard_fixed_receiver_and_support.stl
+- **1 part** — H Rear Port fixed receiver and support. PETG; 100% infill specified. H_Rear_Port_fixed_receiver_and_support.stl
+- **1 part** — H Front Starboard fixed receiver and support. PETG; 100% infill specified. H_Front_Starboard_fixed_receiver_and_support.stl
+- **1 part** — H Front Port fixed receiver and support. PETG; 100% infill specified. H_Front_Port_fixed_receiver_and_support.stl
+- **1 part** — V Starboard fixed receiver and support. PETG; 100% infill specified. V_Starboard_fixed_receiver_and_support.stl
+- **1 part** — V Port fixed receiver and support. PETG; 100% infill specified. V_Port_fixed_receiver_and_support.stl
+- **1 part** — H Rear Starboard removable rail jaw. PETG; 100% infill specified. H_Rear_Starboard_removable_rail_jaw.stl
+- **1 part** — H Rear Port removable rail jaw. PETG; 100% infill specified. H_Rear_Port_removable_rail_jaw.stl
+- **1 part** — H Front Starboard removable rail jaw. PETG; 100% infill specified. H_Front_Starboard_removable_rail_jaw.stl
+- **1 part** — V Starboard removable rail jaw. PETG; 100% infill specified. V_Starboard_removable_rail_jaw.stl
+- **1 part** — H Front Port removable rail jaw. PETG; 100% infill specified. H_Front_Port_removable_rail_jaw.stl
+- **1 part** — V Port removable rail jaw. PETG; 100% infill specified. V_Port_removable_rail_jaw.stl
+- **1 part** — Rear lower deck half - H2D. PETG; 100% infill specified. Rear_lower_deck_half_-_H2D.stl
+- **1 part** — Rear upper cover half - H2D. PETG; 100% infill specified. Rear_upper_cover_half_-_H2D.stl
+- **1 part** — Front lower deck half - H2D. PETG; 100% infill specified. Front_lower_deck_half_-_H2D.stl
+- **1 part** — Front upper cover half - H2D. PETG; 100% infill specified. Front_upper_cover_half_-_H2D.stl
+- **1 part** — One-piece service handle - two bolts. PETG; 100% infill specified. One-piece_service_handle_-_two_bolts.stl
+- **1 part** — Starboard rear upright - M4 insert. PETG; 100% infill specified. Starboard_rear_upright_-_M4_insert.stl
+- **1 part** — Starboard front upright - M4 insert. PETG; 100% infill specified. Starboard_front_upright_-_M4_insert.stl
+- **1 part** — Starboard top beam - keyed M4 joints. PETG; 100% infill specified. Starboard_top_beam_-_keyed_M4_joints.stl
+- **1 part** — Port rear upright - M4 insert. PETG; 100% infill specified. Port_rear_upright_-_M4_insert.stl
+- **1 part** — Port front upright - M4 insert. PETG; 100% infill specified. Port_front_upright_-_M4_insert.stl
+- **1 part** — Port top beam - keyed M4 joints. PETG; 100% infill specified. Port_top_beam_-_keyed_M4_joints.stl
 
 ## Custom assembly hardware
 

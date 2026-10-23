@@ -1,8 +1,6 @@
 # ARK below / ESC above — printable stack adapter
 
-Designed in the active Fusion `Future ROV` assembly. The user confirmed the
-actual ESC uses **20 x 20 mm mounting-hole spacing**. The ARK uses 30.5 x 30.5 mm.
-Do not substitute the unrelated 30.5 mm GT 55A drawing for this confirmed pattern.
+I needed to stack the ESC above the ARK to fit both boards in the enclosure. My ESC has **20 x 20 mm mounting-hole spacing**, while the ARK uses 30.5 x 30.5 mm, so the adapter bridges the two patterns. I used the spacing on my actual ESC rather than the 30.5 mm pattern shown in a different GT 55A drawing.
 
 ## Print files
 
@@ -16,8 +14,7 @@ edge checks. The adapter is one solid, with a 3 mm web and four 3 mm raised ESC
 mounting bosses. Rounded diagonal arms leave the sides open for connectors.
 The centre opening is 11 mm diameter. All fastener holes are 3.4 mm M3 clearance.
 
-For the H2D, PETG at 0.20 mm layers, five walls and the user's preferred 100%
-infill is a suitable starting print setup. Neither part needs supports in the
+My starting H2D print setup is PETG at 0.20 mm layers, five walls and 100% infill. Neither part needs supports in the
 stated orientation. Use a small brim on the spacers if needed for adhesion.
 Check one printed hole/spacer fit before assembling the full stack.
 
@@ -42,20 +39,20 @@ X=-8.484 mm, Y=0. Plate underside is at assembly Z=130 mm, upper web at 133 mm,
 and raised ESC seating surfaces at 136 mm. The tallest modeled ARK component
 is at Z=125.189 mm: nominal plate-to-component clearance is 4.81 mm.
 
-The adapter and four spacers had no calculated solid intersections with the
+The CAD check found no solid intersections between the adapter/four spacers and the
 visible original enclosure/tray/electronics geometry (five bounding-box overlap
 candidates checked using solid intersections). This does not establish cable,
 plug, nut or solder-joint clearance. The actual ESC is not modeled: the old
 36 mm envelope was provisional. Dry-fit the real board, its underside parts,
 soft mounts, battery solder joints and USB/JST cables before final assembly.
-Thermal and structural load qualification have not been performed.
+I still need thermal and structural load tests.
 
-## Fusion state
+## CAD reference
 
-New top-level component: `09 ARK ESC printable stack - FC below ESC20 above - M3`.
+I created the adapter in the `Future ROV` Fusion assembly under `09 ARK ESC printable stack - FC below ESC20 above - M3`.
 The earlier exploded `ESC upper stack - middle adapter` is hidden, retained
 as a reference. Original tray and ARK geometry/position are unchanged.
-Fusion document changes are unsaved; exported STL/STEP files are saved locally.
+The STL and STEP exports in this folder are the files to use for this revision. I have checked the adapter fit, but still need to verify complete wiring and connector clearance.
 
 `stack_assembly_preview.png` shows the ARK/tray and adapter, with the enclosure
 temporarily hidden for viewing. No actual ESC PCB is represented in the preview.

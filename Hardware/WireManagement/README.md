@@ -1,15 +1,15 @@
 # Club Demo ROV wiring layout study
 
-Created in the existing `Club_Demo_ROV` Fusion document on 2026-10-21. This is a packaging concept, not a released print or electrically rated busbar design. Existing hardware geometry is retained. The previous Turnigy battery is hidden after adding the Zeee envelope. Cloud save is not performed.
+I made this packaging study in `Club_Demo_ROV` on 21 October 2026 to check whether the battery, connectors and ESCs would fit in the electronics area. I retained the existing hardware and replaced the old Turnigy battery envelope with the Zeee pack. The holders and busbars still need physical dimensions and fit checks before fabrication.
 
 ## Contents
 
-- Zeee 4S 3300 mAh battery: user-supplied 132 x 43 x 29 mm. Separate hidden 134 x 45 x 31 mm envelope represents +2 mm on each overall dimension. Battery leads, balance plug, padding, straps, and swelling are additional allowances, not included in that tolerance.
+- Zeee 4S 3300 mAh battery: 132 x 43 x 29 mm nominal. Separate hidden 134 x 45 x 31 mm envelope represents +2 mm on each overall dimension. Battery leads, balance plug, padding, straps, and swelling are additional allowances, not included in that tolerance.
 - Six provisional MR30 mated-pair envelopes, 32 x 13 x 7 mm, in staggered side rows. These are intentionally simple clearance solids, not detailed connector CAD. Measure actual mated connectors including insulation before releasing holders.
 - Four provisional XT60 mated-pair envelopes, 40 x 18 x 10 mm, above the rear electronics area. A removable strap bridge holds these above the FC/ESC stack; exact terminal shapes and release travel remain to be checked.
 - Two Blue Robotics Basic ESC body envelopes, 51.29 x 17.10 x 7.28 mm, beside the battery. Dimensions were measured from the manufacturer's BESC30-R3 STL. Cable exits, heat shrink and strain relief may require more space. Open cradles leave the heat spreader accessible.
 - A 36 x 40 x 12 mm reserved envelope for the upper four-in-one ESC; its exact model and stack adapter are not changed here.
-- Two provisional copper bars, 34 x 10 x 6.35 mm with four 4.4 mm clearance holes on 8 mm centers. The user confirmed approximately quarter-inch-thick stock, but width and actual terminal dimensions are unknown. These are packaging placeholders, not a drilling template or a verified electrical rating. Ring-terminal width, bolt-head/nut/washer spacing and insulation must be checked before fabrication; choose wider spacing if terminals require it.
+- Two provisional copper bars, 34 x 10 x 6.35 mm with four 4.4 mm clearance holes on 8 mm centers. I have approximately quarter-inch-thick copper stock available, but still need to measure its width and the actual terminals. These are packaging placeholders, not a drilling template or a verified electrical rating. Ring-terminal width, bolt-head/nut/washer spacing and insulation must be checked before fabrication; choose wider spacing if terminals require it.
 - Separate insulating junction cradle and removable strap-retained cover; terminal hardware and cable exit openings are not detailed yet.
 - Provisional low-profile right-angle Ethernet plug reservation and schematic Ethernet, Bar02 and propulsion cable paths. These paths illustrate routing intent only: their mutual clearances, total bundle size, bend radii, connector unplugging space, strain relief and endcap penetrator assignment have not been validated. They are not manufactured wire lengths.
 
@@ -17,9 +17,9 @@ Created in the existing `Club_Demo_ROV` Fusion document on 2026-10-21. This is a
 
 The script checks positive-volume solid intersections between the new physical packaging bodies and the existing visible assembly, and among new physical bodies. Bodies are transformed through the full native occurrence hierarchy, including nested imported electronics.
 
-At the original FC position, the remaining physical collision was the existing `91290A124` FC mounting screw protruding into the Zeee battery. A suitable shorter screw would be required after measuring the actual stack and thread engagement. Do not compress the battery around the screw. The script preserves that screw rather than silently removing it.
+At the original FC position, the remaining physical collision was the existing `91290A124` FC mounting screw protruding into the Zeee battery. A suitable shorter screw would be required after measuring the actual stack and thread engagement. Do not compress the battery around the screw. I kept the screw in the model so the interference remains visible until I replace it.
 
-During the final check, the existing ARK FC and its screw were approximately 17.8 mm higher than at the initial inspection. The user subsequently selected restoration of the original lower position. Both were lowered 17.77 mm using `restore_fc_position.py`, preserving their horizontal position and orientation. The repeated clearance check found no overlaps among the new physical bodies and no existing-hardware overlaps except the long FC screw entering the battery. Exact connectors and cable routing still require verification. The archived clearance report reflects that restored position.
+I restored the ARK and its mounting screw to their original lower position after finding them about 17.8 mm above the starting layout. Lowering them by 17.77 mm kept their horizontal position and orientation unchanged. The repeated clearance check found no overlaps among the new physical bodies and no existing-hardware overlaps except the long FC screw entering the battery. Exact connectors and cable routing still require verification. My archived clearance report uses that restored position.
 
 The hidden tolerance envelope is not included in the physical-body collision pass. Cable paths and wire-exit allowances are also excluded. The holder interfaces are trimmed against existing tray/rail geometry; they still require a physical fit and retention review. No printable STL files are released from this study.
 
@@ -38,4 +38,4 @@ The ARK FPV six-pin GPS port includes 5 V on pin 1, SCL on pin 4, SDA on pin 5 a
 
 ## Files
 
-Only the notes and preview are published here. The layout script, clearance report and concept STEP remain in the private working-history archive. Historical scripts contain old absolute paths and must be reviewed before reuse; do not rerun a commit against an existing WM component.
+I have published the notes and preview here. I keep the layout script, clearance report and concept STEP in my private working-history archive. Historical scripts contain old absolute paths and must be reviewed before reuse; do not rerun a commit against an existing WM component.

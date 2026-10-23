@@ -1,8 +1,10 @@
-> Historical September 2026 baseline. Later mounts, electronics and endcap revisions supersede parts of this document. Use the [current revision index](../../Hardware/README.md) before building or ordering. Historical totals are not a current purchasing list.
+> This is my September 2026 baseline. Later mounts, electronics and endcap revisions supersede parts of this document. Use the [current revision index](../../Hardware/README.md) before building or ordering. Historical totals are not a current purchasing list.
 
 # ROV service upgrade — PETG / H2D
 
-## Current revision: M4 side-frame joints
+This guide covers my September frame revision. Later mount and electronics changes are listed in the revision index above.
+
+## M4 side-frame joints
 
 The four side-frame joints now use M4x30 socket-head screws and 9 mm OD / 4.4 mm ID / 0.8 mm washers. Reprint the four uprights and two top beams; their new filenames contain M4. Use the three updated M4 fit coupons. The rest of the printed geometry is unchanged by this fastener conversion.
 
@@ -52,7 +54,7 @@ Keep the 14 mm installation slide, bearing shoulders, locking bore and tool acce
 
 ## Printing and assembly
 
-PETG with 100% infill, as requested. Use the per-part orientation and notes in service_print_exports.json. All parts are checked against the conservative H2D 300 x 320 x 325 mm envelope, with 3 mm brim allowance. The revised lower decks are supplied skids/underside down, with their new eyes upright; removable support is needed beneath unsupported deck areas and channels, and may be needed at the eye apertures. This replaces the old top-face-down orientation. Inspect the slicer preview and support raised guide features where required. Flush cover markings preserve the original broad roof-down printing surface. Infill percentage does not remove layer-direction weakness.
+My starting print setup is PETG with 100% infill. Use the per-part orientation and notes in service_print_exports.json. All parts are checked against the conservative H2D 300 x 320 x 325 mm envelope, with 3 mm brim allowance. The revised lower decks are supplied skids/underside down, with their new eyes upright; removable support is needed beneath unsupported deck areas and channels, and may be needed at the eye apertures. This replaces the old top-face-down orientation. Inspect the slicer preview and support raised guide features where required. Flush cover markings preserve the original broad roof-down printing surface. Infill percentage does not remove layer-direction weakness.
 
 Print TEST FIRST strap eye and TEST FIRST cable guide with the actual intended settings, and check strap/tie passage, surface finish and retention. Also retain the existing rail, T-key, enclosure-liner and M4-joint coupon checks. The eye coupon is cropped from the frame; it is for fit only and does not reproduce full-frame loading.
 

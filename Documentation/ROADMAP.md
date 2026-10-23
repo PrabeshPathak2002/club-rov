@@ -1,5 +1,7 @@
 # Roadmap
 
+This is how I am tracking the build. The bench work below is complete; the remaining items are the next integration and testing stages.
+
 ## Established on the bench
 
 - [x] Mechanical frame baseline and later custom-part revisions documented.
@@ -28,4 +30,4 @@
 - [ ] Implement ROS 2 Humble routing, logging and explicit manual/autonomy command ownership.
 - [ ] Develop supervised autonomy and sensor experiments.
 - [ ] Publish measured results and a portfolio case study, crediting contributors.
-- [ ] Complete remaining third-party CAD attribution and choose licenses with the owners.
+- [ ] Finish third-party CAD attribution and agree on licenses with the contributors.

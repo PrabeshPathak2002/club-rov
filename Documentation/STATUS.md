@@ -1,30 +1,32 @@
-# Integration status — 23 October 2026
+# Build and test notes — 23 October 2026
 
-This record distinguishes user-reported bench results, captured software output and outstanding physical tests. It is not a complete vehicle qualification.
+These are my current bench results and the work I still need to finish. The vehicle has not completed water or depth qualification.
 
-## Recorded results
+## Bench results
 
-- ESP32-P4 firmware 1.2.1: Ethernet telemetry and USB connection to ARK worked on the bench; the user confirmed stable QGroundControl operation.
-- IMX219: chip identity detected; camera capture, hardware H.264 and RTP/UDP video operated at approximately 25 fps, 1632 × 1232, configured 4 Mbit/s. Latency and endurance are unmeasured.
-- Wi-Fi: the user confirmed dashboard, Ethernet video and telemetry working together.
-- OTA: a real uploaded application booted from an OTA slot and passed its startup confirmation. Invalid authorization/images were rejected in bench checks. See the firmware OTA notes for the limits of these checks.
-- DAKEFPV four-in-one: ESC Configurator through a Betaflight 4.5.2 F722 read all four as `B-X-30 - Bluejay, 0.19, 24kHz`. The user reported saving Forward/Reverse (3D mode) on all four.
-- ARK after parameter reset/setup: screenshot reports ArduSub 4.7.2, `Frame: VECTORED`, `RCOut: DS300:1-4 PWM:5-9`.
+- **Telemetry:** I have the ESP32-P4 connected to the ARK over USB and sending MAVLink over Ethernet. QGroundControl has maintained a stable connection during bench use with companion firmware 1.2.1.
+- **Camera:** The Raspberry Pi Camera V2.1 is streaming H.264 video to QGroundControl. A short bench run produced approximately 25 fps at 1632 × 1232 with a configured bitrate of 4 Mbit/s. I still need latency and endurance measurements.
+- **Maintenance Wi-Fi:** I checked that the dashboard works while Ethernet video and telemetry continue running.
+- **Firmware updates:** A real OTA upload booted from an OTA slot and passed its startup confirmation. Bench checks also rejected invalid authorization and invalid images. The [OTA notes](../Code/ROV%20ESP32-P4%20code/OTA.md) explain the checks and their limits.
+- **Four-in-one ESC:** I used my F722 running Betaflight 4.5.2 to read all four ESCs as `B-X-30 - Bluejay, 0.19, 24kHz`, then saved Forward/Reverse (3D mode) on all four.
+- **ARK configuration:** After resetting the parameters and rebuilding the setup, the startup log shows ArduSub 4.7.2, `Frame: VECTORED` and `RCOut: DS300:1-4 PWM:5-9`.
 
-## Important troubleshooting result
+## ESC troubleshooting
 
-An F722 harness mismatch caused its USB port to disappear and blue LED to go out when battery power was applied. The user corrected the wiring, after which all four ESCs could be read through Betaflight. The earlier ARK passthrough attempts returned zero bytes from every channel. Their exact cause has not been isolated. Do not describe the earlier programming failure as proof of an unsupported ESC or failed motor control.
+When I connected the F722, its USB port disappeared and its blue LED went out as soon as I plugged in the propulsion battery. I traced this to the harness wiring. After correcting it, ESC Configurator could read all four channels through Betaflight.
 
-## Pending
+My earlier ARK passthrough attempts returned zero bytes from every ESC. I have not isolated the exact cause of that failure. Successful configuration through Betaflight establishes that the ESC programming interfaces work, but I still need to test normal motor control through the ARK.
 
-- Install the six MR30 connector pairs; independently verify every powered connector's polarity and mapping.
-- Confirm all ESCs stay stopped at neutral; then verify each motor channel, forward/reverse response and physical thrust direction with a secured, submerged vehicle.
-- Configure/calibrate the surface joystick. A startup screenshot showed `Lost manual control`; resolution has not been demonstrated.
-- Validate link-loss, pilot-input loss and power-loss behavior; do not infer failsafe performance from normal telemetry.
-- Install and configure Bar02 and leak detection. Bar02 is a roughly 10 m measuring-range device and is not suitable for measuring the full 20–50 m target.
-- Fit-check connector coupons, actual seals, panel thickness and nut engagement. Qualify the endcap/enclosure separately.
-- Verify shorter FC mounting hardware clears the Zeee battery; the layout study found a protruding screw.
-- Measure power, internal temperature, video latency, endurance, buoyancy and trim.
-- Integrate ROS 2 and define command ownership before autonomous operation.
+## Next steps
 
-MR30 installation, propulsion tests and water/depth trials are not marked complete. Future results belong in dated [test reports](templates/TEST_REPORT.md).
+- Install the six MR30 connector pairs once they arrive, then verify polarity, insulation and channel mapping.
+- Check that all thrusters stay stopped at neutral, then test each channel and both thrust directions with the vehicle secured and submerged.
+- Finish joystick setup and verify manual-control input. The last startup screenshot included `Lost manual control`, which I still need to resolve.
+- Test pilot-input loss, GCS-link loss and power-loss behavior.
+- Install Bar02 and leak detection. I have a Bar02 for shallow-water work, but its roughly 10 m measuring range will not cover the full 20–50 m target.
+- Check connector coupons, seal seating, panel thickness and nut engagement before cutting and qualifying the endcap.
+- Replace the long FC mounting screw that protrudes into the Zeee battery envelope.
+- Measure power draw, internal temperatures, video latency, endurance, buoyancy and trim.
+- Add ROS 2 and define how manual and autonomous control will share command authority.
+
+I will add dated [test reports](templates/TEST_REPORT.md) as these checks are completed. MR30 installation, propulsion tests and water trials are still pending.
