@@ -1,0 +1,80 @@
+menu "ROV companion"
+    config ROV_USE_DHCP
+        bool "Obtain Ethernet address using DHCP"
+        default n
+    config ROV_STATIC_IP
+        string "ROV static IPv4 address"
+        default "192.168.137.2"
+    config ROV_NETMASK
+        string "Static IPv4 netmask"
+        default "255.255.255.0"
+    config ROV_GATEWAY
+        string "Static IPv4 gateway (0.0.0.0 for direct tether)"
+        default "0.0.0.0"
+    config ROV_TOPSIDE_IP
+        string "Topside IPv4 address (only accepted command source)"
+        default "192.168.137.1"
+    config ROV_TOPSIDE_PORT
+        int "Topside UDP port (QGC or MAVLink Router)"
+        range 1024 65535
+        default 14550
+    config ROV_LOCAL_PORT
+        int "ROV UDP listening/source port"
+        range 1024 65535
+        default 14555
+    config ROV_FORWARD_COMMANDS
+        bool "Forward topside MAVLink to the flight controller"
+        default y
+        help
+            Disable for telemetry-only bench checks. This bridge does not arm,
+            control motors, create heartbeats or implement an autopilot failsafe.
+    config ROV_COMMAND_MAX_AGE_MS
+        int "Maximum time a command may wait in the bridge (ms)"
+        range 20 500
+        default 100
+    config ROV_USB_VID
+        hex "Flight controller USB VID (0 matches any; single device only)"
+        range 0x0 0xffff
+        default 0x0
+    config ROV_USB_PID
+        hex "Flight controller USB PID (0 matches any; single device only)"
+        range 0x0 0xffff
+        default 0x0
+    config ROV_USB_INTERFACE
+        int "CDC communication interface number"
+        range 0 255
+        default 0
+    config ROV_ETH_PHY_ADDR
+        int "IP101 PHY address (-1 scans)"
+        range -1 31
+        default 1
+    config ROV_ETH_RESET_GPIO
+        int "IP101 reset GPIO"
+        range -1 54
+        default 51
+    config ROV_ETH_MDC_GPIO
+        int "Ethernet MDC GPIO"
+        range 0 54
+        default 31
+    config ROV_ETH_MDIO_GPIO
+        int "Ethernet MDIO GPIO"
+        range 0 54
+        default 52
+endmenu
+
+menu "ROV camera bring-up"
+    config ROV_CAMERA_PROBE
+        bool "Read IMX219 identity at boot (no video)"
+        default y
+endmenu
+
+menu "ROV video"
+    config ROV_VIDEO_PORT
+        int "Topside RTP H264 UDP port"
+        range 1024 65535
+        default 5600
+    config ROV_VIDEO_BITRATE
+        int "H264 bitrate (bits per second)"
+        range 500000 8000000
+        default 4000000
+endmenu

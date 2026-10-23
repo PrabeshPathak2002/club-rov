@@ -1,0 +1,3 @@
+https://github.com/mushBrainDave/esp32-p4-imx-camera
+Commit: 9a3f8ca28e93526e0854ba45ad3b461b33ef2dac
+License: Apache-2.0; see LICENSE

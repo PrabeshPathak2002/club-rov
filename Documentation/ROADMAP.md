@@ -1,34 +1,31 @@
 # Roadmap
 
-## Prepared
+## Established on the bench
 
-- [x] Define club operations, AUV sensor evaluation, training, and outreach purposes.
-- [x] Prepare the mechanical design, print exports, BOM, and assembly guidance.
-- [x] Select companion and flight-controller responsibilities.
-- [x] Draft documentation and newcomer learning path.
+- [x] Mechanical frame baseline and later custom-part revisions documented.
+- [x] ESP-IDF companion source and dependency lockfile prepared.
+- [x] Ethernet and USB MAVLink telemetry.
+- [x] IMX219 capture and H.264 video received by QGroundControl.
+- [x] Wi-Fi maintenance dashboard and real OTA update with startup rollback.
+- [x] Read all four DAKEFPV ESCs through Betaflight and save forward/reverse mode.
+- [x] ARK Vectored frame and mixed DShot/PWM startup confirmed.
 
-## Integration preparation
+## Next integration work
 
-- [ ] Confirm camera, additional ESCs, hardware revisions, tether, and backup power.
-- [ ] Verify ESC wiring/reverse operation and simultaneous USB/VBAT behavior after parts arrive.
-- [ ] Define topside controls, video requirements, and failure behavior.
-- [ ] Complete electrical BOM and reviewed wiring diagram.
-- [ ] Confirm repository visibility and asset attribution/distribution terms.
+- [ ] Install MR30s and inspect the complete harness.
+- [ ] Verify neutral, motor mapping and forward/reverse thrust in water.
+- [ ] Complete calibration, joystick setup and full parameter export.
+- [ ] Validate pilot/GCS link-loss and power-loss behavior.
+- [ ] Fit actual battery, shorter FC fasteners, connectors and wiring clearances.
+- [ ] Integrate Bar02 and leak detection; select a deeper-range sensor before deeper trials.
+- [ ] Validate endcap coupon fits, seals, panel/nut engagement and pressure design.
+- [ ] Measure power, thermal behavior, latency and endurance.
 
-## Companion software
+## Qualification and learning
 
-- [ ] Establish a reproducible ESP-IDF build and board identification procedure.
-- [ ] Bring up Ethernet and diagnostics.
-- [ ] Implement USB CDC/MAVLink routing and reconnection.
-- [ ] Integrate the confirmed camera and measure latency under load.
-- [ ] Add logging and supported power-status reporting.
-- [ ] Document setup, configuration, troubleshooting, and bench tests.
-
-## Qualification and club use
-
-- [ ] Validate print fit, assembly, and mechanical loading.
-- [ ] Complete bench integration and failure tests.
-- [ ] Qualify sealing and shallow-water operation.
-- [ ] Establish demonstrated depth and endurance.
-- [ ] Add sensor evaluation procedures and datasets.
-- [ ] Record a demonstration and portfolio case study with measured results.
+- [ ] Shallow-water trim, buoyancy, controllability and recovery tests.
+- [ ] Establish demonstrated depth through supervised progressive qualification.
+- [ ] Implement ROS 2 Humble routing, logging and explicit manual/autonomy command ownership.
+- [ ] Develop supervised autonomy and sensor experiments.
+- [ ] Publish measured results and a portfolio case study, crediting contributors.
+- [ ] Complete remaining third-party CAD attribution and choose licenses with the owners.

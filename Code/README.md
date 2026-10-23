@@ -1,9 +1,7 @@
-# Companion firmware workspace
+# Software
 
-Firmware is not implemented yet. This folder contains local ESP-IDF setup configuration, not a runnable ROV application.
+[ESP32-P4 companion](ROV%20ESP32-P4%20code/README.md) is the current firmware source: Ethernet/USB MAVLink, IMX219 H.264 video, Wi-Fi maintenance dashboard and OTA. Use ESP-IDF 5.5.2 and the dependency lockfile.
 
-The planned target is the Waveshare ESP32-P4-WIFI6-POE-ETH. It will handle Ethernet, the camera, and USB-host MAVLink communication with the ARK FPV running ArduSub. The ARK owns thruster control.
+The ARK runs upstream ArduSub 4.7.2; its firmware is not forked here. [Electronics setup](../Documentation/ELECTRONICS.md) records the current partial configuration. A complete post-reset parameter export is still needed.
 
-Implementation awaits remaining software requirements and hardware decisions. See the [architecture](../Documentation/ARCHITECTURE.md) and [roadmap](../Documentation/ROADMAP.md).
-
-When firmware is added, record the board revision, ESP-IDF version, dependencies, build/flash/monitor commands, settings, expected startup output, and bench-test procedure. Do not publish credentials or local machine paths. Initial ignore rules admit only this README from this folder; extend them deliberately when code is ready.
+ROS 2 Humble / Ubuntu 22.04 integration is planned. No autonomy node or complete surface installation is included yet.

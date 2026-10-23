@@ -1,57 +1,46 @@
-# Club ROV — learning and underwater sensor testing
+# Club ROV
 
-Project repository: [PrabeshPathak2002/club-rov](https://github.com/PrabeshPathak2002/club-rov).
+A six-thruster tethered ROV for teaching underwater robotics, testing sensors for a RoboSub AUV, and club outreach. The project combines a modular printed frame, an ArduSub flight controller, and an ESP32 camera and communications companion.
 
-A six-thruster, tethered remotely operated vehicle for club operations, testing sensors for a RoboSub AUV, training new members, and outreach. The intended operating depth is **20–50 m**, a design target that still requires physical qualification.
+[View the detailed assembly in 3D](https://github.com/PrabeshPathak2002/club-rov/blob/main/Models/club-rov-preview.stl) · [New member guide](Documentation/NEW_MEMBERS.md) · [Current status](Documentation/STATUS.md)
 
-## Explore the ROV in 3D
+[![Club ROV assembly](Models/preview.png)](https://github.com/PrabeshPathak2002/club-rov/blob/main/Models/club-rov-preview.stl)
 
-<table>
-<tr>
-<td width="78%">
-<a href="https://github.com/PrabeshPathak2002/club-rov/blob/main/Models/club-rov-preview.stl"><img src="Models/preview.png" alt="Club ROV assembly in yellow and graphite — click to view in 3D" width="800"></a>
-</td>
-<td align="center" valign="middle">
-<a href="https://github.com/PrabeshPathak2002/club-rov/blob/main/Models/club-rov-preview.stl"><img src="https://img.shields.io/badge/View_in_3D-0969DA?style=for-the-badge" alt="View in 3D"></a>
-<br><br>
-Rotate, pan, and zoom the detailed model.
-</td>
-</tr>
-</table>
+[![View in 3D](https://img.shields.io/badge/View_in_3D-0969DA?style=for-the-badge)](https://github.com/PrabeshPathak2002/club-rov/blob/main/Models/club-rov-preview.stl)
 
-[Model scope and attribution](Models/README.md). The assembly STL is for viewing, not printing.
+The assembly preview records the September frame revision. Later mount, battery, stack and endcap revisions are documented separately under [Hardware](Hardware/README.md); they are not all represented in that viewing mesh.
 
-## Purpose
+## What works
 
-- Evaluate candidate AUV sensors before integrating them into the autonomous vehicle.
-- Teach CAD, additive manufacturing, electronics, embedded software, controls, and experimental testing.
-- Demonstrate the club's work for promotion and recruitment, while documenting the engineering process as a portfolio project.
+Bench checks established Ethernet MAVLink telemetry, Raspberry Pi Camera V2.1 video in QGroundControl, a maintenance Wi-Fi dashboard, and password-authorized ESP32 firmware updates with startup rollback. The companion firmware is version 1.2.1, built with ESP-IDF 5.5.2.
 
-## Status
+On 23 October 2026, all four DAKEFPV ESC channels were read through a Betaflight F722 and configured for forward/reverse operation. The ARK running ArduSub 4.7.2 reports `DS300:1-4 PWM:5-9` with the Vectored frame selected. Physical neutral, motor mapping and thrust-direction tests remain pending: the MR30 connectors have not yet been installed.
 
-Latest mechanical revision: [M4 side-frame joints](Final%20Design/README.md#m4-frame-joints), standardizing the 38 custom frame/mount screws to M4. The [rear horizontal thruster pair remains corrected](Final%20Design/README.md#orientation-and-checks); the front horizontal and vertical pairs retain their orientations. The image and 3D model show this revision.
+The intended operating depth is **20–50 m**, not a demonstrated rating. The current endcap is a fit study, and the selected Bar02 cannot measure the full target depth. See [test status and remaining work](Documentation/STATUS.md).
 
-The current mechanical design and print exports are prepared. Physical assembly, electrical integration, companion firmware, and water qualification remain ahead. Existing geometry checks do not establish a depth or structural load rating.
+## System
 
-The design uses a modular PETG frame, an existing 4-inch, 200 mm enclosure, and six APISQUEEN U01 thrusters. An ARK FPV running ArduSub is planned for vehicle control; a Waveshare ESP32-P4-WIFI6-POE-ETH will handle camera and Ethernet communications with a USB MAVLink connection to the ARK. Propulsion uses a planned 4S 4000 mAh pack, a DakeFPV four-channel ESC, and two additional ESCs. PoE and a proposed backup battery support the companion electronics. Sensors and several electrical details remain undecided.
+- Six APISQUEEN U01 thrusters: four vectored horizontal and two vertical.
+- ARK FPV with ArduSub: stabilization, motor mixing and vehicle failsafes.
+- Waveshare ESP32-P4-WIFI6-POE-ETH: USB MAVLink bridge, camera video, maintenance dashboard and OTA updates.
+- Raspberry Pi Camera V2.1 / IMX219: hardware H.264 video over Ethernet.
+- DAKEFPV four-in-one ESC plus two Blue Robotics Basic ESCs.
+- Selected propulsion battery: Zeee 4S 3300 mAh, 132 × 43 × 29 mm nominal. PoE supplies companion electronics; backup power remains to be designed.
+- QGroundControl at the surface. ROS 2 Humble on Ubuntu 22.04 is a future integration task.
 
-## Start here
+## Build, learn and contribute
 
+- [Firmware build and source tour](Code/ROV%20ESP32-P4%20code/README.md)
+- [Architecture and network setup](Documentation/ARCHITECTURE.md)
+- [Electronics and ESC setup](Documentation/ELECTRONICS.md)
+- [Current component list](Documentation/BOM.md)
+- [Mechanical revisions and fit files](Hardware/README.md)
+- [Testing plan](Documentation/TESTING.md) and [recorded bench results](Documentation/STATUS.md)
 - [New member learning path](Documentation/NEW_MEMBERS.md)
-- [System architecture and open decisions](Documentation/ARCHITECTURE.md)
-- [Testing plan](Documentation/TESTING.md) and [test report template](Documentation/templates/TEST_REPORT.md)
-- [Roadmap](Documentation/ROADMAP.md)
-- [Contributing](CONTRIBUTING.md)
-- [Attribution and publishing scope](Documentation/PUBLISHING.md)
+- [Roadmap](Documentation/ROADMAP.md) and [contribution guide](CONTRIBUTING.md)
 
-## Local design package
+## Repository scope
 
-GitHub contains documentation and lightweight assembly viewing models. Binary design assets and historical files below remain local pending a distribution and attribution review; their download links will not resolve in this GitHub copy.
+`Code/` contains buildable companion sources, a dependency lockfile and the licensed camera driver. `Hardware/` contains selected current custom-part exports and revision notes. `Documentation/` contains setup, training and test records. `Models/` holds the assembly viewing mesh. `Final Design/` documents the September mechanical baseline and is explicitly historical where newer revisions supersede it.
 
-- **[Final Design](Final%20Design/README.md)** — current Fusion assembly, STEP, printable files, BOM, assembly guide, validation and previews. Start here.
-- **[Archive](Archive/Design%20History%202026-09-29/README.md)** — preserved design history, scripts, logs and earlier revisions.
-- **3D models/** — original component/reference downloads, retained in place.
-- **Code/** — existing firmware/software files, retained in place.
-- **Documentation/** — other project documentation and the organization script.
-
-The earlier structure/S6Hybrid development folder has moved into Archive. Existing chat links to that older location may no longer resolve; use Final Design for the current deliverables. The cleanup preserved all 1,588 original design-history files and verified their SHA-256 hashes after the move.
+Private credentials, firmware binaries, serial logs, downloaded commercial CAD and development backups stay outside the published source set. [Publishing and attribution](Documentation/PUBLISHING.md) explains the scope and third-party notices. No project-wide reuse license has been selected.

@@ -1,3 +1,5 @@
+> Historical September 2026 baseline. Later mounts, electronics and endcap revisions supersede parts of this document. Use the [current revision index](../../Hardware/README.md) before building or ordering. Historical totals are not a current purchasing list.
+
 # ROV service upgrade — PETG / H2D
 
 ## Current revision: M4 side-frame joints

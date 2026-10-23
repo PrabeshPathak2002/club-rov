@@ -12,7 +12,7 @@ Deliverable: an annotated sketch and questions for your mentor.
 
 Read the [print guide](../Final%20Design/Guides/PRINT_GUIDE.md) and [BOM](../Final%20Design/BOM/Current_ROV_BOM.md). Start with a fit coupon. Record material, orientation, slicer settings, and measured fit. Practice heat-set inserts on a spare coupon with supervision.
 
-Deliverable: a fit report with dimensions and photos. Fit alone does not establish strength or pressure capability. Binary print files currently belong to the complete local design package.
+Deliverable: a fit report with dimensions and photos. Fit alone does not establish strength or pressure capability. Use the current revision index in Hardware; the September BOM is a historical baseline.
 
 ## 3. Trace the electronics
 
@@ -22,9 +22,9 @@ Deliverable: a reviewed wiring sketch with exact revisions and unresolved connec
 
 ## 4. Learn the software
 
-Read [Code/README.md](../Code/README.md). Once firmware exists, reproduce a build before changing behavior. Learn what a MAVLink heartbeat means and why video alone does not prove a healthy control link.
+Read [Code/README.md](../Code/README.md). Reproduce the ESP-IDF 5.5.2 companion build before changing behavior. Learn what a MAVLink heartbeat means and why video alone does not prove a healthy control link.
 
-Deliverable: a reproducible build or documentation improvement. Until firmware is available, diagram normal operation, USB reconnection, and tether loss.
+Deliverable: a reproducible build or documentation improvement. Diagram normal operation, USB reconnection, and tether loss using the current source.
 
 ## 5. Participate in supervised testing
 
@@ -42,6 +42,6 @@ Take a small change through a pull request using [CONTRIBUTING.md](../CONTRIBUTI
 - AUV: autonomous underwater vehicle.
 - ESC: electronic speed controller for a motor.
 - Companion: the ESP32 communications/camera board in this project.
-- MAVLink: the planned flight-controller messaging protocol.
+- MAVLink: the flight-controller messaging protocol carried over USB and Ethernet.
 - PoE: power over Ethernet through compatible equipment.
 - BOM: bill of materials.

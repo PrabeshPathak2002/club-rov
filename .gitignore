@@ -1,35 +1,30 @@
-# Explicit documentation source set. Excluded files remain on disk.
-/*
-!/.gitignore
-!/README.md
-!/CONTRIBUTING.md
-!/Documentation/
-!/Code/
-!/Final Design/
-!/Models/
-/Models/*
-!/Models/README.md
-!/Models/club-rov-preview.stl
-!/Models/preview.png
-/Documentation/*
-!/Documentation/*.md
-!/Documentation/templates/
-/Documentation/templates/*
-!/Documentation/templates/*.md
-/Code/*
-!/Code/README.md
-/Final Design/*
-!/Final Design/README.md
-!/Final Design/BOM/
-!/Final Design/Guides/
-/Final Design/BOM/*
-!/Final Design/BOM/*.md
-!/Final Design/BOM/*.csv
-/Final Design/Guides/*
-!/Final Design/Guides/*.md
+# Private local material, downloaded dependencies, and generated firmware.
+/Archive/
+/.codex*/
+**/build/
+**/build-*/
+**/managed_components/
+**/sdkconfig
+**/sdkconfig.old
+**/rov_wifi_credentials.h
+**/wifi_credentials.h
+**/wifi-access.txt
+**/.vscode/
+**/.devcontainer/
+**/.clangd
+**/__pycache__/
+*.pyc
+*.log
+*.bin
+*.elf
+*.map
+*.o
+*.a
+*.dll
+*.exe
 .env
 .env.*
 *.pem
 *.key
-.vscode/
-build/
+Thumbs.db
+.DS_Store

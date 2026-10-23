@@ -1,0 +1,17 @@
+name: Companion host checks
+on: [push, pull_request]
+jobs:
+  host-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Code/ROV ESP32-P4 code
+    steps:
+      - uses: actions/checkout@v4
+      - name: MAVLink framing
+        run: |
+          mkdir -p build-host
+          gcc -std=c11 -Wall -Wextra -Werror -Wno-unused-parameter -I main main/mavlink_framing.c tests/test_framing.c -o build-host/test_framing
+          ./build-host/test_framing
+      - name: Heartbeat validation
+        run: python3 tests/test_heartbeat.py

@@ -1,3 +1,5 @@
+> Historical September 2026 baseline. Later mounts, electronics and endcap revisions supersede parts of this document. Use the [current revision index](../../Hardware/README.md) before building or ordering. Historical totals are not a current purchasing list.
+
 # Current ROV bill of materials
 
 Revision: M4 side-frame joints, 30 September 2026. This is a design BOM based on the active Future ROV document and its current print exports, not a fully validated purchasing list. Model labels do not prove ownership or final electrical compatibility. Prices are not estimated.

@@ -1,0 +1,14 @@
+# Repository validation — 23 October 2026
+
+The consolidated source package was checked before publication:
+
+- Fresh ESP-IDF 5.5.2 configuration and full build passed from the consolidated directory, with the existing dependency lockfile unchanged.
+- P4 target: pre-v3 bench-board revision setting, 32 MB flash, IMX219 format index 2, 100 Hz scheduler and custom OTA partition table.
+- Application size: 1,145,920 bytes; 73% of the smallest 4 MiB application partition free. This image was not flashed during repository cleanup and is excluded from Git because it embeds local credentials.
+- Host framing tests: 110,979 exact frame deliveries passed, covering fragmentation, signed frames, boundaries and malformed datagrams.
+- Host heartbeat tests: 168 cases passed for CRC, arm state, MAVLink v1/v2, malformed input and controller identity.
+- Reviewed publication set: no deployed Wi-Fi password, populated credential header, binary, build directory, serial log or complete local sdkconfig tracked. First-party Markdown file links resolve.
+- Text/source whitespace check passed. Native STEP exporter comment whitespace is preserved in the CAD files.
+- Original workspace history: 371 files, 840,717,358 bytes moved into the private dated archive and verified by size and SHA-256. The original OneDrive checkout and its earlier archive remain in place.
+
+The GitHub workflow runs the portable host tests on pushes and pull requests. A local firmware build is recorded above; hosted ESP-IDF builds are not configured. None of these checks establishes motor behavior, enclosure pressure capacity or field reliability. See [physical integration status](STATUS.md).

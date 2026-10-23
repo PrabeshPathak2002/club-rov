@@ -1,18 +1,20 @@
+> Historical September 2026 baseline. Later mounts, electronics and endcap revisions supersede parts of this document. Use the [current revision index](../Hardware/README.md) before building or ordering. Historical totals are not a current purchasing list.
+
 # Final ROV design
 
 Current revision: M4 side-frame joints, 30 September 2026. Start with the assembly and printing guide below.
 
 Current orientation revision: rear horizontal pair flipped back; front horizontal and vertical pairs retain their reversed orientations. The current relieved receiver pockets and print files are unchanged by this correction. See [revision details and fit-test requirements](#orientation-and-checks). Earlier validation reports are historical where superseded by the rear-pair correction reports.
 
-- [Complete Fusion assembly](CAD/S6_Hybrid_Service_Upgrade.f3d)
-- [Print-oriented Fusion parts](CAD/Service_Upgrade_Print_Parts.f3d)
-- [Frame STEP export](CAD/Service_Upgrade_Frame.step) — frame component only, not the complete enclosure/thruster assembly
-- [Print package](Prints/Service_Upgrade_STLs.zip) — 27 assembly parts, 10 fit coupons, guides, BOM, checks and adapter references
-- [Individual STL files](Prints/Service_Upgrade_STLs/)
+- Complete Fusion assembly (historical local-only asset: `CAD/S6_Hybrid_Service_Upgrade.f3d`)
+- Print-oriented Fusion parts (historical local-only asset: `CAD/Service_Upgrade_Print_Parts.f3d`)
+- Frame STEP export (historical local-only asset: `CAD/Service_Upgrade_Frame.step`) — frame component only, not the complete enclosure/thruster assembly
+- Print package (historical local-only asset: `Prints/Service_Upgrade_STLs.zip`) — 27 assembly parts, 10 fit coupons, guides, BOM, checks and adapter references
+- Individual STL files (historical local-only asset: `Prints/Service_Upgrade_STLs/`)
 - [BOM spreadsheet CSV](BOM/Current_ROV_BOM.csv) and [BOM notes](BOM/Current_ROV_BOM.md)
 - [Printing and assembly guide](Guides/PRINT_GUIDE.md)
-- [Validation reports](Validation/) and [design previews](Previews/)
-- [Future thruster adapter references](Thruster%20Interface%20References/README.md)
+- Validation reports (historical local-only asset: `Validation/`) and design previews (historical local-only asset: `Previews/`)
+- Future thruster adapter references (historical local-only asset: `Thruster Interface References/README.md`)
 
 Current hardware: 38 M4 custom frame/mount screws, 34 nuts, 56 washers and four M4 inserts. The reused enclosure/electronics CAD also contains 30 screw solids. The BOM explains exclusions and unspecified accessories.
 

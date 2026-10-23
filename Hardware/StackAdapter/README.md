@@ -1,0 +1,61 @@
+# ARK below / ESC above — printable stack adapter
+
+Designed in the active Fusion `Future ROV` assembly. The user confirmed the
+actual ESC uses **20 x 20 mm mounting-hole spacing**. The ARK uses 30.5 x 30.5 mm.
+Do not substitute the unrelated 30.5 mm GT 55A drawing for this confirmed pattern.
+
+## Print files
+
+- `ARK_ESC20_adapter_print_flat.stl`: print one, flat face on the bed, bosses up.
+- `M3_spacer_7mm_print_4.stl`: print four, upright, hole vertical.
+- STEP files provide editable solid geometry for the plate and assembly.
+
+STLs use millimetres. Verified exported sizes are 40 x 40 x 6 mm for the adapter
+and 6 mm diameter x 7 mm height for a spacer. Both meshes passed closed-manifold
+edge checks. The adapter is one solid, with a 3 mm web and four 3 mm raised ESC
+mounting bosses. Rounded diagonal arms leave the sides open for connectors.
+The centre opening is 11 mm diameter. All fastener holes are 3.4 mm M3 clearance.
+
+For the H2D, PETG at 0.20 mm layers, five walls and the user's preferred 100%
+infill is a suitable starting print setup. Neither part needs supports in the
+stated orientation. Use a small brim on the spacers if needed for adhesion.
+Check one printed hole/spacer fit before assembling the full stack.
+
+## Assembly order
+
+Existing tray / ARK lower isolation hardware -> ARK PCB -> existing upper
+grommet hardware -> four 7 mm spacers at the 30.5 mm pattern -> adapter ->
+ESC isolation hardware on the raised 20 mm bosses -> ESC PCB -> retainers.
+
+The outer four holes retain the adapter above the ARK. The inner four holes
+mount the ESC, with M3 hardware passing through its existing suitable grommets.
+Keep the ARK's soft mounts; the printed spacers do not replace its vibration
+isolation. Use nuts or suitable standoffs for retention, not threads cut into
+the 3.4 mm clearance holes. Screw lengths depend on actual grommet, washer,
+tray and nut thicknesses and have not been selected from the CAD alone.
+Avoid clamping directly on populated PCB surfaces or crushing the grommets.
+
+## Fit verification and limits
+
+The new stack is aligned to the actual ARK model's hole centres at
+X=-8.484 mm, Y=0. Plate underside is at assembly Z=130 mm, upper web at 133 mm,
+and raised ESC seating surfaces at 136 mm. The tallest modeled ARK component
+is at Z=125.189 mm: nominal plate-to-component clearance is 4.81 mm.
+
+The adapter and four spacers had no calculated solid intersections with the
+visible original enclosure/tray/electronics geometry (five bounding-box overlap
+candidates checked using solid intersections). This does not establish cable,
+plug, nut or solder-joint clearance. The actual ESC is not modeled: the old
+36 mm envelope was provisional. Dry-fit the real board, its underside parts,
+soft mounts, battery solder joints and USB/JST cables before final assembly.
+Thermal and structural load qualification have not been performed.
+
+## Fusion state
+
+New top-level component: `09 ARK ESC printable stack - FC below ESC20 above - M3`.
+The earlier exploded `ESC upper stack - middle adapter` is hidden, retained
+as a reference. Original tray and ARK geometry/position are unchanged.
+Fusion document changes are unsaved; exported STL/STEP files are saved locally.
+
+`stack_assembly_preview.png` shows the ARK/tray and adapter, with the enclosure
+temporarily hidden for viewing. No actual ESC PCB is represented in the preview.

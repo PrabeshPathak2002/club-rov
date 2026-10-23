@@ -1,41 +1,44 @@
 # System architecture
 
-Status: planned electrical architecture, recorded 29 September 2026. This is an explanation of responsibilities, not a validated wiring guide.
+Updated 23 October 2026. For demonstrated capabilities and pending tests, see [status](STATUS.md).
 
-## Control and data
+## Responsibilities and data flow
 
-The intended command path is topside operator → Ethernet tether → ESP32-P4 → USB MAVLink → ARK FPV running ArduSub → six ESC channels → thrusters. Telemetry returns in the opposite direction. Camera data is intended to reach the surface through the ESP32 and Ethernet.
+Surface QGroundControl → Ethernet tether → ESP32-P4 UDP/USB bridge → ARK FPV running ArduSub → ESCs → six thrusters. Vehicle telemetry returns over the same path. The IMX219 camera connects to the P4's CSI interface; its hardware H.264 stream goes to QGroundControl over Ethernet.
 
-The ARK owns motor control and vehicle failsafes. The ESP32 is a companion responsible for communications and camera handling. Its USB host driver and MAVLink bridge are not implemented. Camera interface, driver, stream format, and achievable latency remain to be established.
+ARK owns stabilization, mixing and vehicle failsafes. The companion transports messages and video and serves local diagnostics/OTA. It does not generate vehicle heartbeats, arm the ROV or implement an emergency stop.
 
-The project owner has used the ARK with ArduSub in previous submarines; this vehicle still requires integration testing. Depth, sonar, and other sensors are deliberately undecided. For each sensor, record its power, interface, calibration, timestamps, logging format, and whether the ARK or companion will own it.
+## Network
 
-## Mechanical platform
+- ROV Ethernet: `192.168.137.2/24`.
+- Surface adapter: `192.168.137.1/24`.
+- MAVLink: P4 UDP `14555` ↔ surface UDP `14550`; only the configured surface IP and source port are accepted.
+- Video: H.264 RTP to surface UDP `5600`.
+- Maintenance Wi-Fi: `ROV-Maintenance`, dashboard `http://192.168.4.1`; also available at `http://192.168.137.2` over the tether.
+- The hotspot is for above-water maintenance. It does not route vehicle commands, stream video or provide Internet access.
 
-Six APISQUEEN U01 thrusters use four horizontal and two vertical mounts. The PETG frame retains the existing 4-inch, 200 mm enclosure. Printing is planned on an H2D with 100% infill as the requested starting point. Print orientation, joints, sealing, and loads still need physical validation. The 20–50 m operating depth remains a target.
+Use the P4 Type-A host port for the ARK USB device connection. The observed ARK VID/PID is `1209:5740`; interface 0 carries MAVLink and the separate SLCAN interface must not be selected. The source defaults allow any single CDC device; set the VID/PID in menuconfig if you need to restrict enumeration.
 
-## Power
+QGroundControl receives the UDP H.264 stream on port 5600. For future ROS 2 Humble use, MAVLink Router can fan out the one surface endpoint to QGC and MAVROS. Routing alone does not arbitrate manual/autonomous command ownership. ROS integration is not implemented.
 
-- A 4S 4000 mAh battery is planned for propulsion and the ARK battery input through the ESC harness.
-- DakeFPV lists the GT 6S 55A with 3–6S input and VBAT output. ARK lists a 5.5–54 V VBAT input. These ranges support the proposed feed; cable pin order is unverified.
-- Two additional ESCs supply channels five and six; exact models are TBD.
-- PoE powers the companion and accessories. Backup battery chemistry, capacity, charging, power-path circuitry, and switchover behavior remain TBD.
-- Simultaneous ARK VBAT and USB power behavior needs verification. Backup power cannot restore a severed Ethernet link.
+## Power and propulsion
 
-## Open decisions and checks
+The selected 4S Zeee 3300 mAh pack supplies propulsion and the ARK through the verified VBAT/GND harness. Four-in-one ESC signals use ARK outputs 1–4; two Basic ESCs use 5–6. A custom removable copper-busbar arrangement is planned. Connector and wire ratings must cover actual circuit current; motor phase current is not battery current divided by three.
 
-1. ESC connector wiring and reversible thrust operation; bidirectional DShot wording alone does not confirm reverse thrust.
-2. USB enumeration, power interaction, MAVLink routing, and reconnect behavior.
-3. Camera compatibility and video/control latency under load.
-4. Power consumption, PoE budget, battery endurance, and thermal behavior.
-5. Tether, penetrators, sealing, buoyancy, ballast, and depth qualification.
-6. Topside software, operator controls, and explicit ArduSub link-loss behavior.
+PoE powers the ESP32 and its accessories. A backup battery and power-path circuit are proposed, not implemented. Backup power cannot restore a broken Ethernet tether. Battery voltage/current sensing and alarm calibration remain to be completed.
 
-## Primary references
+## Mechanics and sensors
 
-- [DakeFPV GT 6S 55A](https://www.dakefpv.com/pd.jsp?id=97)
-- [ARK FPV pinout](https://docs.arkelectron.com/products/flight-controller/ark-fpv/pinout)
-- [Waveshare ESP32-P4-WIFI6-POE-ETH](https://docs.waveshare.com/ESP32-P4-WIFI6-POE-ETH)
-- [Espressif USB CDC host](https://components.espressif.com/components/espressif/usb_host_cdc_acm)
+The existing 4-inch, 200 mm enclosure sits in a modular PETG frame. [Hardware](../Hardware/README.md) identifies current custom-part exports, an ESC-above-FC stack, the Zeee packaging study and quarter-inch endcap fit geometry.
 
-Match documentation to the actual hardware revision before preparing wiring instructions.
+Bar02 is owned and selected for initial shallow-water depth sensing over I2C via the GPS port. Other sensors and leak detection are not installed. The 20–50 m target needs a depth sensor and enclosure/connectors qualified for that range.
+
+## References
+
+- [ARK FPV hardware and pinout](https://docs.arkelectron.com/products/flight-controller/ark-fpv/hardware)
+- [Waveshare ESP32-P4 board](https://docs.waveshare.com/ESP32-P4-WIFI6-POE-ETH)
+- [ArduSub ESC support](https://ardupilot.org/sub/docs/common-blheli32-passthru.html)
+- [Bluejay settings](https://github.com/bird-sanctuary/bluejay/wiki/Settings)
+- [Bar sensor guide](https://bluerobotics.com/learn/bar-sensors-guide/)
+
+Match the physical board revision and printed pin labels before wiring. Matching plugs and wire colours do not establish a compatible pinout.

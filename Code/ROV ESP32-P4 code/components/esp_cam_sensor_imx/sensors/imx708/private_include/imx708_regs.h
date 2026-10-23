@@ -1,0 +1,231 @@
+/*
+ * SPDX-FileCopyrightText: 2026 esp_cam_sensor_imx contributors
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Sony IMX708 (Raspberry Pi Camera Module 3 / NoIR 3) register map.
+ * Addresses/values are the public Sony bring-up values, cross-referenced
+ * against the Linux kernel driver (GPL-2.0) — facts only, no code copied.
+ */
+#pragma once
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Sentinels for imx708_reginfo_t arrays */
+#define IMX708_REG_END              0xffff
+#define IMX708_REG_DELAY            0xfffe
+
+/* Identification — NOTE: chip id is at 0x0016, unlike IMX219's 0x0000 */
+#define IMX708_REG_CHIP_ID_H        0x0016
+#define IMX708_REG_CHIP_ID_L        0x0017
+#define IMX708_CHIP_ID              0x0708
+
+/* Core control */
+#define IMX708_REG_MODE_SELECT      0x0100  /*!< 0=standby, 1=streaming */
+#define IMX708_REG_SW_RESET         0x0103  /*!< write 1: every register back to power-on */
+#define IMX708_REG_ORIENTATION      0x0101  /*!< bit0 = h flip, bit1 = v flip */
+#define IMX708_ORIENTATION_HMIRROR  0x01
+#define IMX708_ORIENTATION_VFLIP    0x02
+#define IMX708_REG_CSI_LANE_MODE    0x0114  /*!< 0x01 = 2 lane */
+
+/*
+ * Output (IOP) PLL multiplier, 16-bit: the clock the MIPI PHY runs from, so
+ * the link frequency. 1.5 MHz of link per step - 0x012c = 300 is 450 MHz.
+ * The pixel clock comes from the separate IVT PLL (0x0306/0x0307, written by
+ * the mode tables), which is why this can move without touching frame timing.
+ */
+#define IMX708_REG_IOP_PLL_MPY_H    0x030E
+#define IMX708_REG_IOP_PLL_MPY_L    0x030F
+
+/*
+ * V timing.
+ *
+ * Frame length is the frame-rate control: line length is fixed per mode, so
+ * fps = pixel_rate / (line_length * frame_length), and it is also the exposure
+ * ceiling, since integration cannot run past frame_length - 48 lines. The
+ * register is live - a new value takes effect at the next frame boundary with
+ * no standby - which is how Raspberry Pi's driver serves V4L2_CID_VBLANK.
+ *
+ * The floor is the rows the sensor actually reads plus a minimum blanking. For
+ * the binned readout that is 1296 rows (2592 binned 2:1) whatever the output
+ * size, because every mode here is a digital crop taken after the full
+ * readout; 40 lines is Raspberry Pi's vblank_min for that mode. 1336 lines is
+ * 56 fps, which is a sensor limit and says nothing about whether the P4
+ * pipeline downstream keeps up.
+ *
+ * The register's own ceiling is 16 bits, about 0.88 s per frame in the binned
+ * modes. Past that the long-exposure shift at 0x3100 takes over: at shift s the
+ * sensor counts both frame length (0x0340) and coarse integration (0x0202) in
+ * units of 2^s lines, up to s = 7, so the longest frame is 128 x 0xffff lines -
+ * about 112 s binned. Raspberry Pi's driver drives it the same way. No mode
+ * table writes 0x3100, so it survives a mode change unless cleared.
+ */
+#define IMX708_REG_FRAME_LENGTH_H   0x0340  /*!< VTS (frame length lines) */
+#define IMX708_REG_FRAME_LENGTH_L   0x0341
+#define IMX708_FRAME_LENGTH_MAX     0xffff  /*!< register ceiling, per shift unit */
+#define IMX708_REG_LONG_EXP_SHIFT   0x3100  /*!< 0..7: frame and exposure counted in 2^n lines */
+#define IMX708_LONG_EXP_SHIFT_MAX   7
+#define IMX708_FRAME_LENGTH_LONG_MAX ((uint32_t)IMX708_FRAME_LENGTH_MAX << IMX708_LONG_EXP_SHIFT_MAX)
+#define IMX708_BINNED_READOUT_ROWS  1296
+#define IMX708_VBLANK_MIN_BINNED    40
+
+/* Exposure / gain (all 16-bit, big-endian) */
+#define IMX708_REG_EXPOSURE_H       0x0202
+#define IMX708_REG_EXPOSURE_L       0x0203
+#define IMX708_EXPOSURE_OFFSET      48
+#define IMX708_EXPOSURE_DEFAULT     0x0640
+
+/*
+ * Exposure quantization, which is a property of the readout mode and not of
+ * the sensor. The IMX708 integrates over whole line pairs when it is binning
+ * two rows together, so a binned mode accepts only even line counts of 4 or
+ * more; a full-resolution mode reads every row and takes any count of 8 or
+ * more. The sensor does not reject an illegal value, it rounds it - which is
+ * why this matters to a control loop and not just to correctness: AE asks for
+ * 1001 lines, gets 1000, measures no change from its last request of 1000,
+ * and reads that dead zone as the scene rather than as its own rounding.
+ *
+ * Values are Raspberry Pi's, from the per-mode exposure_lines_min /
+ * exposure_lines_step in references/linux/imx708.c. Only the binned pair is
+ * used today; the full-resolution pair is here so the numbers stay together.
+ */
+#define IMX708_EXPOSURE_LINES_MIN_BINNED    4
+#define IMX708_EXPOSURE_LINES_STEP_BINNED   2
+#define IMX708_EXPOSURE_LINES_MIN_FULL      8
+#define IMX708_EXPOSURE_LINES_STEP_FULL     1
+#define IMX708_REG_ANALOG_GAIN_H    0x0204
+#define IMX708_REG_ANALOG_GAIN_L    0x0205
+#define IMX708_ANA_GAIN_MIN         112     /*!< gain = 1024/(1024-code) */
+#define IMX708_ANA_GAIN_MAX         960
+#define IMX708_ANA_GAIN_DEFAULT     112
+#define IMX708_REG_DIGITAL_GAIN_H   0x020e
+#define IMX708_REG_DIGITAL_GAIN_L   0x020f
+#define IMX708_DGTL_GAIN_MIN        0x0100
+#define IMX708_DGTL_GAIN_MAX        0xffff
+#define IMX708_DGTL_GAIN_DEFAULT    0x0100
+
+/*
+ * Output size and digital crop.
+ *
+ * The IMX708 pipeline runs analog crop -> binning -> digital crop -> output
+ * size. There is a scaler between the last two in the CCS register map, and it
+ * does not work - see below - so output size is always written equal to the
+ * digital crop.
+ *
+ * 0x0400..0x0407 are the CCS / SMIA++ standard scaling block, the same
+ * addresses IMX219's datasheet documents. Raspberry Pi's imx708.c never writes
+ * them in any of its four modes, and neither does its imx219.c, so there was
+ * nothing to cross-reference them against the way the rest of this file is.
+ *
+ * MEASURED 2026-09-05, and the answer is no: the whole block is READ-ONLY on
+ * this part. Every byte of 0x0400..0x0407 was written with its own value
+ * XOR 0x02 and read back unchanged, while 0x0408..0x040F - the digital crop
+ * immediately after it - took every write. The registers do exist and report
+ * the CCS defaults (scaling_mode 0, scale_m 16, scale_n 16, i.e. "1:1, not
+ * scaling"), but they are hardwired to them.
+ *
+ * So the IMX708 cannot downscale. Output size smaller than the digital crop
+ * does not resample the crop, it crops again from the crop's origin - a
+ * 2304x1296 crop with a 1152x648 output size emits the top-left 1152x648,
+ * confirmed by cross-correlating such a frame against a 1920x1080 one of the
+ * same scene. Resolution below the crop size has to come from binning, from
+ * moving the analog readout window, or from the P4's own ISP downstream.
+ *
+ * The scaling registers are deliberately not defined below. Writing this
+ * down rather than leaving it to be rediscovered is the whole point, but a
+ * block that cannot be written does not need names, and having them would only
+ * invite the next person to try. The addresses are above if a later revision
+ * ever needs re-testing: write a byte, read it back, and see whether it moved.
+ */
+#define IMX708_REG_X_OUTPUT_SIZE_H  0x034c
+#define IMX708_REG_X_OUTPUT_SIZE_L  0x034d
+#define IMX708_REG_Y_OUTPUT_SIZE_H  0x034e
+#define IMX708_REG_Y_OUTPUT_SIZE_L  0x034f
+
+#define IMX708_REG_DIG_CROP_X_H     0x0408
+#define IMX708_REG_DIG_CROP_X_L     0x0409
+#define IMX708_REG_DIG_CROP_Y_H     0x040a
+#define IMX708_REG_DIG_CROP_Y_L     0x040b
+#define IMX708_REG_DIG_CROP_W_H     0x040c
+#define IMX708_REG_DIG_CROP_W_L     0x040d
+#define IMX708_REG_DIG_CROP_H_H     0x040e
+#define IMX708_REG_DIG_CROP_H_L     0x040f
+
+/*
+ * Phase-detect shading gains (SPC), one bank for the left-shielded sites and
+ * one for the right-shielded ones.
+ *
+ * These feed the sensor's *autofocus* path, not the image. The IMX708 computes
+ * phase detection on-chip and emits only the result - a 16x12 grid of phase and
+ * confidence on the metadata line - so the host never sees the raw left and
+ * right pixel values. Anything that has to correct those values before the
+ * comparison must therefore be applied inside the sensor, which is what these
+ * banks are: they cancel the position-dependent sensitivity difference between
+ * the two shielded populations, so that the left-versus-right disparity the
+ * sensor measures means defocus rather than a shading mismatch.
+ *
+ * Two structural tells, if this ever needs re-deriving. The two default curves
+ * are *mirror images* - the left bank falls across the period while the right
+ * rises - which is what cancels an asymmetry, not what lifts pixels that read
+ * low; a correction aimed at the picture would boost both banks the same way.
+ * And each bank is 54 independent slots that the default merely tiles with a
+ * 9-value ramp, i.e. a shading profile, with a per-module calibration expected
+ * to fill all 54 with measured values.
+ *
+ * So on a stack that never reads the PDAF line - ours today - writing these
+ * changes nothing you can photograph. They are groundwork for phase-detect
+ * autofocus, and worth having in place because they are free, upstream does it,
+ * and a module shipping calibrated banks must not be trampled.
+ *
+ * IMX708_SPC_GAINS_UNSET is the value a bank holds at power-up, measured
+ * 2026-09-07 on a Camera Module 3: cold, 0x7b10 reads 0x40. Raspberry Pi's
+ * driver treats that as "nothing has programmed this bank" and installs its
+ * default curve, and skips a bank reading anything else - the reading being
+ * that a module carrying its own calibration should keep it, since per-unit
+ * measured data beats a tiled generic ramp. We have only ever seen 0x40 here,
+ * so the other half of that behaviour is inherited rather than verified; keep
+ * the check regardless, because getting it wrong is silent.
+ *
+ * Note the gains outlive a firmware reflash. The Pi CSI connector routes
+ * neither reset nor power-down to the host, so resetting the ESP32-P4 does not
+ * reset the sensor: once written, the banks read 0x4c until the module loses
+ * power. A boot that logs nothing about PDAF gains has found them already
+ * there, which is correct and not a missed write.
+ */
+#define IMX708_REG_BASE_SPC_GAINS_L 0x7b10
+#define IMX708_REG_BASE_SPC_GAINS_R 0x7c00
+#define IMX708_SPC_GAINS_UNSET      0x40    /*!< reset value = never programmed */
+#define IMX708_SPC_GAINS_LEN        54      /*!< bytes per bank */
+#define IMX708_SPC_GAINS_PERIOD     9       /*!< the curve repeats every 9 */
+
+/* Quad-Bayer re-mosaic low-pass filter. Only the full-resolution mode
+   re-mosaics, so binned modes must explicitly disable it. */
+#define IMX708_REG_LPF_INTENSITY_EN 0xc428
+#define IMX708_LPF_INTENSITY_ENABLED   0x00
+#define IMX708_LPF_INTENSITY_DISABLED  0x01
+
+/* Test pattern. Register values, not the V4L2 menu order - imx708.c maps
+   imx708_test_pattern_t onto these. */
+#define IMX708_REG_TEST_PATTERN_H   0x0600
+#define IMX708_REG_TEST_PATTERN_L   0x0601
+#define IMX708_TP_REG_DISABLE       0x0000
+#define IMX708_TP_REG_SOLID         0x0001
+#define IMX708_TP_REG_COLOR_BARS    0x0002
+#define IMX708_TP_REG_GREY_BARS     0x0003
+#define IMX708_TP_REG_PN9           0x0004
+
+/* Solid-colour pattern, one 12-bit level per Bayer channel, 16-bit registers */
+#define IMX708_REG_TEST_PATTERN_R   0x0602
+#define IMX708_REG_TEST_PATTERN_GR  0x0604
+#define IMX708_REG_TEST_PATTERN_B   0x0606
+#define IMX708_REG_TEST_PATTERN_GB  0x0608
+#define IMX708_TEST_PATTERN_COLOUR_MAX 0x0fff
+
+/* External input clock */
+#define IMX708_INCLK_FREQ_HZ        24000000
+
+#ifdef __cplusplus
+}
+#endif

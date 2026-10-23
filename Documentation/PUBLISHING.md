@@ -1,28 +1,19 @@
 # Publishing and attribution
 
-GitHub includes project, training, architecture, testing, roadmap, BOM, and printing documentation, plus a detailed assembly viewing model and one design screenshot in `Models/`. The README shows the screenshot beside a View in 3D button linking to the model. This is not a backup of the full local CAD project.
+Public repository: [PrabeshPathak2002/club-rov](https://github.com/PrabeshPathak2002/club-rov).
 
-## Local-only assets
+## Published source set
 
-The archive holds over 5 GB of development history. Imported reference models, raw logs, machine-specific configuration, CAD, STL files, ZIP packages, and previews remain local. The full Fusion assembly is approximately 110 MB. Choose a reviewed release-asset or large-file distribution method before publishing it.
+Documentation, original companion sources/tests, its licensed IMX sensor component, current custom-part fit/print exports and assembly viewing assets. Binaries, private Wi-Fi credentials, machine configuration, raw serial logs, reference datasheets and commercial CAD collections are excluded.
 
-Some design-document links point to local assets and will not resolve in the initial GitHub copy. Replace them with release links once reviewed downloads are published. Preserve the archive separately.
+The IMX component comes from [mushBrainDave/esp32-p4-imx-camera](https://github.com/mushBrainDave/esp32-p4-imx-camera), revision `9a3f8ca28e93526e0854ba45ad3b461b33ef2dac`; its Apache-2.0 LICENSE and UPSTREAM.txt remain alongside the vendored source. ESP-IDF component dependencies are downloaded from their original registries using the lockfile, retaining their own licenses.
 
-## Attribution
+Credit ArduPilot/ArduSub, Espressif, Waveshare, ARK Electronics, Blue Robotics, DAKEFPV and APISQUEEN for their software/hardware. The frame layout drew inspiration from a Hydrocean S6 reference. No affiliation or equivalent performance is implied. The viewing assembly contains imported commercial-component geometry; its scope and attribution remain described in [Models](../Models/README.md). It is a historical viewing asset, not a current manufacturing release.
 
-The layout is inspired by the Hydrocean S6 reference provided during design. The vehicle reuses an enclosure and imported commercial-component CAD. Do not imply affiliation or equivalent performance.
+No project-wide reuse license has been selected. Public visibility does not grant a license, and third-party rights remain with their owners. Complete component/model attribution and obtain contributor agreement before choosing a license for original project materials.
 
-Record the club name, contributors and roles, source of the enclosure and each imported model, redistribution terms, and permissions for product imagery. Credit ArduSub/ArduPilot, Espressif, ARK, Waveshare, DakeFPV, and APISQUEEN where their work or hardware is used. Links to electrical references are in [ARCHITECTURE.md](ARCHITECTURE.md).
+## Local history
 
-No project-wide license has been selected. Public visibility does not grant a reuse license. A future license for original code, documentation, or custom mechanics must not claim ownership of third-party assets.
+The workspace keeps a dated archive of camera bring-up, animation, superseded CAD, tool scripts and bench logs. The older OneDrive checkout and its large design-history archive are retained independently. Neither private archive is uploaded. Some historical September design-package links refer to those local-only files; [Hardware](../Hardware/README.md) is the current public revision index.
 
-For the portfolio, explain the engineering problem, your specific contributions, tradeoffs, and measured results. Credit collaborators and tools accurately; CAD checks are not physical test results.
-
-## Publication checklist
-
-- [x] Confirm GitHub owner, repository name, and visibility: public, [PrabeshPathak2002/club-rov](https://github.com/PrabeshPathak2002/club-rov).
-- [x] Review tracked files for credentials, local paths, and unrelated content.
-- [x] Create and push the repository; record its URL in the README.
-- [ ] Complete attribution and select licenses with the relevant owners.
-- [ ] Publish reviewed design downloads and replace local-only links.
-- [ ] Add selected project photos and measured test results.
+Never upload `rov_wifi_credentials.h`, password notes, built firmware, full local configuration or unrelated screenshots. Release binaries require a deliberate credential-provisioning approach first. Selected dashboard screenshots show UI only; new photography should be reviewed before publication.

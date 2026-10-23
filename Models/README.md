@@ -1,6 +1,8 @@
+> Historical September assembly preview. See the [later mechanical revisions](../Hardware/README.md); the viewer has not been regenerated for the newer mounts, battery, stack or endcap.
+
 # Interactive assembly preview
 
-Current revision: [M4 side-frame joints](../Final%20Design/README.md#m4-frame-joints), with the [rear horizontal pair corrected](../Final%20Design/README.md#orientation-and-checks); the front horizontal and vertical pairs retain their orientations. The relieved fixed-receiver pockets are retained.
+Preview revision: [M4 side-frame joints](../Final%20Design/README.md#m4-frame-joints), with the [rear horizontal pair corrected](../Final%20Design/README.md#orientation-and-checks); the front horizontal and vertical pairs retain their orientations. The relieved fixed-receiver pockets are retained.
 
 [Open the detailed STL in GitHub's 3D viewer](club-rov-preview.stl). Drag to rotate, right-drag to pan, and scroll to zoom.
 
