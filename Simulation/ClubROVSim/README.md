@@ -1,6 +1,6 @@
 # Club ROV simulator
 
-I am building this Unity prototype as a pool-training and sensor-experiment environment for the club ROV. It uses the existing assembly viewing mesh, a six-thruster force model and a simple pool with a practice gate.
+I am building this Unity prototype as a pool-training and sensor-experiment environment for the club ROV. It uses the existing assembly viewing mesh, a six-thruster force model and a 20 × 24 m training pool, 3.5 m deep.
 
 Editor: **Unity 6000.6.7f1**. Render pipeline: **URP 17.6.0**. Input: **Unity Input System 1.20.1**. The approved Unity Pipeline package provides local Editor automation; no cloud project is required.
 
@@ -26,7 +26,19 @@ Gamepad controls: left stick moves horizontally; right stick controls yaw and ve
 
 For tuning, select **Club ROV - simulation** in the Hierarchy and change the **Rov Pilot Input** component in the Inspector before pressing Play. Defaults are **0.15 stick dead zone**, **0.65 translation sensitivity**, **0.50 yaw sensitivity** and **0.60 maximum thrust**. Sensitivity scales the requested motion; the thrust limit caps all mixed actuator forces together to preserve balance. Values changed during Play are temporary. The keyboard uses the same sensitivity and thrust limit, with no stick dead zone.
 
-![Pool training preview](Assets/Screenshots/pool-training.png)
+![Pool training course](Assets/Screenshots/training-course.png)
+
+## Training course and visibility
+
+Cross the three yellow gates in order, toward the far end of the pool (+Z). The cyan pips above each gate identify its number. Crossing backward or outside the inset opening does not score. The HUD gives the next target's distance, bearing and depth.
+
+After gate 3, hold inside the **cyan hover target** for **3 continuous seconds**, heading **000° ±15°**, at less than **0.15 m/s**. Leaving the 0.45 m target radius, turning too far or moving too fast resets the hold. Then enter the **green docking bay**, heading **180° ±15°**, and remain within 0.40 m horizontally and 0.18 m vertically of its target at less than **0.10 m/s** for **3 seconds**.
+
+The timer starts with movement and freezes on completion. The collision counter records contact entries, with a 0.4 s debounce to avoid counting several contacts from one impact. Contact does not invalidate the run. **Restart Course**, **Home** or controller **Start** resets the vehicle, timer, objectives and collisions. **Space/A** cuts thrust without resetting the course.
+
+Use the HUD's **visibility slider** from **1–20 m**; the default is **8 m**. It controls exponential underwater fog and water tint, with scene contrast reduced to roughly 2% at the selected distance. This is a visual training approximation, not a measured turbidity model. Fog disables above the water surface; no wave, refraction or scattering solver is implemented. The slider and restart button accept mouse input without taking the controller's piloting bindings.
+
+![Murky-water training at 2 m visibility](Assets/Screenshots/training-murky.png)
 
 ## What the model does
 
@@ -50,15 +62,19 @@ The initial displacement makes the 8 kg rigid body neutrally buoyant when fully 
 - `RovThrusterLayout.cs`: provisional force locations/directions and normalized mixer.
 - `RovPilotInput.cs`: keyboard/gamepad input, separated from physics for later integration.
 - `RovCameraRig.cs`: chase/onboard camera selection.
+- `RovTrainingCourse.cs`: ordered gate crossing, hover/docking holds, run timer and collision count.
+- `RovWaterVisibility.cs`: per-camera underwater fog/tint and visibility control.
 - `Assets/ROV/UI/`: UI Toolkit HUD and display logic.
 - `Assets/ROV/Editor/PoolSceneBuilder.cs`: repeatable scene creation, STL conversion and mixer checks. It refuses to overwrite an existing PoolTraining scene.
 - `RovSmokeChecks.cs`: bounded Play Mode checks that restore the vehicle and input afterward.
+- `TrainingPoolBuilder.cs`: one-time Editor upgrade to the larger pool and course; refuses duplicate installation.
+- `RovCourseChecks.cs`: course rules, HUD pointer reset, visibility and pool-size checks.
 - `Docs/AI/UnityProjectContext.md`: project conventions and tooling context.
 
 The generated mesh and scene are included, so opening this project does not require a CAD importer. Rebuilding the visual mesh uses `../../Models/club-rov-preview.stl` from the parent ROV repository. The source assembly predates the newest mechanical changes; commercial reference geometry keeps its existing [attribution](../../Documentation/PUBLISHING.md).
 
 ## Validation and next steps
 
-The measured-layout revision passed six mixer checks, eleven Play Mode motion/lifecycle checks and twelve synthetic keyboard/gamepad/camera checks. See [validation notes](Docs/VALIDATION.md) for evidence and remaining limits.
+The training revision passed six mixer checks, eleven Play Mode motion/lifecycle checks, twelve synthetic keyboard/gamepad/camera checks and nineteen course/UI/visibility checks. See [validation notes](Docs/VALIDATION.md) for evidence and remaining limits.
 
 This prototype is isolated from the real ROV. It does not connect to the ESP32, ARK, QGroundControl, ArduSub SITL or ROS 2. My next stages are to tune the vehicle dynamics, verify physical controller input, add simulated sensor interfaces and then integrate ArduSub SITL/ROS 2 with explicit command ownership.

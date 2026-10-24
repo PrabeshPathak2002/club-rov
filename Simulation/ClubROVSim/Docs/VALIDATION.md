@@ -44,6 +44,18 @@ Unity detects an Xbox Controller. Automated mapping tests use temporary virtual 
 
 The updated Windows x64 build succeeded with **zero errors and zero warnings**, producing 112,701,192 bytes of build output. An earlier build warned about pending Editor code changes; after Unity reported scripts up to date, I rebuilt successfully without that warning. The standalone executable has not been separately launch-tested.
 
+## Larger pool, course and visibility revision
+
+The saved scene now has a 20 × 24 m pool with the existing 3.5 m depth, three numbered gates, a cyan hover target and a green dock. I verified the HUD at 1600 × 900 and inspected captured 8 m and 2 m visibility views. Gate visibility and scene contrast drop visibly in the murky view while the HUD remains readable.
+
+All **19 course/UI/visibility checks** passed: out-of-order, backward and outside-opening rejection; ordered progress; hover heading/speed/continuous-hold requirements; docking requirements; collision debounce; frozen finish statistics; the live visibility slider; above-water fog disable; pointer-operated HUD reset; and expanded pool dimensions. See [course results](course-checks.json). These exercise course logic using injected poses; they do not claim a fully piloted course run.
+
+The initial reverse-crossing test had crossed forward while positioning the vehicle. I changed its starting pose to the far side before resetting tracking, preserving the rejection criterion. The initial synthetic navigation-submit event did not exercise the mouse restart button; pointer-down/up events now exercise its click behavior. Reset tracking now reads the rigid-body pose to avoid interpolation lag. The **11 physics checks** and **12 input/camera checks** passed again; the floor-contact check additionally verifies an actual collision increments the course counter. Six measured-layout mixer checks remain applicable.
+
+URP camera rendering applies the fog; camera-above-water behavior and settings restoration are implemented. Fog distance is an artistic contrast threshold, not measured underwater optical performance. The controller confirmation from the preceding revision remains the physical-device evidence; the training course has not been manually completed end to end.
+
+The saved training scene built successfully for Windows x64 with **zero errors and zero warnings**; output size was 112,744,172 bytes. Unity's modified-scene save dialog was resolved before building. The executable is `Builds/Windows/ClubROVSim.exe`; the output folder must be kept together. Standalone launch behavior has not been separately tested.
+
 ## Remaining limits
 
 Mass, displacement, drag, inertia and thrust curves are provisional; thrust lines now come from CAD. Passing these checks establishes the prototype's internal behavior, not agreement with the real ROV. Long-duration operation and frame-rate performance remain to be measured. Controller and camera coverage for the later revision is recorded above.

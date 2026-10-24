@@ -73,7 +73,11 @@ namespace ClubROV.Simulation.Editor
                     vehicle.StopThrusters(); passed = true;
                     for (int i = 0; i < 6; i++) passed &= Mathf.Abs(vehicle.Output(i)) < 0.0001f;
                     break;
-                case 7: passed = vehicle.GetComponent<Collider>().bounds.min.y >= -3.51f && vehicle.Body.linearVelocity.y > -0.05f; break;
+                case 7:
+                    passed = vehicle.GetComponent<Collider>().bounds.min.y >= -3.51f && vehicle.Body.linearVelocity.y > -0.05f;
+                    var course = vehicle.GetComponent<RovTrainingCourse>();
+                    if (course != null) passed &= course.CollisionCount >= 1;
+                    break;
                 case 8:
                     vehicle.ResetVehicle();
                     passed = Vector3.Distance(vehicle.Body.position, new Vector3(0, -1.2f, -1)) < 0.001f && vehicle.Speed < 0.001f;

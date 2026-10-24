@@ -6,7 +6,16 @@
                 <ui:Label text="CLUB ROV / POOL LAB" class="title" />
                 <ui:Label text="Pilot training · six independent thrusters" class="subtitle" />
             </ui:VisualElement>
-            <ui:Label text="SIMULATION ONLY" class="badge" />
+            <ui:VisualElement class="course-panel">
+                <ui:Label text="POOL COURSE · SIMULATION ONLY" class="badge" />
+                <ui:Label name="objective" text="Gate 1/3 — cross toward the far end" class="objective" />
+                <ui:Label name="run" text="TIME 00:00.0    COLLISIONS 0    HOLD 0.0/3 s" class="course-stat" />
+                <ui:Label name="target" text="Follow the numbered yellow gates" class="course-stat" />
+                <ui:Label text="Then cyan hover ring → green dock" class="course-stat" />
+                <ui:Label name="visibility-text" text="VISIBILITY 8.0 m · visual approximation" class="course-stat" />
+                <ui:Slider name="visibility" low-value="1" high-value="20" value="8" picking-mode="Position" focusable="false" />
+                <ui:Button name="restart" text="RESTART COURSE · HOME / START" picking-mode="Position" focusable="false" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement class="footer" picking-mode="Ignore">
             <ui:Label name="telemetry" text="DEPTH  1.20 m     SPEED  0.00 m/s     HEADING  000°" class="telemetry" />

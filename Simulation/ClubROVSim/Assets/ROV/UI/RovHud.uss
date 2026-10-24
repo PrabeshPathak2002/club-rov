@@ -9,3 +9,10 @@
 .outputs { font-size: 13px; margin-top: 10px; color: rgb(106, 222, 203); }
 .controls { font-size: 12px; margin-top: 8px; }
 .note { font-size: 11px; margin-top: 10px; color: rgb(166, 188, 198); }
+.course-panel { width: 410px; background-color: rgba(9, 24, 32, 0.92); padding: 14px 18px; border-right-width: 4px; border-right-color: rgb(106, 222, 203); }
+.course-panel .badge { align-self: flex-end; font-size: 10px; padding: 6px 10px; }
+.objective { font-size: 16px; -unity-font-style: bold; color: rgb(248, 211, 66); margin-top: 12px; white-space: normal; }
+.course-stat { font-size: 12px; margin-top: 9px; white-space: normal; color: rgb(192, 220, 225); }
+.course-panel Slider { margin-top: 10px; margin-bottom: 10px; }
+.course-panel Button { height: 34px; background-color: rgb(31, 83, 88); color: rgb(235, 247, 249); border-top-width: 0; border-bottom-width: 0; border-left-width: 0; border-right-width: 0; -unity-font-style: bold; font-size: 11px; }
+.course-panel Button:hover { background-color: rgb(44, 111, 115); }

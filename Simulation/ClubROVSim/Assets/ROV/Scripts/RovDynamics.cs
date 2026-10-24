@@ -27,6 +27,7 @@ namespace ClubROV.Simulation
         public float Speed => body == null ? 0 : body.linearVelocity.magnitude;
         public float Heading => transform.eulerAngles.y;
         public Rigidbody Body => body;
+        public event System.Action VehicleReset;
         public float Output(int i) => actual[i];
 
         private void Awake()
@@ -62,6 +63,7 @@ namespace ClubROV.Simulation
             body.linearVelocity = Vector3.zero;
             body.angularVelocity = Vector3.zero;
             body.WakeUp();
+            VehicleReset?.Invoke();
         }
 
         private void OnDisable() => StopThrusters();
