@@ -7,6 +7,10 @@ namespace ClubROV.Simulation
     {
         [SerializeField] private Transform target;
         private bool pilotView;
+        private Camera view;
+        private RovFpvCameraFeed feed;
+        private float chaseFieldOfView;
+        private void Awake() { view = GetComponent<Camera>(); feed = GetComponent<RovFpvCameraFeed>(); chaseFieldOfView = view.fieldOfView; }
         public bool PilotView => pilotView;
         public void ToggleView() => pilotView = !pilotView;
         public void Configure(Transform vehicle) => target = vehicle;
@@ -17,6 +21,12 @@ namespace ClubROV.Simulation
                 ToggleView();
             Vector3 offset = pilotView ? new Vector3(0, 0.04f, 0.31f) : new Vector3(1.1f, 0.65f, -1.4f);
             Vector3 position = target.TransformPoint(offset);
+            if (feed != null)
+            {
+                view.fieldOfView = pilotView ? feed.VerticalFieldOfView : chaseFieldOfView;
+                if (pilotView) view.aspect = (float)feed.Width / feed.Height; else view.ResetAspect();
+            }
+            if (pilotView) { transform.SetPositionAndRotation(position, target.rotation); return; }
             Vector3 look = pilotView ? target.position + target.forward * 3 : target.position;
             transform.SetPositionAndRotation(position, Quaternion.LookRotation(look - position, Vector3.up));
         }

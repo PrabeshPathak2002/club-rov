@@ -22,3 +22,4 @@ crash-report*
 /SmokeCheckResults.json
 /ControlCheckResults.json
 /CourseCheckResults.json
+/FpvCheckResults.json

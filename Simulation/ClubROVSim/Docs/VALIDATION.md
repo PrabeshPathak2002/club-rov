@@ -56,6 +56,16 @@ URP camera rendering applies the fog; camera-above-water behavior and settings r
 
 The saved training scene built successfully for Windows x64 with **zero errors and zero warnings**; output size was 112,744,172 bytes. Unity's modified-scene save dialog was resolved before building. The executable is `Builds/Windows/ClubROVSim.exe`; the output folder must be kept together. Standalone launch behavior has not been separately tested.
 
+## Pi-camera-style FPV revision
+
+I inspected FPV and chase captures at 1600 × 900. The scene image in FPV is sampled to 640 × 480 and letterboxed, while the HUD stays sharp. I reduced the initial grain after viewing it; the saved sensor-noise value is 0.0025, with softness 0.45. The 48.8° vertical lens baseline is from the standard Pi Camera Module 2; the preset does not reproduce a measured stream or underwater optical system.
+
+All **10 bounded FPV checks** passed: clean chase bypass, video-history allocation, capped sampling cadence, lens/aspect, native HUD overlay, shader compilation, chase projection restoration, history release, reallocation on return and cleanup when disabled. The timing observation was **29 video samples over 1.000 seconds with 351 Unity frames**. See [FPV results](fpv-checks.json). The **12 synthetic controls/camera checks** and **19 course/UI/visibility checks** also passed with the renderer installed. A naming collision in the Editor-only check class was corrected before the passing run.
+
+The Render Graph review verified an explicit source texture through BlitMaterialParameters, separate sampled history and display targets, an intermediate-color requirement, a persistent external handle for cross-frame history, and cleanup of the handle/material. The intended scope is the single ROV game camera. No measured end-to-end latency, codec fidelity or video-noise calibration is claimed.
+
+The FPV revision built successfully for Windows x64 with **zero errors and zero warnings**, at 112,759,664 bytes. An initial shader warning about fractional power on an unconstrained value was resolved by clamping the vignette input and using square roots; the final build is clean. The standalone executable has not been separately launch-tested.
+
 ## Remaining limits
 
 Mass, displacement, drag, inertia and thrust curves are provisional; thrust lines now come from CAD. Passing these checks establishes the prototype's internal behavior, not agreement with the real ROV. Long-duration operation and frame-rate performance remain to be measured. Controller and camera coverage for the later revision is recorded above.

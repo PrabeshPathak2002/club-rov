@@ -5,6 +5,7 @@
             <ui:VisualElement class="identity" picking-mode="Ignore">
                 <ui:Label text="CLUB ROV / POOL LAB" class="title" />
                 <ui:Label text="Pilot training · six independent thrusters" class="subtitle" />
+                <ui:Label name="camera-mode" text="CHASE · native display" class="subtitle" />
             </ui:VisualElement>
             <ui:VisualElement class="course-panel">
                 <ui:Label text="POOL COURSE · SIMULATION ONLY" class="badge" />

@@ -17,6 +17,8 @@ namespace ClubROV.Simulation
         private Label visibilityText;
         private Slider visibilitySlider;
         private Button restart;
+        private Label cameraMode;
+        private RovFpvCameraFeed cameraFeed;
         private float nextRefresh;
         public void Configure(RovDynamics dynamics) => vehicle = dynamics;
         public void ConfigureTraining(RovTrainingCourse training, RovWaterVisibility visibility) { course = training; water = visibility; }
@@ -25,6 +27,8 @@ namespace ClubROV.Simulation
             VisualElement root = GetComponent<UIDocument>().rootVisualElement;
             telemetry = root.Q<Label>("telemetry");
             thrusters = root.Q<Label>("thrusters");
+            cameraMode = root.Q<Label>("camera-mode");
+            if (water != null) cameraFeed = water.GetComponent<RovFpvCameraFeed>();
             objective = root.Q<Label>("objective"); run = root.Q<Label>("run"); target = root.Q<Label>("target");
             visibilityText = root.Q<Label>("visibility-text");
             visibilitySlider = root.Q<Slider>("visibility");
@@ -49,6 +53,8 @@ namespace ClubROV.Simulation
             nextRefresh = Time.unscaledTime + 0.1f;
             telemetry.text = $"DEPTH  {vehicle.Depth:0.00} m     SPEED  {vehicle.Speed:0.00} m/s     HEADING  {vehicle.Heading:000}°";
             thrusters.text = $"H1 {vehicle.Output(0):+0.00;-0.00;0.00}   H2 {vehicle.Output(1):+0.00;-0.00;0.00}   H3 {vehicle.Output(2):+0.00;-0.00;0.00}   H4 {vehicle.Output(3):+0.00;-0.00;0.00}   V1 {vehicle.Output(4):+0.00;-0.00;0.00}   V2 {vehicle.Output(5):+0.00;-0.00;0.00}";
+            if (cameraMode != null && cameraFeed != null) cameraMode.text = cameraFeed.Active ?
+                $"FPV · PI CAM STYLE · {cameraFeed.Width}×{cameraFeed.Height} / {cameraFeed.FramesPerSecond} fps" : "CHASE · native display";
             if (course != null && objective != null)
             {
                 objective.text = course.Objective;

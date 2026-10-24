@@ -28,6 +28,16 @@ For tuning, select **Club ROV - simulation** in the Hierarchy and change the **R
 
 ![Pool training course](Assets/Screenshots/training-course.png)
 
+## FPV camera feed
+
+**V** or controller **Back/Select** switches between the clean chase display and a Pi-camera-style FPV feed. FPV uses **640 × 480**, **4:3 framing** and a **30 fps maximum sample cadence**, with mild softness, darker-area sensor grain, 8-bit color steps and subtle block variation. The HUD stays at native display resolution. Only the camera video is affected; vehicle physics and input continue at their normal rates.
+
+The starter lens uses **48.8° vertical field of view**, based on the standard [Raspberry Pi Camera Module 2 specification](https://www.raspberrypi.com/documentation/accessories/camera.html). This is an appearance preset, not a claim about the real camera's maximum resolution, configured stream, underwater housing optics or measured noise. FPV follows the vehicle's full orientation, including roll and pitch. Camera placement remains the existing forward viewing offset rather than an optical model through the enclosure window.
+
+Select **Main Camera → Rov Fpv Camera Feed** before Play to change resolution, frame rate, lens field of view, noise or softness. Switching back to chase restores its lens and viewport and releases the held video frame. There is no simulated network latency, packet loss or real codec yet; block variation is only an approximation.
+
+![Pi-camera-style FPV](Assets/Screenshots/fpv-camera-feed.png)
+
 ## Training course and visibility
 
 Cross the three yellow gates in order, toward the far end of the pool (+Z). The cyan pips above each gate identify its number. Crossing backward or outside the inset opening does not score. The HUD gives the next target's distance, bearing and depth.
@@ -64,11 +74,13 @@ The initial displacement makes the 8 kg rigid body neutrally buoyant when fully 
 - `RovCameraRig.cs`: chase/onboard camera selection.
 - `RovTrainingCourse.cs`: ordered gate crossing, hover/docking holds, run timer and collision count.
 - `RovWaterVisibility.cs`: per-camera underwater fog/tint and visibility control.
+- `RovFpvCameraFeed.cs`, `RovFpvRendererFeature.cs` and `RovFpvFeed.shader`: FPV profile and URP Render Graph video sampling/display before the HUD.
 - `Assets/ROV/UI/`: UI Toolkit HUD and display logic.
 - `Assets/ROV/Editor/PoolSceneBuilder.cs`: repeatable scene creation, STL conversion and mixer checks. It refuses to overwrite an existing PoolTraining scene.
 - `RovSmokeChecks.cs`: bounded Play Mode checks that restore the vehicle and input afterward.
 - `TrainingPoolBuilder.cs`: one-time Editor upgrade to the larger pool and course; refuses duplicate installation.
 - `RovCourseChecks.cs`: course rules, HUD pointer reset, visibility and pool-size checks.
+- `FpvFeedSetup.cs` and `RovFpvChecks.cs`: Editor installation and bounded FPV cadence, lens and buffer-lifecycle checks.
 - `Docs/AI/UnityProjectContext.md`: project conventions and tooling context.
 
 The generated mesh and scene are included, so opening this project does not require a CAD importer. Rebuilding the visual mesh uses `../../Models/club-rov-preview.stl` from the parent ROV repository. The source assembly predates the newest mechanical changes; commercial reference geometry keeps its existing [attribution](../../Documentation/PUBLISHING.md).
