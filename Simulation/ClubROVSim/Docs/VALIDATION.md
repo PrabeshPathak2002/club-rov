@@ -120,3 +120,12 @@ All three HUD panels minimize independently. H or right-stick click hides/shows 
 Fifteen view/panel checks passed, including cycle order, projection restoration, FPV gating, panel callbacks, hide/restore and no duplicate controls after HUD re-enable. Synthetic H and right-stick click tests passed; twelve synthetic pilot/camera and nineteen course/UI checks passed. The course pointer test was run after the layout settled following HUD re-enable. Ten asynchronous FPV checks passed. Top-down with the HUD and clean FPV without any overlay were visually inspected. Final Play Mode Console had zero errors/warnings. Native input attempts were inconclusive; the shortcut evidence is synthetic, not a physical controller test. No new live SITL session was performed.
 
 The updated Windows build succeeded with zero errors and one existing warning about pre-baked collision on the two official board meshes. A new practice ZIP was generated with the updated controls and quickstart.
+
+
+## FPV attitude and compass instruments — 24 October 2026
+
+Added a native-resolution FPV overlay with artificial horizon/pitch ladder, compass tape, numeric pitch/roll, depth, speed and control state. It uses live simulation truth at up to 30 Hz, independent of the artistic delayed video. O/left-stick click toggles the instruments independently from H; a control-panel button is also available. No AHRS estimation or magnetic sensor is simulated.
+
+Sixteen focused attitude/heading/lifecycle checks passed, covering level and banked signs, cardinal headings and 359/1 wrap, inverted roll, view gating, independent hiding and duplicate-free re-enable. Synthetic O and left-stick-click checks passed. Fifteen existing view checks, nineteen course/UI checks (with panels shown for pointer testing) and ten asynchronous FPV checks passed. Level and banked (12 degrees nose up, 20 degrees right bank, heading 35) screenshots were inspected. Temporary pose/physics changes were discarded by exiting Play. Final Play Console had zero errors/warnings. No new physical-controller, live SITL or other-computer test was performed.
+
+The Windows x64 build succeeded with zero errors and zero warnings. A new portable practice ZIP includes the FPV instruments and updated quickstart.

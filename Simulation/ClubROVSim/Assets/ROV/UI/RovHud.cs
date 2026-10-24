@@ -30,6 +30,7 @@ namespace ClubROV.Simulation
         private float nextRefresh;
         private RovGraphicsSettings graphics;
         private RovHudPanels panels;
+        private RovFlightOverlay flightOverlay;
         public void Configure(RovDynamics dynamics) => vehicle = dynamics;
         public void ConfigureTraining(RovTrainingCourse training, RovWaterVisibility visibility) { course = training; water = visibility; }
         private void OnEnable()
@@ -53,6 +54,7 @@ namespace ClubROV.Simulation
             cameraRig=water==null?null:water.GetComponent<RovCameraRig>();
             if(cameraToggle!=null) cameraToggle.clicked+=ToggleCamera;
             if (water != null) cameraFeed = water.GetComponent<RovFpvCameraFeed>();
+            flightOverlay=new RovFlightOverlay(root,vehicle,cameraRig,sitl);
             objective = root.Q<Label>("objective"); run = root.Q<Label>("run"); target = root.Q<Label>("target");
             visibilityText = root.Q<Label>("visibility-text");
             visibilitySlider = root.Q<Slider>("visibility");
@@ -83,6 +85,7 @@ namespace ClubROV.Simulation
         }
         private void OnDisable()
         {
+            flightOverlay?.Dispose(); flightOverlay=null;
             panels?.Dispose(); panels=null;
             graphics?.Dispose(); graphics=null;
             visibilitySlider?.UnregisterValueChangedCallback(OnVisibility);
@@ -92,6 +95,7 @@ namespace ClubROV.Simulation
         }
         private void Update()
         {
+            flightOverlay?.Tick();
             panels?.Tick();
             graphics?.Tick();
             if (vehicle == null || telemetry == null || Time.unscaledTime < nextRefresh) return;

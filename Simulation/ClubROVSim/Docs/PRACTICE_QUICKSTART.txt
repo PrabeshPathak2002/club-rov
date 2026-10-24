@@ -26,3 +26,8 @@ Minimum hardware requirements have not yet been established by laptop tests.
 This ZIP includes local practice only. QGC/ArduSub use requires the separate
 repository SITL tools and WSL setup. No real ROV connection is required.
 Physics remain provisional; competition tasks are currently static practice.
+
+FPV INSTRUMENTS: artificial horizon, pitch ladder, compass, depth and speed.
+O / left-stick click toggles these instruments. H hides only the large panels,
+so OSD can stay visible. Use H and O for completely clear FPV. Instruments use
+live simulated attitude/north and are not affected by the video delay preset.

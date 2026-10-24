@@ -1,0 +1,16 @@
+PASS: Level attitude is zero
+PASS: Heading 0
+PASS: Heading 90
+PASS: Heading 180
+PASS: Heading 270
+PASS: Heading 359
+PASS: Heading 1
+PASS: Nose up pitch and right bank signs
+PASS: Inverted roll is finite
+PASS: FPV instruments visible by default
+PASS: Panel hiding preserves flight instruments
+PASS: Independent OSD toggle
+PASS: Top-down has no flight overlay
+PASS: Chase has no flight overlay
+PASS: Overlay does not intercept pilot clicks
+PASS: Re-enable creates one overlay and one toggle
