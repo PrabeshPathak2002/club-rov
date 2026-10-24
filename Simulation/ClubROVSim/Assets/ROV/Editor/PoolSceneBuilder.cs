@@ -61,7 +61,7 @@ namespace ClubROV.Simulation.Editor
             visual.AddComponent<MeshFilter>().sharedMesh = mesh;
             visual.AddComponent<MeshRenderer>().sharedMaterial = yellow;
             var collider = vehicle.AddComponent<BoxCollider>();
-            collider.size = mesh.bounds.size;
+            collider.size = RovThrusterLayout.EnvelopeMetres;
             var rb = vehicle.AddComponent<Rigidbody>();
             rb.mass = 8;
             rb.linearDamping = 0;
@@ -176,6 +176,36 @@ namespace ClubROV.Simulation.Editor
             mesh.vertices = vertices; mesh.RecalculateBounds(); mesh.RecalculateNormals();
             AssetDatabase.CreateAsset(mesh, Root + "/Generated/ClubROV.asset");
             return mesh;
+        }
+
+        [MenuItem("Club ROV/Apply Measured Geometry")]
+        private static void ApplyMeasuredGeometryFromMenu() => ApplyMeasuredGeometry();
+
+        public static string ApplyMeasuredGeometry()
+        {
+            if (EditorApplication.isPlaying) throw new InvalidOperationException("Apply geometry outside Play Mode.");
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().path != ScenePath)
+                throw new InvalidOperationException("Open the saved PoolTraining scene first.");
+            var vehicle = UnityEngine.Object.FindAnyObjectByType<RovDynamics>();
+            if (vehicle == null) throw new InvalidOperationException("Vehicle is missing.");
+            var collider = vehicle.GetComponent<BoxCollider>();
+            Undo.RecordObject(collider, "Apply Fusion envelope");
+            collider.size = RovThrusterLayout.EnvelopeMetres;
+            for (int i = 0; i < RovThrusterLayout.Count; i++)
+            {
+                string name = i < 4 ? $"Horizontal force {i + 1}" : $"Vertical force {i - 3}";
+                Transform mount = vehicle.transform.Find(name);
+                if (mount == null) throw new InvalidOperationException("Missing force marker: " + name);
+                Undo.RecordObject(mount, "Apply Fusion thrust axis");
+                mount.localPosition = RovThrusterLayout.Position(i);
+                mount.localRotation = Quaternion.LookRotation(RovThrusterLayout.Direction(i));
+            }
+            var serialized = new SerializedObject(vehicle);
+            serialized.FindProperty("hullHeight").floatValue = RovThrusterLayout.EnvelopeMetres.y;
+            serialized.ApplyModifiedProperties();
+            EditorSceneManager.MarkSceneDirty(vehicle.gameObject.scene);
+            EditorSceneManager.SaveScene(vehicle.gameObject.scene);
+            return "Measured envelope and all six force markers saved. " + ValidateMixer();
         }
 
         public static string ValidateMixer()

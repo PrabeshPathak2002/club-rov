@@ -37,7 +37,7 @@ namespace ClubROV.Simulation
             startRotation = body.rotation;
         }
 
-        public void SetPilotCommand(Vector3 translation, float yaw)
+        public void SetPilotCommand(Vector3 translation, float yaw, float thrustLimit = 1)
         {
             RovThrusterLayout.Mix(Vector3.ClampMagnitude(translation, 1), Mathf.Clamp(yaw, -1, 1), desired);
             // Mix in force space: honor the weaker reverse limit without introducing
@@ -45,7 +45,7 @@ namespace ClubROV.Simulation
             float scale = 1;
             for (int i = 0; i < desired.Length; i++)
                 if (desired[i] < 0) scale = Mathf.Max(scale, -desired[i] / reverseThrustRatio);
-            for (int i = 0; i < desired.Length; i++) desired[i] /= scale;
+            for (int i = 0; i < desired.Length; i++) desired[i] *= Mathf.Clamp01(thrustLimit) / scale;
         }
 
         public void StopThrusters()

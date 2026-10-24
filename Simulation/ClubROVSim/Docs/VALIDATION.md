@@ -32,8 +32,20 @@ The first run exposed sideways drift during yaw because reverse thrust was weake
 
 The final Windows x64 build succeeded with zero errors and zero warnings. The local executable is `Builds/Windows/ClubROVSim.exe`; its accompanying files must stay in the same folder. I have not separately launch-tested the standalone executable.
 
-## Limits
+## Measured geometry and control revision
 
-Mass, displacement, drag, inertia, thruster positions and thrust curves are provisional. Passing these checks establishes the prototype's internal behavior, not agreement with the real ROV. Physical gamepad input, camera-switch key presses, long-duration operation and frame-rate performance remain to be checked interactively.
+I integrated the live Fusion thrust-axis lines and envelope into the runtime layout, force markers, collider and partial-submersion height. A minimum-norm horizontal allocation accounts for the small differences in the measured yaw lever arms. The geometric reference is still a provisional center of mass.
+
+Six mixer checks, **eleven Play Mode checks** and **twelve synthetic input/camera checks** passed. The retained [motion results](smoke-checks.json) and [control results](control-checks.json) cover movement, neutral, yaw, floor contact, reset, thrust cut, a 30% force cap, input-disable cleanup, keyboard directions, gamepad axes/dead zones, cut/reset buttons and both camera-switch bindings. Physics frames advanced during the run.
+
+The first geometry application exposed a static-initialization-order error: the allocation was built before the direction array existed. I moved allocation initialization after its inputs, recompiled and reran the full checks. I did not change the pass criteria. The motion checks show about 29–30 mm of vertical displacement under full horizontal thrust over 0.8 seconds, because the measured thrust lines sit below the provisional center of mass. This is retained and documented rather than removed by moving the force points.
+
+Unity detects an Xbox Controller. Automated mapping tests use temporary virtual devices; they do not prove physical stick/button operation. I confirmed that all controls work in a hands-on test with that controller. No hardware is commanded by these checks.
+
+The updated Windows x64 build succeeded with **zero errors and zero warnings**, producing 112,701,192 bytes of build output. An earlier build warned about pending Editor code changes; after Unity reported scripts up to date, I rebuilt successfully without that warning. The standalone executable has not been separately launch-tested.
+
+## Remaining limits
+
+Mass, displacement, drag, inertia and thrust curves are provisional; thrust lines now come from CAD. Passing these checks establishes the prototype's internal behavior, not agreement with the real ROV. Long-duration operation and frame-rate performance remain to be measured. Controller and camera coverage for the later revision is recorded above.
 
 There is no ROS, SITL, MAVLink, tether or real-hardware connection in this prototype. The simulation cannot command the ESP32 or ARK.

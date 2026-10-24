@@ -27,8 +27,8 @@ namespace ClubROV.Simulation.Editor
         private static Vector3 position;
         private static float heading;
         private static int stage;
-        private static readonly string[] Names = { "Neutral", "Forward", "Reverse", "Strafe", "Yaw", "Ascend", "Thrust cut", "Floor collision", "Reset" };
-        private static readonly Vector3[] Translations = { Vector3.zero, Vector3.forward, Vector3.back, Vector3.right, Vector3.zero, Vector3.up, Vector3.forward, Vector3.down, Vector3.zero };
+        private static readonly string[] Names = { "Neutral", "Forward", "Reverse", "Strafe", "Yaw", "Ascend", "Thrust cut", "Floor collision", "Reset", "Thrust limit", "Disable input stops thrust" };
+        private static readonly Vector3[] Translations = { Vector3.zero, Vector3.forward, Vector3.back, Vector3.right, Vector3.zero, Vector3.up, Vector3.forward, Vector3.down, Vector3.zero, Vector3.forward, Vector3.forward };
 
         public static string Start()
         {
@@ -51,7 +51,7 @@ namespace ClubROV.Simulation.Editor
             position = vehicle.Body.position;
             heading = vehicle.Body.rotation.eulerAngles.y;
             started = Time.fixedTime;
-            vehicle.SetPilotCommand(Translations[stage], stage == 4 ? 1 : 0);
+            vehicle.SetPilotCommand(Translations[stage], stage == 4 ? 1 : 0, stage == 9 ? 0.3f : 1);
         }
 
         private static void Tick()
@@ -77,6 +77,17 @@ namespace ClubROV.Simulation.Editor
                 case 8:
                     vehicle.ResetVehicle();
                     passed = Vector3.Distance(vehicle.Body.position, new Vector3(0, -1.2f, -1)) < 0.001f && vehicle.Speed < 0.001f;
+                    break;
+                case 9:
+                    float peak = 0;
+                    for (int i = 0; i < 6; i++) peak = Mathf.Max(peak, Mathf.Abs(vehicle.Output(i)));
+                    passed = peak > 0.1f && peak <= 0.3001f && delta.z > 0.02f;
+                    break;
+                case 10:
+                    input.enabled = true;
+                    input.enabled = false;
+                    passed = true;
+                    for (int i = 0; i < 6; i++) passed &= Mathf.Abs(vehicle.Output(i)) < 0.0001f;
                     break;
             }
             report.checks.Add(new Result { name = Names[stage], passed = passed, observation = $"delta={delta:F3}, yaw={turn:F2}, speed={vehicle.Speed:F3}, frame={Time.frameCount}" });

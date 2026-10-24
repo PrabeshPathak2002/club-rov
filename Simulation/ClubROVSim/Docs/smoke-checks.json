@@ -4,47 +4,57 @@
         {
             "name": "Neutral",
             "passed": true,
-            "observation": "delta=(0.000, 0.000, 0.000), yaw=0.00, speed=0.000, frame=139"
+            "observation": "delta=(0.000, 0.000, 0.000), yaw=0.00, speed=0.000, frame=1436"
         },
         {
             "name": "Forward",
             "passed": true,
-            "observation": "delta=(0.000, 0.000, 0.863), yaw=0.00, speed=1.692, frame=279"
+            "observation": "delta=(0.001, 0.029, 0.863), yaw=0.06, speed=1.694, frame=1799"
         },
         {
             "name": "Reverse",
             "passed": true,
-            "observation": "delta=(0.000, 0.000, -0.863), yaw=0.00, speed=1.692, frame=530"
+            "observation": "delta=(0.001, 0.029, -0.863), yaw=-0.06, speed=1.694, frame=2152"
         },
         {
             "name": "Strafe",
             "passed": true,
-            "observation": "delta=(0.885, 0.000, 0.000), yaw=0.00, speed=1.766, frame=801"
+            "observation": "delta=(0.885, 0.030, 0.000), yaw=-0.03, speed=1.767, frame=2510"
         },
         {
             "name": "Yaw",
             "passed": true,
-            "observation": "delta=(0.000, 0.000, 0.000), yaw=54.18, speed=0.000, frame=1087"
+            "observation": "delta=(0.000, 0.000, 0.000), yaw=53.80, speed=0.000, frame=2873"
         },
         {
             "name": "Ascend",
             "passed": true,
-            "observation": "delta=(0.000, 0.775, 0.000), yaw=0.00, speed=1.504, frame=1373"
+            "observation": "delta=(0.000, 0.745, 0.001), yaw=0.00, speed=1.496, frame=3211"
         },
         {
             "name": "Thrust cut",
             "passed": true,
-            "observation": "delta=(0.000, 0.000, 0.863), yaw=0.00, speed=1.692, frame=1646"
+            "observation": "delta=(0.001, 0.029, 0.863), yaw=0.06, speed=1.694, frame=3546"
         },
         {
             "name": "Floor collision",
             "passed": true,
-            "observation": "delta=(0.000, -0.370, 0.000), yaw=0.00, speed=0.000, frame=1898"
+            "observation": "delta=(0.000, -0.370, 0.001), yaw=0.00, speed=0.000, frame=3883"
         },
         {
             "name": "Reset",
             "passed": true,
-            "observation": "delta=(0.000, 0.000, 0.000), yaw=0.00, speed=0.000, frame=2179"
+            "observation": "delta=(0.000, 0.000, 0.000), yaw=0.00, speed=0.000, frame=4262"
+        },
+        {
+            "name": "Thrust limit",
+            "passed": true,
+            "observation": "delta=(0.000, 0.004, 0.338), yaw=0.00, speed=0.727, frame=4624"
+        },
+        {
+            "name": "Disable input stops thrust",
+            "passed": true,
+            "observation": "delta=(0.001, 0.029, 0.863), yaw=0.06, speed=1.694, frame=4973"
         }
     ]
 }

@@ -22,7 +22,9 @@ Keyboard controls:
 - **Home:** reset position, orientation, velocity and thruster commands.
 - **Space:** cut simulated thrust. The vehicle still has inertia.
 
-Gamepad controls: left stick moves horizontally; right stick controls yaw and vertical thrust; Start resets; Back/Select switches camera; A/south button cuts thrust. These bindings are implemented, but have not been verified with a physical gamepad. Losing application focus clears pilot thrust commands.
+Gamepad controls: left stick moves horizontally; right stick controls yaw and vertical thrust; Start resets; Back/Select switches camera; A/south button cuts thrust. Synthetic keyboard/gamepad checks verify these mappings, and I confirmed all controls with the connected Xbox Controller. Losing application focus clears pilot thrust commands.
+
+For tuning, select **Club ROV - simulation** in the Hierarchy and change the **Rov Pilot Input** component in the Inspector before pressing Play. Defaults are **0.15 stick dead zone**, **0.65 translation sensitivity**, **0.50 yaw sensitivity** and **0.60 maximum thrust**. Sensitivity scales the requested motion; the thrust limit caps all mixed actuator forces together to preserve balance. Values changed during Play are temporary. The keyboard uses the same sensitivity and thrust limit, with no stick dead zone.
 
 ![Pool training preview](Assets/Screenshots/pool-training.png)
 
@@ -30,15 +32,15 @@ Gamepad controls: left stick moves horizontally; right stick controls yaw and ve
 
 Four angled horizontal thrusters supply surge, sway and yaw. Two vertical thrusters supply heave. Each command becomes a force at an individual body-space position, with a simple response delay and reduced reverse thrust. The rigid body also receives gravity, buoyancy, quadratic linear drag and angular damping. An offset center of buoyancy gives passive roll/pitch stability.
 
-The HUD shows simulated depth, speed, heading and all six normalized thruster-force commands. The mixer accounts for the weaker reverse limit before applying force, so that yaw and sideways commands do not create unwanted translation. These are force fractions, not PWM/DShot values. The H1–H4/V1–V2 labels are local simulation identifiers; they are not a verified ArduSub channel mapping.
+The HUD shows simulated depth, speed, heading and all six normalized thruster-force commands. The horizontal mixer allocates sway, surge and yaw using the measured lever arms and accounts for the weaker reverse limit before applying force. These are force fractions, not PWM/DShot values. H1 is front port, H2 front starboard, H3 rear port, H4 rear starboard, V1 port and V2 starboard. These labels and positive axis signs are local simulation conventions, not a verified ArduSub channel mapping.
 
 Units are metres, kilograms, seconds and newtons. Unity axes are +Z forward, +X starboard and +Y up. The mesh importer converts the source CAD millimetres and centers the visual mesh. The imported visual bounds are approximately 0.38 × 0.26 × 0.36 m. A box collider approximates the hull; it does not reproduce every rail or thruster guard.
 
-The current live Fusion dimensions, six thrust-axis locations and mounting angles are recorded in [Fusion geometry](Docs/FUSION_GEOMETRY.md). My printed parts use Bambu Lab PETG Basic at 100% infill. This snapshot is available for the next dynamics update; it has not yet replaced the prototype's actuator locations.
+The current live Fusion dimensions, six thrust-axis locations and mounting angles are recorded in [Fusion geometry](Docs/FUSION_GEOMETRY.md). They now drive the force locations and envelope collider. My printed parts use Bambu Lab PETG Basic at 100% infill.
 
 ## Provisional parameters
 
-I still need measurements from the real ROV. The initial values are **8 kg mass**, **0.008 m³ displacement**, **1000 kg/m³ water density**, **15 N full forward thrust per motor**, **0.8 reverse ratio**, **0.15 s response** and **35 mm buoyancy offset**. Angular speed is capped at **1.2 rad/s** for the starter training setup. These are starting values, not measured U01 performance or a verified vehicle mass. Drag, thrust locations, inertia and collider geometry also need calibration.
+I still need measurements from the real ROV. The initial values are **8 kg mass**, **0.008 m³ displacement**, **1000 kg/m³ water density**, **15 N full forward thrust per motor**, **0.8 reverse ratio**, **0.15 s response** and **35 mm buoyancy offset**. Angular speed is capped at **1.2 rad/s** for the starter training setup. These are starting values, not measured U01 performance or a verified vehicle mass. Thrust lines and the envelope now come from CAD; mass, drag, inertia, buoyancy and actual motor direction still need calibration. Forces use the geometric center as a provisional center of mass, so horizontal thrust can produce pitch/roll moments until the actual balance is measured.
 
 The initial displacement makes the 8 kg rigid body neutrally buoyant when fully submerged. An approximate submerged fraction reduces buoyancy and thrust near the flat water surface. There is no tether model, added mass, wave model, realistic sonar, sensor-noise model or photorealistic underwater optics yet.
 
@@ -57,6 +59,6 @@ The generated mesh and scene are included, so opening this project does not requ
 
 ## Validation and next steps
 
-The initial scene compiled in the live Editor and the six mixer checks passed. See [validation notes](Docs/VALIDATION.md) for the runtime checks and remaining limits.
+The measured-layout revision passed six mixer checks, eleven Play Mode motion/lifecycle checks and twelve synthetic keyboard/gamepad/camera checks. See [validation notes](Docs/VALIDATION.md) for evidence and remaining limits.
 
 This prototype is isolated from the real ROV. It does not connect to the ESP32, ARK, QGroundControl, ArduSub SITL or ROS 2. My next stages are to tune the vehicle dynamics, verify physical controller input, add simulated sensor interfaces and then integrate ArduSub SITL/ROS 2 with explicit command ownership.

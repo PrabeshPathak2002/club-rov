@@ -27,4 +27,6 @@ The [machine-readable snapshot](fusion-geometry.json) preserves the source occur
 
 All my 3D printed parts use **Bambu Lab PETG Basic at 100% infill**. The earlier 10% statement was corrected before recording this snapshot. This agrees with the existing 100% baseline print guide.
 
-I have not substituted a CAD solid-mass estimate for the finished vehicle weight. Battery, wiring, hardware, printed-part slicing and actual water displacement still need to be accounted for. The simulator's 8 kg mass, buoyancy, drag and thrust values remain provisional. Its original actuator locations remain in place until the extracted geometry is integrated and the changed force moments are validated; this file records the calibration input without claiming that integration is complete.
+I have not substituted a CAD solid-mass estimate for the finished vehicle weight. Battery, wiring, hardware, printed-part slicing and actual water displacement still need to be accounted for. The simulator's 8 kg mass, buoyancy, drag and thrust values remain provisional.
+
+The six extracted axis lines now drive `RovThrusterLayout`, and the measured envelope drives the collider and partial-submersion height. The horizontal allocation uses the measured yaw lever arms. Scene force markers are updated through Unity's Editor API. The visual mesh remains the existing September reference. Six mixer checks and eleven Play Mode motion/lifecycle checks passed after integration; measured mass/balance and physical motor-direction verification remain outstanding.
