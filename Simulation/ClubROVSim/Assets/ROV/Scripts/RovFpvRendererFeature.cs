@@ -14,7 +14,7 @@ namespace ClubROV.Simulation
         public void Configure(Shader shader) { feedShader = shader; Create(); }
         public override void Create()
         {
-            pass?.Release();
+            pass?.Detach();
             CoreUtils.Destroy(material);
             pass = null; material = null;
             if (feedShader == null) return;
@@ -30,7 +30,7 @@ namespace ClubROV.Simulation
             pass.Setup(feed);
             renderer.EnqueuePass(pass);
         }
-        protected override void Dispose(bool disposing) { pass?.Release(); CoreUtils.Destroy(material); }
+        protected override void Dispose(bool disposing) { pass?.Detach(); CoreUtils.Destroy(material); }
 
         private sealed class FeedPass : ScriptableRenderPass
         {
@@ -38,14 +38,25 @@ namespace ClubROV.Simulation
             private static readonly int DisplayParams = Shader.PropertyToID("_DisplayParams");
             private readonly Material material;
             private RovFpvCameraFeed feed;
-            private RTHandle heldFrame;
+            private RTHandle[] frames;
+            private int writeIndex, available;
             private float nextCapture = float.NegativeInfinity;
             public FeedPass(Material effect) { material = effect; requiresIntermediateTexture = true; }
-            public void Setup(RovFpvCameraFeed cameraFeed) => feed = cameraFeed;
+            public void Setup(RovFpvCameraFeed cameraFeed)
+            {
+                if(feed==cameraFeed) return;
+                Detach(); feed=cameraFeed; feed.Stopped+=Release;
+            }
+            public void Detach()
+            {
+                if(feed!=null) feed.Stopped-=Release;
+                Release(); feed=null;
+            }
             public void Release()
             {
-                heldFrame?.Release(); heldFrame = null;
-                if (feed != null) feed.BufferAllocated = false;
+                if(frames!=null) foreach(var frame in frames) frame?.Release();
+                frames=null; writeIndex=available=0;
+                if (feed != null) { feed.BufferAllocated = false; feed.StoredFrames=feed.PresentedAgeFrames=0; }
                 nextCapture = float.NegativeInfinity;
             }
             public override void RecordRenderGraph(RenderGraph graph, ContextContainer frameData)
@@ -58,18 +69,27 @@ namespace ClubROV.Simulation
                 descriptor.width = feed.Width; descriptor.height = feed.Height;
                 descriptor.depthBufferBits = 0; descriptor.msaaSamples = 1;
                 descriptor.useMipMap = false; descriptor.autoGenerateMips = false;
-                bool allocated = RenderingUtils.ReAllocateHandleIfNeeded(ref heldFrame, descriptor, FilterMode.Bilinear, TextureWrapMode.Clamp, name: "ROV FPV held frame");
+                int capacity=feed.DelayFrames+1;
+                if(frames==null || frames.Length!=capacity) { Release(); frames=new RTHandle[capacity]; }
+                bool allocated=false;
+                for(int i=0;i<frames.Length;i++) allocated |= RenderingUtils.ReAllocateHandleIfNeeded(ref frames[i], descriptor,
+                    FilterMode.Bilinear, TextureWrapMode.Clamp, name: "ROV FPV frame " + i);
+                if(allocated) { writeIndex=available=0; nextCapture=float.NegativeInfinity; }
                 feed.BufferAllocated = true;
-                var history = graph.ImportTexture(heldFrame);
                 material.SetVector(DisplayParams, new Vector4((float)feed.Width / feed.Height,
                     (float)cameraData.cameraTargetDescriptor.width / cameraData.cameraTargetDescriptor.height, feed.Softness, 0));
                 if (allocated || Time.unscaledTime >= nextCapture)
                 {
                     nextCapture = Time.unscaledTime + 1f / feed.FramesPerSecond;
                     material.SetVector(FeedParams, new Vector4(feed.Width, feed.Height, feed.CapturedFrames, feed.SensorNoise));
-                    graph.AddBlitPass(new RenderGraphUtils.BlitMaterialParameters(source, history, material, 0), "ROV sensor and stream sample");
+                    var capture=graph.ImportTexture(frames[writeIndex]);
+                    graph.AddBlitPass(new RenderGraphUtils.BlitMaterialParameters(source, capture, material, 0), "ROV sensor and stream sample");
+                    writeIndex=(writeIndex+1)%capacity; available=Mathf.Min(capacity,available+1);
                     feed.RecordCapture();
                 }
+                int displayIndex=(writeIndex-1-Mathf.Min(feed.DelayFrames,available-1)+capacity)%capacity;
+                feed.StoredFrames=available; feed.PresentedAgeFrames=Mathf.Min(feed.DelayFrames,available-1);
+                var history=graph.ImportTexture(frames[displayIndex]);
                 var outputDescription = graph.GetTextureDesc(source);
                 outputDescription.name = "ROV FPV display"; outputDescription.clearBuffer = false;
                 var output = graph.CreateTexture(outputDescription);

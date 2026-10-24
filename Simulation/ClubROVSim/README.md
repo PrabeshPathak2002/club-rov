@@ -30,7 +30,7 @@ For tuning, select **Club ROV - simulation** in the Hierarchy and change the **R
 
 ## FPV camera feed
 
-**V** or controller **Back/Select** switches between the clean chase display and a Pi-camera-style FPV feed. FPV uses **640 × 480**, **4:3 framing** and a **30 fps maximum sample cadence**, with mild softness, darker-area sensor grain, 8-bit color steps and subtle block variation. The HUD stays at native display resolution. Only the camera video is affected; vehicle physics and input continue at their normal rates.
+**V**, controller **Back/Select**, or the HUD's **CAMERA** button switches between the clean chase display and a Pi-camera-style FPV feed. FPV uses **640 × 480**, **4:3 framing** and a **30 fps maximum sample cadence**, with mild softness, darker-area sensor grain, 8-bit color steps and subtle block variation. The HUD stays at native display resolution. Only the camera video is affected; vehicle physics and input continue at their normal rates.
 
 The starter lens uses **48.8° vertical field of view**, based on the standard [Raspberry Pi Camera Module 2 specification](https://www.raspberrypi.com/documentation/accessories/camera.html). This is an appearance preset, not a claim about the real camera's maximum resolution, configured stream, underwater housing optics or measured noise. FPV follows the vehicle's full orientation, including roll and pitch. Camera placement remains the existing forward viewing offset rather than an optical model through the enclosure window.
 
@@ -59,6 +59,20 @@ The HUD shows simulated depth, speed, heading and all six normalized thruster-fo
 Units are metres, kilograms, seconds and newtons. Unity axes are +Z forward, +X starboard and +Y up. The mesh importer converts the source CAD millimetres and centers the visual mesh. The imported visual bounds are approximately 0.38 × 0.26 × 0.36 m. A box collider approximates the hull; it does not reproduce every rail or thruster guard.
 
 The current live Fusion dimensions, six thrust-axis locations and mounting angles are recorded in [Fusion geometry](Docs/FUSION_GEOMETRY.md). They now drive the force locations and envelope collider. My printed parts use Bambu Lab PETG Basic at 100% infill.
+
+## Training conditions and saved scenarios
+
+I open **TRAINING CONDITIONS & SCENARIOS** in the left HUD to choose a preset or adjust the current, buoyancy bias, thruster health and camera conditions. Built-in presets cover normal pool practice, a cross current, murky water and an H2 failure. Current is limited to 1 m/s and buoyancy bias to ±10%; these are training disturbances, not measured pool conditions. An affected thruster can retain 0–100% thrust. Loading a preset restores its start pose and resets the run. With SITL connected, I can adjust disturbances live, but I must disconnect and restart SITL before applying a different start pose.
+
+**SAVE / REPLACE** stores the current vehicle position and heading along with the current conditions. I can keep twelve custom scenarios and overwrite one by saving its name again. Scenario files are local JSON in `Application.persistentDataPath/training-scenarios.json`, with a backup of the previous save. The HUD reports validation or save errors; unsupported/corrupt files are preserved rather than silently overwritten.
+
+FPV now includes adjustable suspended particles and a camera spotlight with distance falloff. Optional **0–500 ms video delay** uses a bounded frame history; it delays the camera image, not the HUD or controls. It warms up after changing delay and frees its buffers in chase view. These optical effects are artistic approximations.
+
+## Run feedback and control status
+
+The left badge shows **LOCAL CONTROL**, **ARMED**, **DISARMED**, or **ARM STATE UNKNOWN**. SITL arming and flight mode come from actual system-42 MAVLink heartbeats through the relay; stale status becomes unknown. I still arm in QGroundControl. The updated relay/router requires restarting the `.bat` launcher after this upgrade.
+
+The course tracks simulation time, collisions, depth RMS error and heading RMS error against the current gate/hover/dock target. The score starts at 1000 and subtracts 2 points per second, 50 per collision, 100 per metre of depth RMS error and 2 per degree of heading RMS error, with a minimum of zero. Only completed, unchanged-condition runs update a personal best. Changes to conditions or control mode during a run mark it **PRACTICE**. Best scores are separated by scenario conditions and local/SITL mode. The latest 100 completed runs and up to 256 scenario/mode bests are saved in `training-runs.json` under the same local data folder. I can share the scenario JSON with club members to reproduce a setup.
 
 ## Provisional parameters
 

@@ -345,6 +345,7 @@ GameObject:
   - component: {fileID: 71942323}
   - component: {fileID: 71942326}
   - component: {fileID: 71942327}
+  - component: {fileID: 71942328}
   m_Layer: 0
   m_Name: Club ROV - simulation
   m_TagString: Untagged
@@ -493,6 +494,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ClubROV.Simulation.RovSitlBridge
   simulatorAddress: 127.0.0.1
   listenPort: 9002
+--- !u!114 &71942328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71942320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a41a534ec448024da0bcfb80b98388a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClubROV.Simulation.RovTrainingSettings
+  water: {fileID: 360041960}
+  feed: {fileID: 360041961}
+  optics: {fileID: 360041962}
 --- !u!1 &88508064
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,6 +1574,7 @@ GameObject:
   - component: {fileID: 360041955}
   - component: {fileID: 360041960}
   - component: {fileID: 360041961}
+  - component: {fileID: 360041962}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1727,6 +1744,19 @@ MonoBehaviour:
   verticalFieldOfView: 48.8
   sensorNoise: 0.0025
   softness: 0.45
+--- !u!114 &360041962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360041954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa1820792f6bf04b84e8f1ffb0c5eba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClubROV.Simulation.RovUnderwaterCamera
+  particleShader: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
 --- !u!1 &404650594
 GameObject:
   m_ObjectHideFlags: 0
@@ -3524,6 +3554,7 @@ GameObject:
   - component: {fileID: 769754628}
   - component: {fileID: 769754627}
   - component: {fileID: 769754626}
+  - component: {fileID: 769754629}
   m_Layer: 0
   m_Name: Pilot HUD
   m_TagString: Untagged
@@ -3584,6 +3615,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &769754629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769754625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dce9f596fc2e9e4e83dccb7c7e5ddd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClubROV.Simulation.RovTrainingPanel
+  settings: {fileID: 71942328}
 --- !u!1 &774307717
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,6 +21,7 @@ namespace ClubROV.Simulation.Editor
             var report = new Report();
             void Check(string name, bool pass) => report.checks.Add(new Check { name = name, passed = pass });
             bool enabled = pilot.enabled;
+            bool recordResults=course.RecordResults; course.RecordResults=false;
             float originalVisibility = water.VisibilityMetres;
             Vector3 cameraPosition = water.transform.position;
             try
@@ -86,6 +87,7 @@ namespace ClubROV.Simulation.Editor
             }
             finally
             {
+                course.RecordResults=recordResults;
                 water.transform.position = cameraPosition; water.SetVisibility(originalVisibility); water.ApplyWater();
                 var hud = UnityEngine.Object.FindAnyObjectByType<RovHud>();
                 hud.GetComponent<UIDocument>().rootVisualElement.Q<Slider>("visibility").SetValueWithoutNotify(originalVisibility);

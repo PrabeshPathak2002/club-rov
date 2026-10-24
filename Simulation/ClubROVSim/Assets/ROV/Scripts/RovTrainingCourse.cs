@@ -12,6 +12,24 @@ namespace ClubROV.Simulation
         private Vector3 previousPosition;
         private float holdSeconds;
         private float lastImpact = float.NegativeInfinity;
+        private double depthSquared, headingSquared, metricSeconds;
+        private string scenarioKey="default:LOCAL", scenarioName="Pool practice";
+        private RovRunFile history;
+        private bool historyReady=true;
+        public bool Qualified { get; private set; } = true;
+        public bool RecordResults { get; set; } = true;
+        public float DepthRms => metricSeconds>0 ? (float)System.Math.Sqrt(depthSquared/metricSeconds) : 0;
+        public float HeadingRms => metricSeconds>0 ? (float)System.Math.Sqrt(headingSquared/metricSeconds) : 0;
+        public int Score => RovTrainingData.Score(ElapsedSeconds,CollisionCount,DepthRms,HeadingRms);
+        public int BestScore { get; private set; } = -1;
+        public string SaveNotice { get; private set; } = "";
+        public void SetRunConditions(string key, string name)
+        {
+            if (key==scenarioKey) return;
+            if (Started) Qualified=false;
+            scenarioKey=key; scenarioName=name; RefreshBest();
+        }
+        private string HistoryPath => System.IO.Path.Combine(Application.persistentDataPath,"training-runs.json");
         public int GatesPassed { get; private set; }
         public int CollisionCount { get; private set; }
         public float ElapsedSeconds { get; private set; }
@@ -33,21 +51,32 @@ namespace ClubROV.Simulation
         {
             vehicle = GetComponent<RovDynamics>();
             vehicle.VehicleReset += ResetCourse;
+            vehicle.PhysicsStepped += Step;
+            try
+            {
+                history=RovTrainingData.Read<RovRunFile>(HistoryPath) ?? new RovRunFile();
+                if(history.version!=1 || history.runs==null || history.runs.Count>100) throw new System.IO.IOException("Unsupported training history.");
+                if(history.bestRuns==null || history.bestRuns.Count==0) history.bestRuns=new System.Collections.Generic.List<RovRunResult>(history.runs);
+                if(history.bestRuns.Count>256) throw new System.IO.IOException("Training best-score list is too large.");
+            }
+            catch(System.Exception error) { historyReady=false; SaveNotice="History preserved; saving disabled: " + error.Message; Debug.LogWarning(SaveNotice); }
             ResetCourse();
         }
-        private void OnDisable() { if (vehicle != null) vehicle.VehicleReset -= ResetCourse; }
+        private void OnDisable() { if (vehicle != null) { vehicle.VehicleReset -= ResetCourse; vehicle.PhysicsStepped -= Step; } }
         public void Restart() => vehicle.ResetVehicle();
         public void ResetCourse()
         {
             GatesPassed = 0; CollisionCount = 0; ElapsedSeconds = 0; holdSeconds = 0;
             Started = false; HoverComplete = false; Complete = false;
+            depthSquared=headingSquared=metricSeconds=0; Qualified=true; RefreshBest();
+            if(historyReady) SaveNotice="";
             previousPosition = vehicle != null && vehicle.Body != null ? vehicle.Body.position : transform.position;
             lastImpact = float.NegativeInfinity;
         }
-        private void Update()
+        private void Step(float dt)
         {
             if (vehicle.Body != null)
-                EvaluatePose(vehicle.Body.position, vehicle.Body.rotation, vehicle.Body.linearVelocity, Time.deltaTime);
+                EvaluatePose(vehicle.Body.position, vehicle.Body.rotation, vehicle.Body.linearVelocity, dt);
         }
 
         public void EvaluatePose(Vector3 position, Quaternion rotation, Vector3 velocity, float deltaSeconds)
@@ -55,6 +84,13 @@ namespace ClubROV.Simulation
             if (!Configured || Complete) return;
             if (velocity.magnitude > 0.05f || Vector3.Distance(position, previousPosition) > 0.05f) Started = true;
             if (Started) ElapsedSeconds += Mathf.Max(0, deltaSeconds);
+            if(Started && deltaSeconds>0)
+            {
+                Transform aim=GatesPassed<gates.Length ? gates[GatesPassed] : HoverComplete ? dockTarget : hoverTarget;
+                float depthError=position.y-aim.position.y;
+                float headingError=Mathf.DeltaAngle(rotation.eulerAngles.y,aim.eulerAngles.y);
+                depthSquared+=depthError*depthError*deltaSeconds; headingSquared+=headingError*headingError*deltaSeconds; metricSeconds+=deltaSeconds;
+            }
             if (GatesPassed < gates.Length)
             {
                 Transform gate = gates[GatesPassed];
@@ -78,13 +114,28 @@ namespace ClubROV.Simulation
                 holdSeconds = steady ? holdSeconds + Mathf.Max(0, deltaSeconds) : 0;
                 if (holdSeconds >= 3)
                 {
-                    if (HoverComplete) Complete = true;
+                    if (HoverComplete) { Complete = true; SaveResult(); }
                     else { HoverComplete = true; holdSeconds = 0; }
                 }
             }
             previousPosition = position;
         }
-        private void OnCollisionEnter(Collision collision) => RecordImpact(Time.time);
+        private void OnCollisionEnter(Collision collision) => RecordImpact(ElapsedSeconds);
+        private void RefreshBest()
+        {
+            BestScore=-1;
+            if(history==null) return;
+            foreach(var run in history.bestRuns) if(run.scenarioKey==scenarioKey) BestScore=Mathf.Max(BestScore,run.score);
+        }
+        private void SaveResult()
+        {
+            if(!Qualified || !historyReady || !RecordResults) return;
+            var run=new RovRunResult {scenarioKey=scenarioKey,scenarioName=scenarioName,completedUtc=System.DateTime.UtcNow.ToString("o"),
+                seconds=ElapsedSeconds,collisions=CollisionCount,depthRms=DepthRms,headingRms=HeadingRms,score=Score};
+            var next=RovTrainingData.AppendRun(history,run);
+            try { RovTrainingData.Write(HistoryPath,next); history=next; RefreshBest(); SaveNotice="Run saved locally."; }
+            catch(System.Exception error) { SaveNotice="Run could not be saved: " + error.Message; Debug.LogWarning(SaveNotice); }
+        }
         public void RecordImpact(float time)
         {
             if (!Started || Complete || time - lastImpact < 0.4f) return;

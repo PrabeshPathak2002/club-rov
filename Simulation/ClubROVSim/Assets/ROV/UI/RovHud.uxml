@@ -4,16 +4,38 @@
         <ui:VisualElement class="header" picking-mode="Ignore">
             <ui:VisualElement class="identity" picking-mode="Ignore">
                 <ui:Label text="CLUB ROV / POOL LAB" class="title" />
+                <ui:Label name="arming" text="LOCAL CONTROL" class="arming" />
                 <ui:Label text="Pilot training · six independent thrusters" class="subtitle" />
                 <ui:Label name="camera-mode" text="CHASE · native display" class="subtitle" />
+                <ui:Button name="camera-toggle" text="CAMERA · SWITCH TO FPV" focusable="false" />
                 <ui:Label name="sitl-status" text="LOCAL · Unity pilot" class="subtitle" />
                 <ui:TextField name="sitl-address" label="SITL IPv4" value="127.0.0.1" />
                 <ui:Button name="sitl-toggle" text="CONNECT SITL · SIMULATION ONLY" focusable="false" />
+                <ui:Foldout text="TRAINING CONDITIONS &amp; SCENARIOS" value="false" class="training-foldout">
+                    <ui:ScrollView class="settings-scroll">
+                        <ui:DropdownField name="scenario" label="Preset" />
+                        <ui:Button name="scenario-apply" text="APPLY PRESET &amp; RESET START" focusable="false" />
+                        <ui:Slider name="current-east" label="Current east (m/s)" low-value="-1" high-value="1" show-input-field="true" focusable="false" />
+                        <ui:Slider name="current-north" label="Current north (m/s)" low-value="-1" high-value="1" show-input-field="true" focusable="false" />
+                        <ui:Slider name="buoyancy" label="Buoyancy bias (%)" low-value="-10" high-value="10" show-input-field="true" focusable="false" />
+                        <ui:DropdownField name="failed-thruster" label="Affected thruster" />
+                        <ui:Slider name="thruster-health" label="Remaining thrust (%)" low-value="0" high-value="100" show-input-field="true" focusable="false" />
+                        <ui:Slider name="delay" label="FPV delay (ms)" low-value="0" high-value="500" show-input-field="true" focusable="false" />
+                        <ui:Slider name="particles" label="Suspended particles" low-value="0" high-value="1" focusable="false" />
+                        <ui:Slider name="light" label="Camera light" low-value="0" high-value="1" focusable="false" />
+                        <ui:TextField name="scenario-name" label="Save as" value="My practice" max-length="40" />
+                        <ui:Button name="scenario-save" text="SAVE / REPLACE · CURRENT POSE AS START" focusable="false" />
+                        <ui:Label name="scenario-notice" class="course-stat" />
+                        <ui:Label text="Conditions changed during a run make it practice only. Preset loading requires SITL disconnected." class="note wrap" />
+                    </ui:ScrollView>
+                </ui:Foldout>
             </ui:VisualElement>
             <ui:VisualElement class="course-panel">
                 <ui:Label text="POOL COURSE · SIMULATION ONLY" class="badge" />
                 <ui:Label name="objective" text="Gate 1/3 — cross toward the far end" class="objective" />
                 <ui:Label name="run" text="TIME 00:00.0    COLLISIONS 0    HOLD 0.0/3 s" class="course-stat" />
+                <ui:Label name="score" text="SCORE 1000 · BEST —" class="course-stat" />
+                <ui:Label name="run-save" class="course-stat" />
                 <ui:Label name="target" text="Follow the numbered yellow gates" class="course-stat" />
                 <ui:Label text="Then cyan hover ring → green dock" class="course-stat" />
                 <ui:Label name="visibility-text" text="VISIBILITY 8.0 m · visual approximation" class="course-stat" />

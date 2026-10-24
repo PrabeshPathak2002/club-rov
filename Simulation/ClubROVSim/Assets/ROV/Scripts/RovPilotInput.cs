@@ -11,10 +11,12 @@ namespace ClubROV.Simulation
         [SerializeField, Range(0.1f, 1)] private float yawSensitivity = 0.5f;
         [SerializeField, Range(0, 1)] private float thrustLimit = 0.6f;
         private RovDynamics vehicle;
+        public bool SuppressInput { get; set; }
         private void Awake() => vehicle = GetComponent<RovDynamics>();
 
         private void Update()
         {
+            if(SuppressInput) { vehicle.StopThrusters(); return; }
             ReadDevices(Keyboard.current, Gamepad.current, out Vector3 command, out float yaw, out bool cut, out bool reset);
             if (reset) vehicle.ResetVehicle();
             if (!Application.isFocused || cut) { vehicle.StopThrusters(); return; }

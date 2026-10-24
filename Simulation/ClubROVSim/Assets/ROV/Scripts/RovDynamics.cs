@@ -23,13 +23,28 @@ namespace ClubROV.Simulation
         private Rigidbody body;
         private Vector3 startPosition;
         private Quaternion startRotation;
+        private readonly float[] health = { 1, 1, 1, 1, 1, 1 };
+        private float buoyancyBias;
+        public Vector3 CurrentVelocity => currentVelocity;
+        public float BuoyancyBias => buoyancyBias;
+        public event System.Action<float> PhysicsStepped;
+        public float ThrusterHealth(int index) => health[index];
+        public void SetCurrent(Vector3 velocity) => currentVelocity = Vector3.ClampMagnitude(velocity, 1);
+        public void SetBuoyancyBias(float fraction) => buoyancyBias = Mathf.Clamp(fraction, -0.1f, 0.1f);
+        public void SetThrusterHealth(int index, float fraction) => health[index] = Mathf.Clamp01(fraction);
+        public void SetStartPose(Vector3 position, Quaternion rotation)
+        {
+            if (ExternalPhysics) throw new System.InvalidOperationException("Disconnect SITL before changing the start pose.");
+            startPosition = position; startRotation = rotation; ResetVehicle();
+        }
+        public void CompletePhysicsStep(float dt) => PhysicsStepped?.Invoke(dt);
         public float Depth => Mathf.Max(0, surfaceY - transform.position.y);
         public float Speed => body == null ? 0 : body.linearVelocity.magnitude;
         public float Heading => transform.eulerAngles.y;
         public Rigidbody Body => body;
         public bool ExternalPhysics { get; set; }
         public event System.Action VehicleReset;
-        public float Output(int i) => actual[i];
+        public float Output(int i) => actual[i] * health[i];
 
         private void Awake()
         {
@@ -80,13 +95,13 @@ namespace ClubROV.Simulation
 
         private void FixedUpdate()
         {
-            if (!ExternalPhysics) ApplyForces(Time.fixedDeltaTime);
+            if (!ExternalPhysics) { CompletePhysicsStep(Time.fixedDeltaTime); ApplyForces(Time.fixedDeltaTime); }
         }
 
         public void ApplyForces(float stepSeconds)
         {
             float wetFraction = Mathf.Clamp01((surfaceY - (body.position.y - hullHeight * 0.5f)) / hullHeight);
-            Vector3 buoyancy = -Physics.gravity * (waterDensity * displacedVolumeM3 * wetFraction);
+            Vector3 buoyancy = -Physics.gravity * (waterDensity * displacedVolumeM3 * (1 + buoyancyBias) * wetFraction);
             body.AddForceAtPosition(buoyancy, transform.TransformPoint(centerOfBuoyancy));
 
             Vector3 relative = transform.InverseTransformDirection(body.linearVelocity - currentVelocity);
@@ -100,7 +115,7 @@ namespace ClubROV.Simulation
             for (int i = 0; i < actual.Length; i++)
             {
                 actual[i] = Mathf.MoveTowards(actual[i], desired[i], stepSeconds / motorResponseSeconds);
-                float thrust = actual[i] * fullThrustNewtons;
+                float thrust = actual[i] * health[i] * fullThrustNewtons;
                 body.AddForceAtPosition(transform.TransformDirection(RovThrusterLayout.Direction(i)) * (thrust * wetFraction),
                     transform.TransformPoint(RovThrusterLayout.Position(i)));
             }

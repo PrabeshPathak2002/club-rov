@@ -7,4 +7,5 @@ printf '%s\n' "$$" > mavproxy.pid
 exec "$task_root/venv/bin/mavproxy.py" --master=tcp:127.0.0.1:5760 \
   --out="udp:$windows_ip:14550" --out=udp:127.0.0.1:14551 \
   --out=tcpin:127.0.0.1:5765 \
+  --out=udp:127.0.0.1:14552 \
   --aircraft=UnityROV --source-system=255 --non-interactive

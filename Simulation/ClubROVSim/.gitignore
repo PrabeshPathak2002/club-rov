@@ -24,3 +24,5 @@ crash-report*
 /CourseCheckResults.json
 /FpvCheckResults.json
 /SitlCheckResults.txt
+/TrainingUpgradeCheckResults.txt
+/ArmingLiveCheckResults.txt

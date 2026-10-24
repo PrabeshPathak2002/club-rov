@@ -5,23 +5,25 @@ I run ArduSub 4.7.2 in Ubuntu under WSL2 and use Unity as the ROV's physics and 
 ## Start on this desktop
 
 1. Open `ClubROVSim` in Unity and play `Assets/Scenes/PoolTraining.unity`.
-2. In PowerShell 7, run:
+2. Double-click **Start-ClubRovSitl.bat** in this folder. It finds PowerShell 7 and bypasses the script execution policy for this launch only, without changing the saved system policy. It automatically connects the running Unity scene. Keep its window open; press Enter there when finished to stop the session.
+
+   Alternatively, in PowerShell 7, run:
 
    ```powershell
    cd 'C:\Users\drago\Documents\ROV project\ClubROV\Simulation\SITL'
-   ./Start-ClubRovSitl.ps1 -ConnectUnityEditor
+   pwsh -NoProfile -ExecutionPolicy Bypass -File ./Start-ClubRovSitl.ps1 -ConnectUnityEditor
    ```
 
    Without `-ConnectUnityEditor`, press **CONNECT SITL** in the Game view. Keep its IPv4 field at `127.0.0.1`. The Windows player uses the same button.
 3. In QGroundControl, connect the **Club ROV SITL ONLY** TCP link: `127.0.0.1:5765`. Confirm vehicle ID 42. I disabled USB, radio, UDP and ZeroConf auto-discovery in the local QGC profile. A backup of the previous profile is in the workspace's `Archive/SITLSetup` folder.
-4. Use QGC's joystick controls for SITL; Unity's local pilot is disabled while ArduSub owns thrust. Camera and visibility controls remain in Unity. QGC joystick calibration and a hands-on QGC controller test are still required.
+4. Use QGC's joystick controls for SITL; Unity's local pilot is disabled while ArduSub owns thrust. Camera and visibility controls remain in Unity. I configured the controller and confirmed manual control, depth hold and heading hold in a hands-on test. Remember to arm before expecting thrust.
 5. Disarm in QGC before ending a session. Press Enter in the launcher to stop its helpers. **DISCONNECT SITL** restores Unity's local controls. Restart both SITL and the Unity connection after a simulation reset, Editor pause/recompile, or lost link.
 
 The official QGC 5.1.5 files are available locally at `Archive/SITLSetup/QGroundControl/bin/QGroundControl.exe` outside this repository. I used `--swrast` for its software-rendering startup. They are not included in Git. Unity's existing public-network firewall block was preserved; I added no firewall rules.
 
 ## How the connection works
 
-ArduSub sends PWM actuator packets to the WSL relay on UDP 9002. A loopback TCP tunnel on 9003 crosses WSL's localhost forwarding. The Windows relay passes packets to Unity's UDP 9002 listener, and returns JSON sensor replies to ArduSub. MAVProxy routes simulator MAVLink to QGC on TCP 5765 and to the optional validation script on UDP 14551.
+ArduSub sends PWM actuator packets to the WSL relay on UDP 9002. A loopback TCP tunnel on 9003 crosses WSL's localhost forwarding. The Windows relay passes packets to Unity's UDP 9002 listener, and returns JSON sensor replies to ArduSub. MAVProxy routes simulator MAVLink to QGC on TCP 5765 and to the optional validation script on UDP 14551. A read-only heartbeat observer on WSL UDP 14552 sends arming/mode metadata through the same tunnel to Unity's loopback UDP 9004 listener. The badge becomes unknown after three seconds without a fresh heartbeat; it never infers arming from motor PWM. Restart the launcher to enable this new status path.
 
 Unity steps PhysX once per new actuator packet, returns IMU specific force and angular rates, NED position/velocity, attitude, and a fixed nominal battery reading. The JSON backend starts at 1200 Hz and settles to 400 Hz. Rendering runs separately. Simulation time can lag wall time when the Editor or graphics load is high; this is not a real-time or calibrated hydrodynamic model.
 
@@ -37,6 +39,6 @@ Ubuntu is already installed on this desktop. In a fresh Ubuntu environment, inst
 
 On this desktop I built ArduSub 4.7.2 and verified the live 400 Hz packet exchange, firmware version, six-motor frame, arming, neutral/forward/starboard/right-yaw/up outputs and disarming. The Unity vehicle moved from its initial 1.20 m depth to about 0.72 m, moved forward and starboard, and turned right. The test ended with all six outputs at 1500 µs. `validation-mavlink.json` records the final six-motor run.
 
-The focused Unity checks passed: 12 protocol, 12 ownership/UDP/timeout lifecycle, 11 local physics, 12 synthetic input/camera, 19 course/UI/visibility, and 10 FPV rendering checks. Synthetic input checks require Unity to have OS focus. These do not replace a hands-on QGC joystick test.
+The focused Unity checks passed: 12 protocol, 12 ownership/UDP/timeout lifecycle, 11 local physics, 12 synthetic input/camera, 19 course/UI/visibility, and 10 FPV rendering checks. Synthetic input checks require Unity to have OS focus. The later hands-on QGC joystick, depth-hold and heading-hold checks were confirmed separately.
 
-Depth hold, heading hold, absolute depth calibration, autopilot tuning, camera streaming into QGC, and the real ROV are not validated by this integration. Mass, buoyancy, drag, inertia and thrust remain provisional until I measure the assembled vehicle.
+Absolute depth calibration, autopilot tuning, camera streaming into QGC, and the real ROV are not validated by this integration. Mass, buoyancy, drag, inertia and thrust remain provisional until I measure the assembled vehicle.

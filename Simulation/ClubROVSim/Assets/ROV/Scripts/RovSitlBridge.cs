@@ -14,6 +14,17 @@ namespace ClubROV.Simulation
         private RovDynamics vehicle;
         private RovPilotInput pilot;
         private Socket socket;
+        private Socket telemetrySocket;
+        private double lastHeartbeat = double.NegativeInfinity;
+        private bool armed;
+        private int mode;
+        [Serializable] private sealed class ControlTelemetry { public int sysid; public bool armed; public int mode; }
+        public bool TelemetryFresh => Active && clock.Elapsed.TotalSeconds - lastHeartbeat < 3;
+        public bool Armed => TelemetryFresh && armed;
+        public string ControlMode => TelemetryFresh ? ModeName(mode) : "Unknown";
+        public string ControlState => !Active ? "LOCAL CONTROL" : !TelemetryFresh ? "ARM STATE UNKNOWN" :
+            armed ? "ARMED · " + ModeName(mode) : "DISARMED · arm in QGroundControl";
+        private static string ModeName(int value) => value == 19 ? "Manual" : value == 2 ? "Depth hold" : value == 0 ? "Stabilize" : "Mode " + value;
         private IPAddress allowed;
         private IPEndPoint peer;
         private readonly byte[] receive = new byte[256];
@@ -46,8 +57,14 @@ namespace ClubROV.Simulation
                 throw new InvalidOperationException("Another component owns the physics clock.");
             allowed = IPAddress.Parse(simulatorAddress);
             var next = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            try { next.Bind(new IPEndPoint(IPAddress.Any, listenPort)); next.Blocking = false; }
-            catch { next.Dispose(); throw; }
+            var status = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            try
+            {
+                next.Bind(new IPEndPoint(IPAddress.Any, listenPort)); next.Blocking = false;
+                status.Bind(new IPEndPoint(IPAddress.Loopback, 9004)); status.Blocking = false;
+            }
+            catch { next.Dispose(); status.Dispose(); throw; }
+            telemetrySocket = status; lastHeartbeat = double.NegativeInfinity;
             pilotWasEnabled = pilot.enabled; pilot.enabled = false;
             vehicle.StopThrusters(); vehicle.ExternalPhysics = true;
             previousMode = Physics.simulationMode; Physics.simulationMode = SimulationMode.Script;
@@ -61,6 +78,7 @@ namespace ClubROV.Simulation
         {
             if (!Active) return;
             socket.Dispose(); socket = null; clock.Stop();
+            telemetrySocket?.Dispose(); telemetrySocket = null;
             vehicle.StopThrusters(); vehicle.ExternalPhysics = false;
             Physics.simulationMode = previousMode; pilot.enabled = pilotWasEnabled;
             Application.runInBackground = backgroundWasEnabled;
@@ -70,6 +88,7 @@ namespace ClubROV.Simulation
         private void Update()
         {
             if (!Active) return;
+            ReadTelemetry();
             double now = clock.Elapsed.TotalSeconds;
             if (hasFrame && now - lastPacket > 1)
             {
@@ -103,6 +122,7 @@ namespace ClubROV.Simulation
                     Vector3 before = vehicle.Body.linearVelocity;
                     RovSitlProtocol.Apply(pwm, vehicle);
                     vehicle.ApplyForces(dt); Physics.Simulate(dt);
+                    vehicle.CompletePhysicsStep(dt);
                     simulated += dt; Steps++;
                     Vector3 force = (vehicle.Body.linearVelocity - before) / dt - Physics.gravity;
                     lastReply = RovSitlProtocol.Sensors(simulated, vehicle.Body.position - origin,
@@ -116,6 +136,22 @@ namespace ClubROV.Simulation
             {
                 Disconnect(); Status = $"SITL socket closed · {error.SocketErrorCode}";
                 UnityEngine.Debug.LogWarning(Status);
+            }
+        }
+        private void ReadTelemetry()
+        {
+            for (int i = 0; i < 8 && telemetrySocket.Available > 0; i++)
+            {
+                EndPoint sender = new IPEndPoint(IPAddress.Any, 0);
+                int count = telemetrySocket.ReceiveFrom(receive, ref sender);
+                if (!IPAddress.IsLoopback(((IPEndPoint)sender).Address)) continue;
+                try
+                {
+                    var data = JsonUtility.FromJson<ControlTelemetry>(System.Text.Encoding.UTF8.GetString(receive, 0, count));
+                    if (data == null || data.sysid != 42) continue;
+                    armed = data.armed; mode = data.mode; lastHeartbeat = clock.Elapsed.TotalSeconds;
+                }
+                catch (ArgumentException) { /* Ignore malformed status datagrams. */ }
             }
         }
     }

@@ -1,12 +1,15 @@
 """Loopback-only JSON UDP tunnel through WSL's TCP localhost forwarding.
 
-Run --server in WSL, --client on Windows. No firewall changes, third-party
-Python packages, or network-facing listeners are required. Ctrl+C stops either.
+Run --server in WSL, --client on Windows. The server uses the installed pymavlink
+environment; the Windows client uses only standard Python. No firewall changes
+or network-facing relay listeners are required. Ctrl+C stops either.
 """
 import argparse
 import select
 import socket
 import struct
+import json
+import time
 
 
 def relay(server):
@@ -17,7 +20,10 @@ def relay(server):
     if hasattr(socket, "SIO_UDP_CONNRESET"):
         udp.ioctl(socket.SIO_UDP_CONNRESET, False)
     listener = None
+    telemetry = None
     if server:
+        from pymavlink import mavutil
+        telemetry = mavutil.mavlink_connection('udpin:127.0.0.1:14552')
         listener = socket.socket()
         listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         listener.bind(("127.0.0.1", 9003))
@@ -25,7 +31,15 @@ def relay(server):
         print("JSON relay listening on WSL localhost:9003", flush=True)
         stream, _ = listener.accept()
     else:
-        stream = socket.create_connection(("127.0.0.1", 9003), timeout=5)
+        deadline=time.monotonic()+10
+        while True:
+            try:
+                stream = socket.create_connection(("127.0.0.1", 9003), timeout=1)
+                break
+            except (ConnectionRefusedError,TimeoutError):
+                if time.monotonic()>=deadline:
+                    raise
+                time.sleep(0.25)
         stream.settimeout(None)
     stream.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
     peer = None if server else ("127.0.0.1", 9002)
@@ -34,7 +48,16 @@ def relay(server):
     print("JSON relay connected", flush=True)
     try:
         while True:
-            readable, _, _ = select.select([udp, stream], [], [], 1)
+            watched = [udp, stream] + ([telemetry.port] if telemetry is not None else [])
+            readable, _, _ = select.select(watched, [], [], 1)
+            if telemetry is not None and telemetry.port in readable:
+                for _ in range(100):
+                    message = telemetry.recv_match(blocking=False)
+                    if message is None:
+                        break
+                    if message.get_type() == 'HEARTBEAT' and message.get_srcSystem() == 42:
+                        data = json.dumps(dict(sysid=42, armed=bool(message.base_mode & 128), mode=message.custom_mode)).encode()
+                        stream.sendall(struct.pack('<I', len(data)) + data)
             if udp in readable:
                 try:
                     data, source = udp.recvfrom(65535)
@@ -66,13 +89,17 @@ def relay(server):
                     if not logged_tcp:
                         print(f"First tunneled packet: {size} bytes, header {data[:8].hex()}", flush=True)
                         logged_tcp = True
-                    if peer is not None:
+                    if not server and data.startswith(b'{'):
+                        udp.sendto(data, ('127.0.0.1', 9004))
+                    elif peer is not None:
                         udp.sendto(data, peer)
     finally:
         stream.close()
         udp.close()
         if listener:
             listener.close()
+        if telemetry is not None:
+            telemetry.close()
 
 
 if __name__ == "__main__":
