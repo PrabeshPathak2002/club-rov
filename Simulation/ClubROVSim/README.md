@@ -4,6 +4,10 @@ ClubROVSim is a Windows desktop training simulator for the club's six-thruster R
 
 The vehicle envelope and thruster locations come from a Fusion geometry snapshot. Mass, buoyancy, drag and thrust remain provisional; simulator results do not establish the physical ROV's performance or competition readiness.
 
+![FPV view with Betaflight-style OSD and the large telemetry panels hidden](Assets/Screenshots/betaflight-style-osd.png)
+
+FPV with Betaflight-style instruments and the large panels hidden. Instrument styles can be switched during practice.
+
 ## Start local practice
 
 **From a Windows practice package:** extract the entire ZIP, then run `ClubROVSim.exe` or the included `Start-Practice.bat` for a 1280 × 720 window. Keep the executable, data directory and DLLs together. Local practice does not require Unity, Python, WSL or QGroundControl. See the [portable quickstart](Docs/PRACTICE_QUICKSTART.txt).
@@ -67,8 +71,6 @@ Cross the three yellow gates in order toward +Z. Cyan pips identify each gate; b
 After gate 3, hold in the cyan target for **3 continuous seconds**, within **0.45 m**, heading **000° ±15°**, below **0.15 m/s**. Then hold in the green dock for **3 seconds**, within **0.40 m horizontally / 0.18 m vertically**, heading **180° ±15°**, below **0.10 m/s**. Leaving a target's limits restarts its hold.
 
 The timer starts with movement and freezes on completion. Collisions count contact entries with a 0.4 s debounce. **Restart Course**, **Home** or controller **Start** resets local course progress.
-
-![Original pool course preview](Assets/Screenshots/training-course.png)
 
 ## Water conditions and scenarios
 
