@@ -12,3 +12,11 @@ These are the build and repository checks for the source package I published:
 - Original workspace history: 371 files, 840,717,358 bytes moved into the private dated archive and verified by size and SHA-256. I kept the earlier OneDrive checkout and its archive.
 
 The GitHub workflow runs the portable host tests on pushes and pull requests. The firmware build above ran locally; I have not configured hosted ESP-IDF builds. None of these checks establishes motor behavior, enclosure pressure capacity or field reliability. See [physical integration status](STATUS.md).
+
+## Workspace cleanup — 24 October 2026
+
+I archived 944 files from obsolete practice packages, redundant extracted players, a player log and the Unity recovery scene. Each move was verified by size and SHA-256; the private archive contains the inventory and original/destination mapping. Nothing was deleted. Source, CAD files, credentials, active firmware builds, Unity caches, SITL installation and app-managed attachments were preserved.
+
+The practice packager now streams directly to a ZIP and publishes it only after the archive closes successfully. A real packaging run passed ZIP integrity checks; all 185 included player files matched the active Windows build by SHA-256. The quickstart matched its source, the launcher had no byte-order mark, debug/backup folders were excluded and no extracted staging directory was created. This packages an existing compiled player; it does not rebuild or validate new simulator source changes.
+
+The active Builds folder now contains Windows and one shareable ZIP. Recovery paths are ignored. The folder guide and simulation overview were refreshed, and source whitespace checks passed. No new firmware flash, Unity player build or hardware test was performed for this cleanup.

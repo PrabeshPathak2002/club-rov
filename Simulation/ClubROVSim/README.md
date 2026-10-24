@@ -133,7 +133,7 @@ The 2026 maps use RoboNation’s official PNG task artwork rather than S&R/SOS t
 
 Graphics controls in the footer offer Low/Medium/High and 30/60/120 FPS caps, saved locally through PlayerPrefs. Medium/60 is the default. Presets use runtime copies of the URP asset and change render scale (65/85/100%), shadow distance (0/15/30 m), cascades and HDR. They do not change physics or scenario conditions. The FPS display averages rendered frames over half a second; FPV samples still run at up to 30 Hz.
 
-After a successful Windows build, run `pwsh -NoProfile -File ./Package-Practice.ps1` to create a dated ZIP under Builds. It includes a quickstart and windowed 1280×720 launcher, excluding Unity backup/debug folders. Recipients extract everything and run ClubROVSim.exe; Unity and SITL dependencies are unnecessary for local controls. See [quickstart](Docs/PRACTICE_QUICKSTART.txt). Hardware requirements and performance on other PCs remain unverified.
+After a successful Windows build, run `pwsh -NoProfile -File ./Package-Practice.ps1` to create a dated ZIP under Builds. It writes the player directly into the ZIP without leaving an extracted staging copy, and includes a quickstart and windowed 1280×720 launcher while excluding Unity backup/debug folders. Recipients extract everything and run ClubROVSim.exe; Unity and SITL dependencies are unnecessary for local controls. See [quickstart](Docs/PRACTICE_QUICKSTART.txt). Hardware requirements and performance on other PCs remain unverified.
 
 ## FPV flight instruments
 

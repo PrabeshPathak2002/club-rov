@@ -26,3 +26,7 @@ crash-report*
 /SitlCheckResults.txt
 /TrainingUpgradeCheckResults.txt
 /ArmingLiveCheckResults.txt
+
+# Preserve crash-recovery copies locally or archive them; never publish them.
+/Assets/_Recovery/
+/Assets/_Recovery.meta
