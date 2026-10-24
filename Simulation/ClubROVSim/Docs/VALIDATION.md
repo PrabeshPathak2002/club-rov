@@ -111,3 +111,12 @@ Low/Medium/High were exercised through the actual HUD callbacks: render scales 0
 The first build exposed a URP build-cache reference to a destroyed Play Mode pipeline clone. An Editor-only cleanup hook now disposes CoreBuildData on return to Edit Mode. A rebuild after clearing that cache succeeded with zero errors and zero warnings. The standalone player initialized Direct3D 12, input and the scene without script exceptions in its captured log; this was a startup smoke check, not a complete player course run.
 
 A fresh Play session confirmed saved Medium/60 values, restoration of the original pipeline on HUD disable and successful re-enable. A subsequent build without manual cache cleanup succeeded with zero errors/warnings, validating the Editor hook. The practice ZIP contains 190 entries and the executable, UnityPlayer.dll, quickstart and launcher, with no Unity backup folder.
+
+
+## Collapsible HUD and top-down camera — 24 October 2026
+
+All three HUD panels minimize independently. H or right-stick click hides/shows the whole HUD, including its buttons. V/Back cycles Chase, FPV and a north-up orthographic top-down view. Graphics and physics settings are unchanged. The scenario panel now binds in Start so settings Awake has populated its presets first.
+
+Fifteen view/panel checks passed, including cycle order, projection restoration, FPV gating, panel callbacks, hide/restore and no duplicate controls after HUD re-enable. Synthetic H and right-stick click tests passed; twelve synthetic pilot/camera and nineteen course/UI checks passed. The course pointer test was run after the layout settled following HUD re-enable. Ten asynchronous FPV checks passed. Top-down with the HUD and clean FPV without any overlay were visually inspected. Final Play Mode Console had zero errors/warnings. Native input attempts were inconclusive; the shortcut evidence is synthetic, not a physical controller test. No new live SITL session was performed.
+
+The updated Windows build succeeded with zero errors and one existing warning about pre-baked collision on the two official board meshes. A new practice ZIP was generated with the updated controls and quickstart.

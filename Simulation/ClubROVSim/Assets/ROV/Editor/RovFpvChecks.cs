@@ -16,7 +16,8 @@ namespace ClubROV.Simulation.Editor
         private static RovFpvCameraFeed feed;
         private static RovPilotInput pilot;
         private static Camera camera;
-        private static bool originalView, originalEnabled;
+        private static RovCameraRig.ViewMode originalView;
+        private static bool originalEnabled;
         private static float started, chaseFov, chaseAspect;
         private static int stage, captures, frames;
         public static string Start()
@@ -25,9 +26,9 @@ namespace ClubROV.Simulation.Editor
             rig = UnityEngine.Object.FindAnyObjectByType<RovCameraRig>();
             feed = rig.GetComponent<RovFpvCameraFeed>(); camera = rig.GetComponent<Camera>();
             pilot = UnityEngine.Object.FindAnyObjectByType<RovPilotInput>();
-            originalView = rig.PilotView; originalEnabled = pilot.enabled; pilot.enabled = false;
+            originalView = rig.Mode; originalEnabled = pilot.enabled; pilot.enabled = false;
             pilot.GetComponent<RovDynamics>().ResetVehicle();
-            if (rig.PilotView) rig.ToggleView();
+            rig.SetView(RovCameraRig.ViewMode.Chase);
             rig.SendMessage("LateUpdate"); chaseFov = camera.fieldOfView; chaseAspect = camera.aspect;
             report = new Report(); stage = 0; started = Time.unscaledTime;
             EditorApplication.update += Tick;
@@ -79,7 +80,7 @@ namespace ClubROV.Simulation.Editor
                 File.WriteAllText(Path.Combine(Application.dataPath, "../FpvCheckResults.json"), JsonUtility.ToJson(report, true));
             }
             if (feed != null) feed.enabled = true;
-            if (rig != null && rig.PilotView != originalView) rig.ToggleView();
+            if (rig != null) rig.SetView(originalView);
             if (pilot != null) { pilot.GetComponent<RovDynamics>().ResetVehicle(); pilot.enabled = originalEnabled; }
             rig = null; feed = null; pilot = null; camera = null;
         }

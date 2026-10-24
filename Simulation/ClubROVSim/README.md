@@ -18,11 +18,12 @@ Keyboard controls:
 - **A/D:** move sideways.
 - **R/F:** ascend/descend.
 - **Q/E:** turn left/right.
-- **V:** switch between chase and onboard camera views.
+- **V:** cycle Chase → FPV → Top-down.
+- **H:** hide/show the entire HUD (controller: right-stick click). Each panel also has a minimize/restore title button.
 - **Home:** reset position, orientation, velocity and thruster commands.
 - **Space:** cut simulated thrust. The vehicle still has inertia.
 
-Gamepad controls: left stick moves horizontally; right stick controls yaw and vertical thrust; Start resets; Back/Select switches camera; A/south button cuts thrust. Synthetic keyboard/gamepad checks verify these mappings, and I confirmed all controls with the connected Xbox Controller. Losing application focus clears pilot thrust commands.
+Gamepad controls: left stick moves horizontally; right stick controls yaw and vertical thrust; Start resets; Back/Select cycles camera views; A/south button cuts thrust. Synthetic keyboard/gamepad checks verify these mappings, and I confirmed all controls with the connected Xbox Controller. Losing application focus clears pilot thrust commands.
 
 For tuning, select **Club ROV - simulation** in the Hierarchy and change the **Rov Pilot Input** component in the Inspector before pressing Play. Defaults are **0.15 stick dead zone**, **0.65 translation sensitivity**, **0.50 yaw sensitivity** and **0.60 maximum thrust**. Sensitivity scales the requested motion; the thrust limit caps all mixed actuator forces together to preserve balance. Values changed during Play are temporary. The keyboard uses the same sensitivity and thrust limit, with no stick dead zone.
 
@@ -30,7 +31,7 @@ For tuning, select **Club ROV - simulation** in the Hierarchy and change the **R
 
 ## FPV camera feed
 
-**V**, controller **Back/Select**, or the HUD's **CAMERA** button switches between the clean chase display and a Pi-camera-style FPV feed. FPV uses **640 × 480**, **4:3 framing** and a **30 fps maximum sample cadence**, with mild softness, darker-area sensor grain, 8-bit color steps and subtle block variation. The HUD stays at native display resolution. Only the camera video is affected; vehicle physics and input continue at their normal rates.
+**V**, controller **Back/Select**, or the HUD's **CAMERA** button cycles Chase, Pi-camera-style FPV and Top-down. The north-up orthographic top-down view follows the ROV and bypasses the FPV effect. Each telemetry/settings panel has a minimize/restore title button. **H** or controller **right-stick click** hides/shows the entire HUD, including all buttons, for an unobstructed view; press the same control to restore it. Panel state lasts for the current Play session. FPV uses **640 × 480**, **4:3 framing** and a **30 fps maximum sample cadence**, with mild softness, darker-area sensor grain, 8-bit color steps and subtle block variation. The HUD stays at native display resolution. Only the camera video is affected; vehicle physics and input continue at their normal rates.
 
 The starter lens uses **48.8° vertical field of view**, based on the standard [Raspberry Pi Camera Module 2 specification](https://www.raspberrypi.com/documentation/accessories/camera.html). This is an appearance preset, not a claim about the real camera's maximum resolution, configured stream, underwater housing optics or measured noise. FPV follows the vehicle's full orientation, including roll and pitch. Camera placement remains the existing forward viewing offset rather than an optical model through the enclosure window.
 

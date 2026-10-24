@@ -29,12 +29,14 @@ namespace ClubROV.Simulation
         private RovTrainingSettings training;
         private float nextRefresh;
         private RovGraphicsSettings graphics;
+        private RovHudPanels panels;
         public void Configure(RovDynamics dynamics) => vehicle = dynamics;
         public void ConfigureTraining(RovTrainingCourse training, RovWaterVisibility visibility) { course = training; water = visibility; }
         private void OnEnable()
         {
             VisualElement root = GetComponent<UIDocument>().rootVisualElement;
             graphics = new RovGraphicsSettings(root);
+            panels = new RovHudPanels(root);
             telemetry = root.Q<Label>("telemetry");
             arming=root.Q<Label>("arming"); score=root.Q<Label>("score");
             runSave=root.Q<Label>("run-save");
@@ -68,7 +70,7 @@ namespace ClubROV.Simulation
             else if(water!=null) water.SetVisibility(change.newValue);
         }
         private void Restart() { if (course != null) course.Restart(); else if (vehicle != null) vehicle.ResetVehicle(); }
-        private void ToggleCamera() { if(cameraRig!=null) cameraRig.ToggleView(); }
+        private void ToggleCamera() { if(cameraRig!=null) cameraRig.CycleView(); }
         private void ToggleSitl()
         {
             if (sitl == null) return;
@@ -81,6 +83,7 @@ namespace ClubROV.Simulation
         }
         private void OnDisable()
         {
+            panels?.Dispose(); panels=null;
             graphics?.Dispose(); graphics=null;
             visibilitySlider?.UnregisterValueChangedCallback(OnVisibility);
             if (restart != null) restart.clicked -= Restart;
@@ -89,6 +92,7 @@ namespace ClubROV.Simulation
         }
         private void Update()
         {
+            panels?.Tick();
             graphics?.Tick();
             if (vehicle == null || telemetry == null || Time.unscaledTime < nextRefresh) return;
             nextRefresh = Time.unscaledTime + 0.1f;
@@ -108,8 +112,8 @@ namespace ClubROV.Simulation
             telemetry.text = $"DEPTH  {vehicle.Depth:0.00} m     SPEED  {vehicle.Speed:0.00} m/s     HEADING  {vehicle.Heading:000}°";
             thrusters.text = $"H1 {vehicle.Output(0):+0.00;-0.00;0.00}   H2 {vehicle.Output(1):+0.00;-0.00;0.00}   H3 {vehicle.Output(2):+0.00;-0.00;0.00}   H4 {vehicle.Output(3):+0.00;-0.00;0.00}   V1 {vehicle.Output(4):+0.00;-0.00;0.00}   V2 {vehicle.Output(5):+0.00;-0.00;0.00}";
             if (cameraMode != null && cameraFeed != null) cameraMode.text = cameraFeed.Active ?
-                $"FPV · PI CAM STYLE · {cameraFeed.Width}×{cameraFeed.Height} / {cameraFeed.FramesPerSecond} fps" : "CHASE · native display";
-            if(cameraToggle!=null && cameraRig!=null) cameraToggle.text=cameraRig.PilotView?"CAMERA · SWITCH TO CHASE":"CAMERA · SWITCH TO FPV";
+                $"FPV · PI CAM STYLE · {cameraFeed.Width}×{cameraFeed.Height} / {cameraFeed.FramesPerSecond} fps" : cameraRig!=null && cameraRig.Mode==RovCameraRig.ViewMode.TopDown ? "TOP-DOWN · north up" : "CHASE · native display";
+            if(cameraToggle!=null && cameraRig!=null) cameraToggle.text=cameraRig.Mode==RovCameraRig.ViewMode.Chase?"CAMERA · SWITCH TO FPV":cameraRig.PilotView?"CAMERA · SWITCH TO TOP-DOWN":"CAMERA · SWITCH TO CHASE";
             if (course != null && objective != null)
             {
                 if(score!=null) score.text=!course.Configured ? "FREE SWIM | no scored course" : $"SCORE {course.Score} · BEST {(course.BestScore<0?"—":course.BestScore.ToString())} · {(course.Qualified?"SCORED":"PRACTICE")}\nDEPTH RMS {course.DepthRms:0.00} m · HEADING RMS {course.HeadingRms:0.0}°";

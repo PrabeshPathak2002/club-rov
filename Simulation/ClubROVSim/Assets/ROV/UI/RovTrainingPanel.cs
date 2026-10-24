@@ -17,7 +17,10 @@ namespace ClubROV.Simulation
         private RovPilotInput pilot;
         private string error;
         public void Configure(RovTrainingSettings training) => settings=training;
-        private void OnEnable()
+        private bool started;
+        private void OnEnable() { if(started) Bind(); }
+        private void Start() { started=true; Bind(); }
+        private void Bind()
         {
             if(settings==null) return;
             pilot=settings.GetComponent<RovPilotInput>(); root=GetComponent<UIDocument>().rootVisualElement;

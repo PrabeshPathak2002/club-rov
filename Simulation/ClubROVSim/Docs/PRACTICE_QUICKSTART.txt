@@ -6,9 +6,10 @@ Unity, Python, WSL and QGroundControl are not needed for local practice.
 This package targets Windows x64; Mac/Linux require separate builds.
 
 Click the game view before piloting. Keyboard: W/S forward/back, A/D sideways,
-R/F ascend/descend, Q/E turn, V camera, Space cut thrust, Home reset.
+R/F ascend/descend, Q/E turn, V cycles Chase/FPV/Top-down, Space cut thrust, Home reset.
+H hides/shows the whole HUD. Panel title buttons minimize/restore each panel.
 Xbox: left stick moves, right stick yaw/depth, Back camera, A cut thrust,
-Start reset. Click away from dropdowns to return keyboard focus to piloting.
+Start reset. Right-stick click hides/shows the HUD. Click away from dropdowns to return keyboard focus to piloting.
 Select maps under Training Conditions & Scenarios, then load the map.
 
 Graphics controls at the bottom: Low/Medium/High and 30/60/120 FPS limit.

@@ -37,3 +37,9 @@
 .graphics-row DropdownField { width: 210px; margin-left: 16px; }
 .graphics-row .unity-base-field__label { min-width: 62px; }
 #performance { width: 250px; margin-top: 0; }
+
+.panel-toggle { height: 26px; margin-bottom: 8px; background-color: rgb(31,83,88); color: rgb(232,242,246); font-size: 10px; -unity-text-align: middle-left; }
+.identity.panel-minimized, .course-panel.panel-minimized, .footer.panel-minimized { width: 215px; padding: 6px; }
+.panel-minimized .panel-toggle { margin: 0; }
+.hud-hide { position: absolute; top: 8px; left: 42%; height: 24px; font-size: 10px; background-color: rgba(9,24,32,0.85); color: rgb(232,242,246); }
+.hud-hidden > .header, .hud-hidden > .footer, .hud-hidden > .hud-hide { display: none; }

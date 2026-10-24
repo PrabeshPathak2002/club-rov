@@ -1,0 +1,15 @@
+PASS: Chase cycles to FPV
+PASS: FPV cycles to top-down
+PASS: Top-down is orthographic with native aspect
+PASS: Top-down disables FPV effects
+PASS: Top-down looks down with north up
+PASS: Top-down cycles back to perspective chase
+PASS: control panel minimizes
+PASS: control panel restores
+PASS: course panel minimizes
+PASS: course panel restores
+PASS: vehicle panel minimizes
+PASS: vehicle panel restores
+PASS: Hide-all removes HUD
+PASS: HUD restores after hide-all
+PASS: HUD re-enable does not duplicate panel controls

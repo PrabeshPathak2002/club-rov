@@ -26,7 +26,7 @@ namespace ClubROV.Simulation.Editor
             Keyboard originalKeyboard = Keyboard.current;
             Gamepad originalGamepad = Gamepad.current;
             bool originalEnabled = pilot.enabled;
-            bool originalView = camera.PilotView;
+            var originalView = camera.Mode;
             Keyboard keyboard = null;
             Gamepad pad = null;
             var report = new Report();
@@ -34,6 +34,7 @@ namespace ClubROV.Simulation.Editor
             try
             {
                 pilot.enabled = false;
+                camera.SetView(RovCameraRig.ViewMode.Chase);
                 keyboard = InputSystem.AddDevice<Keyboard>();
                 pad = InputSystem.AddDevice<Gamepad>();
                 void Keys(params Key[] keys)
@@ -88,7 +89,7 @@ namespace ClubROV.Simulation.Editor
                 if (pad != null) InputSystem.RemoveDevice(pad);
                 originalKeyboard?.MakeCurrent();
                 originalGamepad?.MakeCurrent();
-                if (camera.PilotView != originalView) camera.ToggleView();
+                camera.SetView(originalView);
                 pilot.GetComponent<RovDynamics>().ResetVehicle();
                 pilot.enabled = originalEnabled;
             }
