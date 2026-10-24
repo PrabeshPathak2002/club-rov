@@ -1,0 +1,160 @@
+{
+  "publisher": "RoboNation",
+  "retrieved": "2026-10-24",
+  "sourceFolder": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/folder/350494240653",
+  "note": "Unmodified official task PNG artwork. Attribution does not imply a new license grant. No public-preview access tokens are retained.",
+  "files": [
+    {
+      "file": "Task1_SurveyRepair.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199564078924",
+      "sha256": "eed8177bff85c9b461149d3b724897841c4223a710741752618f5ae9de3bd3fa",
+      "bytes": 314269
+    },
+    {
+      "file": "Task1_SearchRescue.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199581365425",
+      "sha256": "36894654052520cc17fb6050d814c163cd52bc232703e6713ab5484ef8bfb167",
+      "bytes": 242862
+    },
+    {
+      "file": "Task3_Fire.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199572107175",
+      "sha256": "b1a727b114bdf539fdb17f3f88ef4be685aa65b3c371aa821e4d26b1617de694",
+      "bytes": 160186
+    },
+    {
+      "file": "Task3_Blood.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199567954488",
+      "sha256": "6ef69191656c806193811aea398f23db298ee2c4b10b8762277efad5f123a4c4",
+      "bytes": 131870
+    },
+    {
+      "file": "Task4_ver1.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199569058963",
+      "sha256": "57d34852729afa1405d2a9922b1d4966a336b22b2f4ca45c92539762809a0da8",
+      "bytes": 596011
+    },
+    {
+      "file": "Task4_ver2.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199557425979",
+      "sha256": "e5ad4d81adbf03e7a95aedcdbba0173754d1fcd17e1b10cccb2e535696533258",
+      "bytes": 593996
+    },
+    {
+      "file": "Task5_Warning.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199572737305",
+      "sha256": "af6d01a9ed427dbe578d7709b8ef525496b83c1286b5aaf1c145cf48c44fa808",
+      "bytes": 46381
+    },
+    {
+      "file": "Task5_Search.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199579272697",
+      "sha256": "660e4ac8017d80134a1ec7f12889e338023b097884140642c5cfaa82c7296f3e",
+      "bytes": 299664
+    },
+    {
+      "file": "Task5_Survey.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199570059892",
+      "sha256": "aebc2ddb577540bba199e2c32703fe7f784d704742915f90ef18725792798138",
+      "bytes": 292099
+    },
+    {
+      "file": "Task5_Rescue.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199567639975",
+      "sha256": "27e20a7108682592e78c532835e370d39342837f943e27fc4cd4f7273206779d",
+      "bytes": 121938
+    },
+    {
+      "file": "Task5_Repair.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199574527634",
+      "sha256": "221c836dc0357d4edca726befb7c7ca29906e38b8071d014b9f7eb716e2a3600",
+      "bytes": 244072
+    },
+    {
+      "file": "Task5_Pill.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199573080755",
+      "sha256": "cdd8e2d93d056eb4bc2671da3d708ee4148d5500323e4262c1abc1acbef16f62",
+      "bytes": 23021
+    },
+    {
+      "file": "Task5_RedCross.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199553663007",
+      "sha256": "b82072ffc47e660f36c57cff312dc3841fd1957b978659e171f69b836758b04d",
+      "bytes": 80649
+    },
+    {
+      "file": "Task5_BandAid.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199580420481",
+      "sha256": "20b8b82546c5a301f654ca92a5c59cbd8d65a0ec259113ded86ba0b4d5e51d3c",
+      "bytes": 20588
+    },
+    {
+      "file": "Task5_NutBolt.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199570071857",
+      "sha256": "f7c5896ee58a48b5512a6b23f3abd5b253d9493a8cebfc8b11ecb25db7a2e374",
+      "bytes": 25367
+    },
+    {
+      "file": "Task5_Electric.png",
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2199562366851",
+      "sha256": "d9584e614d3147312474d6cc68dc32e2cbbc5501c61425f7d0f4cb1333948121",
+      "bytes": 20842
+    }
+  ],
+  "boardOpenings": [
+    {
+      "version": 1,
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2202807191647",
+      "svgSha256": "a7480c5144047eb202a818f77a3559cc161763649d7fb91efa3b610b61dd67c2",
+      "holesCentreXYRadiusMetres": [
+        [
+          -0.2062609,
+          0.05406182,
+          0.0634521
+        ],
+        [
+          0.2165358,
+          -0.21599818,
+          0.06345221
+        ],
+        [
+          0.0085433,
+          0.19019329,
+          0.05063588
+        ],
+        [
+          0.000412,
+          -0.19072217,
+          0.05063588
+        ]
+      ]
+    },
+    {
+      "version": 2,
+      "source": "https://robonation.app.box.com/s/pip5o8xhaqciotz09lqypp4v0txrlktk/file/2202805084216",
+      "svgSha256": "847dd76052f7619839d5e2edb7c7038e3897d37bd35a7a16c047d55c0b19ae86",
+      "holesCentreXYRadiusMetres": [
+        [
+          -0.2104093,
+          0.06352587,
+          0.06345221
+        ],
+        [
+          0.2138725,
+          -0.21572422,
+          0.06345221
+        ],
+        [
+          -0.0026588,
+          0.19202172,
+          0.05063588
+        ],
+        [
+          -0.0056282,
+          -0.19984882,
+          0.05063588
+        ]
+      ]
+    }
+  ]
+}

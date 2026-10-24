@@ -106,6 +106,7 @@ namespace ClubROV.Simulation.Editor
             Torpedoes(Group(t,"C2 Deploy",Point(new Vector2(.56f,.65f),-1.05f),25));
             Octagon(Group(t,"C2 Restore",Point(new Vector2(.70f,.86f),0),0));
             Field(t,"D",new Vector2(.845f,.17f),new Vector2(.89f,.36f),new Vector2(.81f,.51f),new Vector2(.845f,.72f),new Vector2(.93f,.86f),180);
+            RoboSub2026Artwork.Apply(root);
             return root;
         }
         private static void Field(Transform root,string name,Vector2 gate,Vector2 slalom,Vector2 bins,Vector2? deploy,Vector2? restore,float heading)

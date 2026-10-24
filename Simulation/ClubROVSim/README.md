@@ -124,4 +124,6 @@ Gate/pillar dimensions and sequence follow the [published RoboSub handbook](http
 
 Two additional maps reproduce the arrangement in the official July 11, 2026 handbook: **RoboSub 2026 practice** (p. 80) and **RoboSub 2026 finals** (p. 82). These use a separate venue-sized arena and shallow floor; the original four maps keep their previous pool. Stations have collision geometry and the new maps work with the existing optics, disturbance presets and custom scenario saves.
 
-Select either map under Training Conditions & Scenarios before connecting SITL. Task spacing is traced from diagrams marked not to scale. These are static, unscored practice maps with simplified visual markings, not complete competition task simulators. Source links, exact-versus-estimated geometry and limitations are in [ROBOSUB_2026_MAPS.md](Docs/ROBOSUB_2026_MAPS.md).
+Select either map under Training Conditions & Scenarios before connecting SITL. Task spacing is traced from diagrams marked not to scale. These are static, unscored practice maps with official task-image textures, not complete competition task simulators. Source links, exact-versus-estimated geometry and limitations are in [ROBOSUB_2026_MAPS.md](Docs/ROBOSUB_2026_MAPS.md).
+
+The 2026 maps use RoboNation’s official PNG task artwork rather than S&R/SOS text placeholders. All 16 source images and provenance are recorded in `Docs/robosub-2026-artwork.json`; four torpedo-board openings follow the official SVG geometry.
