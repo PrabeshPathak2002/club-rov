@@ -9,13 +9,13 @@ This packaging study was created in `Club_Demo_ROV` on 21 October 2026 to check 
 - Four provisional XT60 mated-pair envelopes, 40 x 18 x 10 mm, above the rear electronics area. A removable strap bridge holds these above the FC/ESC stack; exact terminal shapes and release travel remain to be checked.
 - Two Blue Robotics Basic ESC body envelopes, 51.29 x 17.10 x 7.28 mm, beside the battery. Dimensions were measured from the manufacturer's BESC30-R3 STL. Cable exits, heat shrink and strain relief may require more space. Open cradles leave the heat spreader accessible.
 - A 36 x 40 x 12 mm reserved envelope for the upper four-in-one ESC; its exact model and stack adapter are not changed here.
-- Two provisional copper bars, 34 x 10 x 6.35 mm with four 4.4 mm clearance holes on 8 mm centers. Approximately quarter-inch-thick copper stock is available; its width and actual terminal dimensions require measurement. These are packaging placeholders, not a drilling template or a verified electrical rating. Ring-terminal width, bolt-head/nut/washer spacing and insulation must be checked before fabrication; choose wider spacing if terminals require it.
+- Two provisional copper bars, 34 x 10 x 6.35 mm with four 4.4 mm clearance holes on 8 mm centers. The study assumes approximately quarter-inch-thick copper stock; measure the available stock width and actual terminal dimensions before fabrication. These are packaging placeholders, not a drilling template or a verified electrical rating. Ring-terminal width, bolt-head/nut/washer spacing and insulation must be checked before fabrication; choose wider spacing if terminals require it.
 - Separate insulating junction cradle and removable strap-retained cover; terminal hardware and cable exit openings are not detailed yet.
 - Provisional low-profile right-angle Ethernet plug reservation and schematic Ethernet, Bar02 and propulsion cable paths. These paths illustrate routing intent only: their mutual clearances, total bundle size, bend radii, connector unplugging space, strain relief and endcap penetrator assignment have not been validated. They are not manufactured wire lengths.
 
 ## Clearance findings
 
-The script checks positive-volume solid intersections between the new physical packaging bodies and the existing visible assembly, and among new physical bodies. Bodies are transformed through the full native occurrence hierarchy, including nested imported electronics.
+The archived layout script checked positive-volume solid intersections between the new physical packaging bodies and the existing visible assembly, and among new physical bodies. Bodies are transformed through the full native occurrence hierarchy, including nested imported electronics.
 
 At the original FC position, the remaining physical collision was the existing `91290A124` FC mounting screw protruding into the Zeee battery. A suitable shorter screw would be required after measuring the actual stack and thread engagement. Do not compress the battery around the screw. The screw remains in the model to preserve visibility of the interference until a replacement is fitted.
 
@@ -38,4 +38,4 @@ The ARK FPV six-pin GPS port includes 5 V on pin 1, SCL on pin 4, SDA on pin 5 a
 
 ## Files
 
-This directory contains the notes and preview. The layout script, clearance report and concept STEP are retained in the private working-history archive. Historical scripts contain old absolute paths and must be reviewed before reuse; do not rerun a commit against an existing WM component.
+This directory contains the notes and preview. The layout script, clearance report and concept STEP are private historical records, not files supplied in a Git clone. They contain original working paths and must be reviewed before reuse. Do not run the archived geometry-creation operation on an assembly that already contains its WM components; doing so may duplicate the layout.

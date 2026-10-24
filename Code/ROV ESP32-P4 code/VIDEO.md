@@ -16,7 +16,7 @@ The stream uses RTP payload type 96, a 90 kHz clock and RFC 6184 single-NAL/FU-A
 
 ## Build and image format
 
-Build from this firmware directory in an ESP-IDF 5.5.2 terminal:
+Complete the [fresh-checkout setup](README.md#fresh-checkout-on-windows), including the local credential header and target selection. Then build from this firmware directory in an ESP-IDF 5.5.2 terminal:
 
 ```powershell
 idf.py -B build-ota build

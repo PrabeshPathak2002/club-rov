@@ -22,7 +22,7 @@ Deliverable: a reviewed wiring sketch with exact revisions and unresolved connec
 
 ## 4. Learn the software
 
-Read [Code/README.md](../Code/README.md). Reproduce the ESP-IDF 5.5.2 companion build before changing behavior. Learn what a MAVLink heartbeat means and why video alone does not prove a healthy control link.
+Choose a software path: the [Unity simulator](../Simulation/ClubROVSim/README.md) supports local practice without vehicle hardware; [Code/README.md](../Code/README.md) introduces the companion firmware. For firmware work, reproduce the ESP-IDF 5.5.2 build before changing behavior. Learn what a MAVLink heartbeat means and why video alone does not prove a healthy control link.
 
 Deliverable: a reproducible build or documentation improvement. Diagram normal operation, USB reconnection, and tether loss using the current source.
 

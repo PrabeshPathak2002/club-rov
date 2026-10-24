@@ -1,6 +1,6 @@
 # Power and thermal measurements
 
-A multimeter is available, but the complete vehicle power budget and enclosure temperatures have not been measured. For now, component specifications are estimates rather than measured consumption.
+The complete vehicle power budget and enclosure temperatures have not been measured. Component specifications do not substitute for measurements. Before testing, provide instruments rated for the voltage, current and measurement location described below.
 
 Measure the propulsion battery branch and PoE electronics branch separately. Record voltage and current together: DC input power is approximately V × I. A 55 A ESC rating is not its idle draw, and 30–40% command is not 30–40% electrical power. Motor output power leaves the enclosure; the entire propulsion input does not become heat inside it.
 

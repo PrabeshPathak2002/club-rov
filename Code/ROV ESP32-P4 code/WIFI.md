@@ -18,13 +18,16 @@ disarm requirements, validation, partition layout and rollback behavior.
 MAVLink and camera UDP sockets bind to Ethernet. The hotspot supplies no vehicle
 command bridge, camera video or Internet routing.
 
-The local main/rov_wifi_credentials.h is excluded from Git. For a fresh checkout,
-copy the supplied .example header and choose a unique 12-63 character password.
+`main/rov_wifi_credentials.h` is excluded from Git. Follow the
+[fresh-checkout setup](README.md#fresh-checkout-on-windows), copy
+`main/rov_wifi_credentials.h.example` to that path, and choose a unique
+12-63 character password.
 Do not publish the populated header, local password notes or deployed binaries.
 
 ## Compatibility notes
 
-The factory C6 firmware reports version 0.0.0, producing an ESP-Hosted
+During the 20 October 2026 bench test, the factory C6 firmware reported
+version 0.0.0, producing an ESP-Hosted
 host/coprocessor version warning. The bench configuration uses a 100 Hz FreeRTOS tick,
 also producing a recommendation for 1000 Hz. Startup and simultaneous telemetry, video and dashboard operation were bench-tested. The factory C6 firmware and bench scheduler setting were retained. Investigate these warnings if RPC timeouts or
 instability occur. These observations do not constitute an endurance test.

@@ -6,13 +6,13 @@ The control system uses an ARK FPV with ArduSub 4.7.2 and the six-thruster Vecto
 
 Disconnect battery and USB before swapping harnesses or checking continuity. Trace VBAT, ground and each signal by the board labels at both ends. The ARK harness and F722 harness must be verified independently. An original FC cable is not necessarily wired for a different ESC.
 
-ARK's eight-pin PWM/UART4 connector: 1 VBAT input, 2 external current sense, 3 UART4 RX, 4 PWM1, 5 PWM2, 6 PWM3, 7 PWM4, 8 GND. Use the manufacturer's numbered-view orientation. On this ESC, C is used as the current-sense label; the exact purpose of N has not been verified and it must not be assumed to be a required telemetry wire. Do not connect it to a supply.
+ARK's eight-pin PWM/UART4 connector: 1 VBAT input, 2 external current sense, 3 UART4 RX, 4 PWM1, 5 PWM2, 6 PWM3, 7 PWM4, 8 GND. Use the manufacturer's numbered-view orientation. On the selected DAKEFPV ESC, C is used as the current-sense label; the exact purpose of N has not been verified and it must not be assumed to be a required telemetry wire. Do not connect it to a supply.
 
 The six-pin GPS connector provides 5 V on pin 1, I2C SCL on 4, SDA on 5, and GND on 6 for Bar02. Pins 2/3 are UART and unused for that sensor. Check the exact Bar02 interface and pin numbering before making a harness.
 
 ## Four-in-one ESC configuration
 
-All four channels were read through the matching F722 running Betaflight 4.5.2. They already had B-X-30 / Bluejay 0.19 / 24 kHz installed, allowing forward/reverse configuration without a firmware flash.
+All four channels were read through the matching F722 running Betaflight 4.5.2. The initial read identified B-X-30 / Bluejay 0.19 / 24 kHz, which supported forward/reverse configuration without a firmware flash. This is a recorded firmware identification; read back the installed version before making changes.
 
 With motors disconnected, select **Motor Direction → Forward/Reverse (3D mode)** on all four, write settings and read back. Use Brake on Stop off as the initial setup. Keep timing and startup power unchanged until tested. The plain Reversed choice changes a single rotation direction; it does not enable reversible thrust. Do not click Flash All ESCs merely to save settings.
 
@@ -43,7 +43,7 @@ Save, reboot and check for `RCOut: DS300:1-4 PWM:5-9`. This startup line was rec
 4. Secure the vehicle with thrusters submerged and hands clear. Use individual low-power QGC motor tests; record which physical thruster responds and both thrust directions. Do not assume channel numbers equal vehicle positions.
 5. Record corrections, a full parameter export and test results. Verify failure behavior before free-swimming trials.
 
-Do not bypass arming checks simply to clear an error. Connection and testing of all six thrusters remain pending delivery of the MR30 connectors.
+Do not bypass arming checks simply to clear an error. As of the [23 October bench record](STATUS.md), MR30 installation and physical testing of all six thrusters remained pending.
 
 ## Troubleshooting
 

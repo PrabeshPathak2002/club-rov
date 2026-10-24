@@ -1,6 +1,8 @@
-# Simulator validation — 23 October 2026
+# Simulator validation history
 
-The initial PoolTraining prototype was checked in Unity 6000.6.7f1 on Windows. The fresh template started with no Console errors or warnings.
+This record covers revisions tested on 23–24 October 2026. Each result applies to the revision described; later entries may supersede earlier behavior or build limitations. For current controls, prerequisites and usage, see the [simulator guide](../README.md). Retained check-result files are evidence from recorded runs, not tests automatically executed by opening the project.
+
+The initial PoolTraining prototype was checked in Unity 6000.6.7f1 on Windows on 23 October 2026. The fresh template started with no Console errors or warnings.
 
 ## Editor checks
 
@@ -46,7 +48,7 @@ The updated Windows x64 build succeeded with **zero errors and zero warnings**, 
 
 ## Larger pool, course and visibility revision
 
-The saved scene now has a 20 × 24 m pool with the existing 3.5 m depth, three numbered gates, a cyan hover target and a green dock. The HUD was checked at 1600 × 900 and captured 8 m and 2 m visibility views were inspected. Gate visibility and scene contrast drop visibly in the murky view while the HUD remains readable.
+The saved scene now has a 20 × 24 m pool with the existing 3.5 m depth, three numbered gates, a cyan hover target and a green dock. The HUD was checked at 1600 × 900; captures at 8 m and 2 m visibility were inspected. Gate visibility and scene contrast drop visibly in the murky view while the HUD remains readable.
 
 All **19 course/UI/visibility checks** passed: out-of-order, backward and outside-opening rejection; ordered progress; hover heading/speed/continuous-hold requirements; docking requirements; collision debounce; frozen finish statistics; the live visibility slider; above-water fog disable; pointer-operated HUD reset; and expanded pool dimensions. See [course results](course-checks.json). These exercise course logic using injected poses; they do not claim a fully piloted course run.
 
@@ -66,7 +68,7 @@ The Render Graph review verified an explicit source texture through BlitMaterial
 
 The FPV revision built successfully for Windows x64 with **zero errors and zero warnings**, at 112,759,664 bytes. An initial shader warning about fractional power on an unconstrained value was resolved by clamping the vignette input and using square roots; the final build is clean. The standalone executable has not been separately launch-tested.
 
-## Remaining limits
+## Initial prototype limits
 
 Mass, displacement, drag, inertia and thrust curves are provisional; thrust lines now come from CAD. Passing these checks establishes the prototype's internal behavior, not agreement with the real ROV. Long-duration operation and frame-rate performance remain to be measured. Controller and camera coverage for the later revision is recorded above.
 
@@ -89,10 +91,14 @@ The final standalone Windows player was also launch-tested at 1280 × 800: openi
 The optical effects and disturbance ranges are training approximations. A fully piloted scored course under every preset, testing on another GPU and dynamics matching to the real vehicle remained incomplete for this revision. Hands-on depth/heading hold confirmation predates these new disturbances; each disturbed scenario should be practiced separately.
 
 
-Training maps (24 October 2026): 18 compiled `RovMapChecks.Run` checks and seven direct runtime checks passed; see `MapCheckResults.txt`. Checked four layout selections, repeatable start, gate bounds/outbound/return sequence, orbit completion in either direction, premature return rejection, large position jumps, free-swim objective suppression, scenario copy/key identity, map selector/load action, gate dimensions, surface score invalidation and ExternalPhysics map-switch guard. A final check confirmed conditions presets retain the selected map. Original 19 course/UI/pool/visibility checks passed again. Synthetic completion runs disabled result recording. Windows x64 player build succeeded with zero build errors/warnings. Gate/pillar geometry was inspected in Game view. No complete hand-piloted/autonomous run or new live SITL session on each map was performed. The final loaded Editor assemblies passed the map and course checks again after refreshing outside the automation scope. Final Console: zero errors and warnings.
+## Training maps — 24 October 2026
+
+18 compiled `RovMapChecks.Run` checks and seven direct runtime checks passed; see `MapCheckResults.txt`. Checked four layout selections, repeatable start, gate bounds/outbound/return sequence, orbit completion in either direction, premature return rejection, large position jumps, free-swim objective suppression, scenario copy/key identity, map selector/load action, gate dimensions, surface score invalidation and ExternalPhysics map-switch guard. A final check confirmed conditions presets retain the selected map. Original 19 course/UI/pool/visibility checks passed again. Synthetic completion runs disabled result recording. Windows x64 player build succeeded with zero build errors/warnings. Gate/pillar geometry was inspected in Game view. No complete hand-piloted/autonomous run or new live SITL session on each map was performed. The final loaded Editor assemblies passed the map and course checks again after refreshing outside the automation scope. Final Console: zero errors and warnings.
 
 
-RoboSub 2026 handbook maps (24 October 2026): 26 `RoboSub2026Setup.Check()` runtime checks passed against the saved practice/finals arenas, followed by the 18 existing map checks and 19 original course/UI checks. Verified station counts, three-row slaloms, path counts, 2.1 m floor, original/new environment exclusion and restoration, shallow-pool scenario bounds, map-aware presets, and the ExternalPhysics switch guard. Top-down practice/finals captures were compared with handbook pp. 80/82. The map-load UI action and normal FPV camera were exercised in a fresh Play session; screenshots are in Assets/Screenshots/robosub-2026-*.png. No new live SITL piloting session, autonomous mission, physical course survey, official judging or task interaction validation was performed. The static role markings and unspecified component dimensions remain documented approximations. Temporary overview-camera/HUD changes were discarded on exiting Play Mode.
+## RoboSub 2026 handbook maps — 24 October 2026
+
+26 `RoboSub2026Setup.Check()` runtime checks passed against the saved practice/finals arenas, followed by the 18 existing map checks and 19 original course/UI checks. Verified station counts, three-row slaloms, path counts, 2.1 m floor, original/new environment exclusion and restoration, shallow-pool scenario bounds, map-aware presets, and the ExternalPhysics switch guard. Top-down practice/finals captures were compared with handbook pp. 80/82. The map-load UI action and normal FPV camera were exercised in a fresh Play session; screenshots are in Assets/Screenshots/robosub-2026-*.png. No new live SITL piloting session, autonomous mission, physical course survey, official judging or task interaction validation was performed. The static role markings and unspecified component dimensions remain documented approximations. Temporary overview-camera/HUD changes were discarded on exiting Play Mode.
 
 The handbook-map Windows x64 player build succeeded with zero build errors and warnings. It was not separately launch-tested; the new layouts and FPV were exercised in the Editor.
 

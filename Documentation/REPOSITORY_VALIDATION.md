@@ -1,4 +1,8 @@
-# Repository validation — 23 October 2026
+# Repository validation history
+
+The entries below record checks performed on 23–24 October 2026. Counts, paths and generated-output inventories apply to the recorded operation; they do not describe files supplied by every Git clone. Later archive-retention entries supersede earlier restoration availability.
+
+## Source publication — 23 October 2026
 
 The published source package was checked as follows:
 
@@ -15,14 +19,20 @@ The GitHub workflow runs the portable host tests on pushes and pull requests. Th
 
 ## Workspace cleanup — 24 October 2026
 
-The cleanup archived 944 files from obsolete practice packages, redundant extracted players, a player log and the Unity recovery scene. Each move was verified by size and SHA-256; the private archive contains the inventory and original/destination mapping. Nothing was deleted. Source, CAD files, credentials, active firmware builds, Unity caches, SITL installation and app-managed attachments were preserved.
+The cleanup archived 944 files from obsolete practice packages, redundant extracted players, a player log and the Unity recovery scene. Each move was verified by size and SHA-256; the private archive contains the inventory and original/destination mapping. No files were deleted during that initial move; the later retention pass is recorded below. Source, CAD files, credentials, active firmware builds, Unity caches, SITL installation and app-managed attachments were preserved.
 
 The practice packager now streams directly to a ZIP and publishes it only after the archive closes successfully. A real packaging run passed ZIP integrity checks; all 185 included player files matched the active Windows build by SHA-256. The quickstart matched its source, the launcher had no byte-order mark, debug/backup folders were excluded and no extracted staging directory was created. This packages an existing compiled player; it does not rebuild or validate new simulator source changes.
 
-The active Builds folder now contains Windows and one shareable ZIP. Recovery paths are ignored. The folder guide and simulation overview were refreshed, and source whitespace checks passed. No new firmware flash, Unity player build or hardware test was performed for this cleanup.
+At completion of that cleanup, the local Builds folder contained Windows and one shareable ZIP. Recovery paths are ignored. The folder guide and simulation overview were refreshed, and source whitespace checks passed. No new firmware flash, Unity player build or hardware test was performed for this cleanup.
 
 ## Documentation and archive retention — 24 October 2026
 
 Project reference guides were rewritten in a neutral voice while retaining dated test evidence, pending work and existing technical instructions. Validation found no new broken local Markdown links or changes to fenced command/code blocks. `git diff --check` passed. No firmware or simulator source changed during this pass, so application builds and runtime tests were not repeated.
 
 The private archive retention pass verified obsolete package files against their size/SHA-256 inventory before deleting 940 generated files across ten package roots. The archived assembly mesh was gzip-compressed; its decompressed SHA-256 matched the original before removal of the uncompressed copy. Deletion and compression manifests remain beside the original inventories. The active Windows player, latest practice ZIP, installed QGroundControl, Unity recovery scene and archived startup log were confirmed present. Approximately 1.67 GiB was recovered. Original move inventories describe the earlier cleanup; consult the subsequent manifests for current restoration availability.
+
+## Full documentation review — 24 October 2026
+
+The editorial review covered all 35 first-party Markdown guides, the portable practice quickstart and six retained simulator check-result files. Setup and reference wording was checked for private-machine assumptions, undocumented dependencies, inaccessible archive references, conversational narration and stale completion status. The roadmap now distinguishes completed SITL integration from pending physical calibration and ROS integration; September design documents explicitly identify their historical source set.
+
+Local file links and heading anchors were checked across the guides. Fenced commands and parameter blocks were preserved, and retained check-result files were not modified. `git diff --check` passed. This was a documentation-only review; firmware builds, Unity runtime checks and physical tests were not repeated.

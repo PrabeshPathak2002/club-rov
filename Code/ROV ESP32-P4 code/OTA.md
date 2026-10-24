@@ -17,7 +17,7 @@ OTA updates install companion firmware through the maintenance dashboard. The up
 
 Upload the application binary only: not a bootloader, partition table, merged
 flash image, FC firmware or C6 firmware. Maximum application size is 4 MiB.
-The initial USB installation is already necessary to establish the OTA layout.
+Complete the initial USB installation before using dashboard updates; it establishes the required OTA partition layout.
 
 ## Update behavior
 
@@ -63,7 +63,7 @@ After confirmation, later failures do not automatically roll back.
 
 ## Building and recovery
 
-Use ESP-IDF 5.5.2 and the committed dependency lockfile. On a fresh checkout,
+First complete the [fresh-checkout configuration](README.md#fresh-checkout-on-windows), including target selection, using ESP-IDF 5.5.2 and the committed dependency lockfile. On a fresh checkout,
 copy main/rov_wifi_credentials.h.example to main/rov_wifi_credentials.h and
 set your own password. The populated header and binary contain credentials
 and must stay out of the public repository.
@@ -95,7 +95,7 @@ progress and waits for device-side validation.
 
 ## Host checks
 
-Run python tests/test_heartbeat.py with a host GCC available. The 168 cases cover
+From the firmware directory, run `python tests/test_heartbeat.py` with host GCC available on PATH. The 168 cases cover
 MAVLink v1/v2, armed/disarmed states, component identity, truncation and CRC errors.
 Browser checks additionally exercise desktop/mobile layout and locked states.
 These checks complement the actual board update tests; they do not simulate

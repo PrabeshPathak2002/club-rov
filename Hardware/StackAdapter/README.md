@@ -34,7 +34,7 @@ Avoid clamping directly on populated PCB surfaces or crushing the grommets.
 
 ## Fit verification and limits
 
-The new stack is aligned to the actual ARK model's hole centres at
+The stack in the source Fusion assembly is aligned to the ARK model's hole centres at
 X=-8.484 mm, Y=0. Plate underside is at assembly Z=130 mm, upper web at 133 mm,
 and raised ESC seating surfaces at 136 mm. The tallest modeled ARK component
 is at Z=125.189 mm: nominal plate-to-component clearance is 4.81 mm.
@@ -50,8 +50,7 @@ Thermal and structural load tests remain pending.
 ## CAD reference
 
 The adapter was created in the `Future ROV` Fusion assembly under `09 ARK ESC printable stack - FC below ESC20 above - M3`.
-The earlier exploded `ESC upper stack - middle adapter` is hidden, retained
-as a reference. Original tray and ARK geometry/position are unchanged.
+The source assembly retained an earlier exploded `ESC upper stack - middle adapter` as a hidden reference. The export operation left the original tray and ARK geometry/position unchanged. These assembly-history notes do not imply that the complete Fusion document is included here.
 The STL and STEP exports in this folder are the files to use for this revision. Adapter fit has been checked; complete wiring and connector clearance remain to be verified.
 
 `stack_assembly_preview.png` shows the ARK/tray and adapter, with the enclosure

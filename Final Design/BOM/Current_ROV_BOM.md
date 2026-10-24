@@ -1,14 +1,14 @@
 > This is the September 2026 baseline. Later mounts, electronics and endcap revisions supersede parts of this document. Use the [current revision index](../../Hardware/README.md) before building or ordering. Historical totals are not a current purchasing list.
 
-# Current ROV bill of materials
+# September 2026 mechanical bill of materials
 
-Revision: M4 side-frame joints, 30 September 2026. This design BOM was generated from the Future ROV CAD document and September print exports. The full purchasing list requires verification against the physical build. Model labels do not prove ownership or final electrical compatibility. Prices are not estimated.
+Revision: M4 side-frame joints, 30 September 2026. This design BOM was generated from the Future ROV CAD document and September print exports. The full purchasing list requires verification against the physical build. Model labels do not prove ownership or final electrical compatibility. Prices are not estimated. Named STL files and interface references belong to the historical source package and are not included here; use the [current component list](../../Documentation/BOM.md) for later selections.
 
 27 printed assembly parts; six U01 thrusters. The 10 supplied fit coupons and six STEP interface references are not installed vehicle parts. PETG spool quantity must come from the slicer, including supports, brim, coupons and waste.
 
 Custom frame/mount hardware: 38 screws, 34 nuts, 56 washers and four inserts. Separately, 30 screw solids belong to the reused enclosure/electronics assembly. Thus 68 screw solids are accounted for across those two scopes; this does not include unitemized factory thruster hardware or future accessories.
 
-Electrical gap: one four-channel ESC is represented for six thrusters. Two additional suitable channels or a revised ESC arrangement remain unspecified. The modeled battery is labeled 4S 4000 mAh; the reference S6 vendor battery specification was not substituted.
+Historical electrical gap: this CAD snapshot represents one four-channel ESC for six thrusters. The later selection of two Basic ESCs is documented in the current component list; it is not modeled or counted in this baseline. The modeled battery is labeled 4S 4000 mAh; the reference S6 vendor battery specification was not substituted.
 
 ## Printed assembly
 
@@ -87,7 +87,7 @@ Electrical gap: one four-channel ESC is represented for six thrusters. Two addit
 - **1 assembly** — ESP32-P4-WIFI6-POE-ETH board. One board, regardless of its 821 imported CAD bodies. Power and communication implementation remains to be finalized.
 - **1 assembly** — Cam V2.1 camera module. One imported camera assembly; exact electrical interface/variant to confirm.
 
-## Unspecified / not procurement-ready
+## Unspecified in the September snapshot
 
 - **2 channel** — Additional thruster ESC channels. Six motors need six suitable channels; only a four-channel board is represented. Two extra channels or a replacement six-channel arrangement must be specified.
 - **TBD length** — Tether cable. Diameter, length, construction and communication/power arrangement not chosen.

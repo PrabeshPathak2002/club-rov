@@ -1,8 +1,8 @@
 # Roadmap
 
-This roadmap tracks the build and integration work. The bench work below is complete; the remaining items are the next integration and testing stages.
+This roadmap separates recorded milestones from outstanding physical integration, simulator calibration and autonomy work. Completed software checks do not establish physical vehicle qualification.
 
-## Established on the bench
+## Recorded milestones
 
 - [x] Mechanical frame baseline and later custom-part revisions documented.
 - [x] ESP-IDF companion source and dependency lockfile prepared.
@@ -11,7 +11,8 @@ This roadmap tracks the build and integration work. The bench work below is comp
 - [x] Wi-Fi maintenance dashboard and real OTA update with startup rollback.
 - [x] Read all four DAKEFPV ESCs through Betaflight and save forward/reverse mode.
 - [x] ARK Vectored frame and mixed DShot/PWM startup confirmed.
-- [x] Create a Unity pool-training prototype with the ROV visual, six thruster forces, cameras and HUD; pass mixer and runtime smoke checks.
+- [x] Implement the Unity six-thruster training simulator, six maps, adjustable water conditions, selectable FPV instruments and portable Windows packaging. See the [simulator validation history](../Simulation/ClubROVSim/Docs/VALIDATION.md).
+- [x] Connect Unity to ArduSub SITL through QGroundControl; confirm manual control, depth hold and heading hold in software-only tests. See the [SITL validation](../Simulation/SITL/README.md#validation).
 
 ## Next integration work
 
@@ -29,7 +30,8 @@ This roadmap tracks the build and integration work. The bench work below is comp
 - [ ] Shallow-water trim, buoyancy, controllability and recovery tests.
 - [ ] Establish demonstrated depth through supervised progressive qualification.
 - [ ] Implement ROS 2 Humble routing, logging and explicit manual/autonomy command ownership.
-- [ ] Calibrate Unity vehicle dynamics and connect the simulator to ArduSub SITL and ROS 2.
+- [ ] Calibrate Unity vehicle dynamics against measurements of the assembled ROV.
+- [ ] Integrate ROS 2 with the simulator and define its command-ownership boundary with QGroundControl.
 - [ ] Develop supervised autonomy and sensor experiments.
 - [ ] Publish measured results and a portfolio case study, crediting contributors.
 - [ ] Finish third-party CAD attribution and agree on licenses with the contributors.

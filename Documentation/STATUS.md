@@ -1,6 +1,6 @@
 # Build and test notes — 23 October 2026
 
-This page records current bench results and outstanding work. The vehicle has not completed water or depth qualification.
+This page records physical-hardware bench results and outstanding work as of 23 October 2026. The vehicle has not completed water or depth qualification. Software-only [SITL results](../Simulation/SITL/README.md#validation), including joystick and depth/heading-hold checks, are tracked separately and do not complete the physical-vehicle tests listed here.
 
 ## Bench results
 

@@ -6,9 +6,9 @@ Preview revision: [M4 side-frame joints](../Final%20Design/README.md#m4-frame-jo
 
 [Open the detailed STL in GitHub's 3D viewer](club-rov-preview.stl). Drag to rotate, right-drag to pan, and scroll to zoom.
 
-The root README displays a full-color Fusion screenshot beside a View in 3D button. Both open the detailed binary STL in GitHub's interactive viewer. The STL includes the enclosure flanges and stays below GitHub's 10 MB viewer limit. STL is monochrome; the screenshot shows the design colors.
+The root README links its full-color Fusion screenshot and View in 3D button to the detailed binary STL in GitHub's interactive viewer. The STL includes the enclosure flanges and stays below GitHub's 10 MB viewer limit. STL is monochrome; the screenshot shows the design colors.
 
-This preview was exported from the `Future ROV` Fusion assembly on 30 September 2026. Includes the enclosure, six thrusters, frame, clamps, and handle. Internal electronics, liners, and fasteners are omitted. This mesh is not a printable assembly or a manufacturing reference; use the original individual print parts for fabrication.
+This preview was exported from the `Future ROV` Fusion assembly on 30 September 2026. It includes the enclosure, six thrusters, frame, clamps, and handle. Internal electronics, liners, and fasteners are omitted. This mesh is not a printable assembly or a manufacturing reference; use the original individual print parts for fabrication.
 
 The assembly includes imported enclosure and APISQUEEN U01 reference geometry alongside the custom frame and mounts. Those third-party designs remain credited to their original creators. See [publishing and attribution](../Documentation/PUBLISHING.md).
 

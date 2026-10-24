@@ -1,6 +1,6 @@
 # Fusion geometry — 23 October 2026
 
-These dimensions were extracted directly from the open **Future ROV** assembly, including its unsaved state, without changing or saving the Fusion document. The active document was not named Club_Demo_ROV. The exact source name is retained for traceability.
+Source assembly: **Future ROV**, captured on 23 October 2026. The snapshot includes the document's unsaved state at capture; extraction did not modify or save it. This identifies the model revision used for the simulator geometry.
 
 The visible modeled envelope is **361.920 mm long × 377.472 mm wide × 260.000 mm high**. The measurement uses the union of precise bounding boxes of 1,914 visible BRep bodies, excluding hidden alternatives. Unmodeled cables, connectors and tether do not contribute to these dimensions.
 
@@ -25,7 +25,7 @@ The [machine-readable snapshot](fusion-geometry.json) preserves the source occur
 
 ## Printed parts and remaining calibration
 
-All project 3D printed parts use **Bambu Lab PETG Basic at 100% infill**. The earlier 10% statement was corrected before recording this snapshot. This agrees with the existing 100% baseline print guide.
+All project 3D printed parts use **Bambu Lab PETG Basic at 100% infill**. The 100% specification is recorded in the [print guide](../../../Final%20Design/Guides/PRINT_GUIDE.md).
 
 A CAD solid-mass estimate has not been substituted for the finished vehicle weight. Battery, wiring, hardware, printed-part slicing and actual water displacement still need to be accounted for. The simulator's 8 kg mass, buoyancy, drag and thrust values remain provisional.
 

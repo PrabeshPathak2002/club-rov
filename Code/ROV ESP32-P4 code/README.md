@@ -12,7 +12,7 @@ Ethernet telemetry, camera video, the dashboard and an OTA update have been benc
 
 ## Fresh checkout on Windows
 
-Install/select ESP-IDF 5.5.2, open its PowerShell terminal and enter this project directory. Copy the credential template locally and choose a unique 12–63 character password:
+Install ESP-IDF 5.5.2 and its Windows toolchain, then open the ESP-IDF PowerShell terminal. From the repository root, change to `Code/ROV ESP32-P4 code/`. The dependency manager needs network access on the first build. Copy the credential template locally and choose a unique 12–63 character password:
 
 ```powershell
 Copy-Item main/rov_wifi_credentials.h.example main/rov_wifi_credentials.h
@@ -56,7 +56,7 @@ The bridge does not arm, mix motors or create a fake heartbeat. Source-IP filter
 
 ## Host verification
 
-With GCC and Python available:
+Run these commands from the firmware directory with `gcc` and `python` available on PATH. These host tools are separate from the ESP32 cross-compiler:
 
 ```powershell
 New-Item -ItemType Directory -Force build-host

@@ -4,7 +4,17 @@ Club members are encouraged to learn from and contribute to this project. Start 
 
 A pull request should explain the problem, the change, how it was checked, and what remains uncertain. Update relevant documentation and BOM entries. Request review from someone familiar with the subsystem before merging.
 
-Write reference documentation in a neutral, project-focused voice. Use direct instructions for procedures and dated evidence for validation records. Keep personal development journals separate from setup and reference guides. Write setup guides for a fresh clone on another computer: list prerequisites, use repository-relative paths or clearly labeled placeholders, and state what scripts configure automatically. Avoid assumptions such as “already installed on this desktop.” Keep machine-specific observations in dated validation records and label them as test conditions, not reader prerequisites.
+## Documentation conventions
+
+Write reference guides in a neutral, project-focused voice and use direct instructions for procedures. Review each guide as if the reader has only a fresh clone:
+
+- List required software, hardware, versions and working directories before commands. State what setup scripts configure automatically.
+- Use repository-relative paths or labeled placeholders. Identify private archives, credentials, generated outputs and separately installed tools explicitly.
+- Keep current instructions separate from dated test history. A test observation describes its environment; it is not a prerequisite already satisfied on the reader's computer.
+- Label superseded designs and historical inventories. Direct readers to the applicable revision instead of describing an older snapshot as the current release.
+- Check local links, heading anchors and screenshots against the current source. Retain measured results and limitations when editing prose.
+
+Personal development journals and raw session narratives should remain separate from setup and reference guides.
 
 Use explicit units, exact part/firmware revisions where known, and TBD where unknown. Distinguish planned, implemented, bench-tested, and water-tested behavior. Link original sources and explain important tradeoffs. Record failed tests as well as successes.
 

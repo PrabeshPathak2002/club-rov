@@ -2,19 +2,19 @@
 
 # ROV service upgrade — PETG / H2D
 
-This guide covers the September frame revision. Later mount and electronics changes are listed in the revision index above.
+This guide records the September frame revision. Its named Fusion files, STL package, fit coupons and verification reports belong to a private historical source set and are not included in a Git clone. Do not mix those parts with later revisions; use the revision index above to identify available public files.
 
 The current material specification for all 3D printed parts is **Bambu Lab PETG Basic at 100% infill**, confirmed on 23 October 2026.
 
 ## M4 side-frame joints
 
-The four side-frame joints now use M4x30 socket-head screws and 9 mm OD / 4.4 mm ID / 0.8 mm washers. Reprint the four uprights and two top beams; their new filenames contain M4. Use the three updated M4 fit coupons. The rest of the printed geometry is unchanged by this fastener conversion.
+In this revision, the four side-frame joints use M4x30 socket-head screws and 9 mm OD / 4.4 mm ID / 0.8 mm washers. The matching four uprights and two top beams have filenames containing M4. Use the three updated M4 fit coupons. The rest of the printed geometry is unchanged by this fastener conversion.
 
 ### Retained thruster orientation
 
-The rear horizontal U01 pair is flipped back to its original orientation; the front horizontal and vertical pairs retain their reversed orientations. The relieved receiver pockets and fit coupon from the preceding revision still fit this configuration, so no additional reprint is needed for this correction. Use the current package rather than receiver STLs from before the pocket-relief revision. Mounting feet and fastener quantities are retained. Read the [orientation revision](../README.md#orientation-and-checks) and test the revised coupon before printing the full receivers.
+The rear horizontal U01 pair is flipped back to its original orientation; the front horizontal and vertical pairs retain their reversed orientations. The relieved receiver pockets and fit coupon from the preceding revision still fit this configuration, so no additional reprint is needed for this correction. For this baseline, use its matched package rather than receiver STLs from before the pocket-relief revision. Mounting feet and fastener quantities are retained. Read the [orientation revision](../README.md#orientation-and-checks) and test the revised coupon before printing the full receivers.
 
-Use S6_Hybrid_Service_Upgrade.f3d and the complete Service_Upgrade_STLs.zip together. The frame height, original enclosure, U01 thrusters, keyed mounting interfaces and both three-piece side frames are retained. The previous assembly is preserved under Archive/Design History 2026-09-29/S6Hybrid/service_upgrade/Before_service_upgrade.f3d at the project root.
+The historical source set pairs `S6_Hybrid_Service_Upgrade.f3d` with `Service_Upgrade_STLs.zip`. The frame height, original enclosure, U01 thrusters, keyed mounting interfaces and both three-piece side frames are retained. The preceding `Before_service_upgrade.f3d` assembly is a private archive record, not a file at the public repository root.
 
 ## Changes to the printed parts
 
@@ -50,13 +50,13 @@ Once the finished mass is known, test representative PETG/insert joints and the 
 
 ## Future thruster adapters
 
-The Thruster Interface References folder contains six STEP base references and a dimension/placement manifest. Existing mounts already use two keyed feet and one M4 retainer per station. Retain these interfaces and design a new upper support around the actual future thruster CAD. The horizontal patterns are handed; the vertical mounts are a separate interface family. These reference solids are not complete mounts and should not be printed as operational adapters.
+The archived Thruster Interface References package contains six STEP base references and a dimension/placement manifest. Existing mounts already use two keyed feet and one M4 retainer per station. Retain these interfaces and design a new upper support around the actual future thruster CAD. The horizontal patterns are handed; the vertical mounts are a separate interface family. These reference solids are not complete mounts and should not be printed as operational adapters.
 
 Keep the 14 mm installation slide, bearing shoulders, locking bore and tool access. Check actual duct and propeller clearances, inlet/outlet flow space, cables, cover openings, thrust loads and print orientation. Current frame height is preserved, but no unspecified larger thruster is guaranteed to fit.
 
 ## Printing and assembly
 
-The starting print setup is PETG with 100% infill. Use the per-part orientation and notes in service_print_exports.json. All parts are checked against the conservative H2D 300 x 320 x 325 mm envelope, with 3 mm brim allowance. The revised lower decks are supplied skids/underside down, with their new eyes upright; removable support is needed beneath unsupported deck areas and channels, and may be needed at the eye apertures. This replaces the old top-face-down orientation. Inspect the slicer preview and support raised guide features where required. Flush cover markings preserve the original broad roof-down printing surface. Infill percentage does not remove layer-direction weakness.
+The starting print setup is PETG with 100% infill. The archived `service_print_exports.json` records the per-part orientations and notes for this baseline. The baseline parts were checked against the conservative H2D 300 x 320 x 325 mm envelope, with 3 mm brim allowance. The revised lower decks are supplied skids/underside down, with their new eyes upright; removable support is needed beneath unsupported deck areas and channels, and may be needed at the eye apertures. This replaces the old top-face-down orientation. Inspect the slicer preview and support raised guide features where required. Flush cover markings preserve the original broad roof-down printing surface. Infill percentage does not remove layer-direction weakness.
 
 Print TEST FIRST strap eye and TEST FIRST cable guide with the actual intended settings, and check strap/tie passage, surface finish and retention. Also retain the existing rail, T-key, enclosure-liner and M4-joint coupon checks. The eye coupon is cropped from the frame; it is for fit only and does not reproduce full-frame loading.
 
@@ -66,8 +66,8 @@ For servicing, first release ties and connectors as needed and free the strain-r
 
 ## Geometry checks and remaining limits
 
-The assembly is checked for unintended interference, single-solid integrity, timeline health and hardware count. M4_Frame_Joints_service_verification.json records nominal 126 mm diameter, 120 mm axial end-cap corridors; 8 mm driver approach corridors above the four M4 cover screws; and sampled removal motions of all six mounted U01 modules against the revised frame parts. Sampling is a clearance screen, not a continuous-motion proof.
+The historical assembly was checked for unintended interference, single-solid integrity, timeline health and hardware count. M4_Frame_Joints_service_verification.json records nominal 126 mm diameter, 120 mm axial end-cap corridors; 8 mm driver approach corridors above the four M4 cover screws; and sampled removal motions of all six mounted U01 modules against the revised frame parts. Sampling is a clearance screen, not a continuous-motion proof.
 
 The intentional overlaps between heat-set insert envelopes and their pilot holes are retained. Drain and vent openings are kept away from the insert bosses, keyed mounting feet and primary joint seats. Verify actual drainage and air release during a water test, particularly once foam, straps and cables are fitted.
 
-All exported STLs are checked for watertightness, winding, millimetre scale and agreement with native solid volume. See M4_Frame_Joints_verification.json, service_stl_verification.json and M4_Frame_Joints_service_verification.json for the measured results. Strength, wet-service durability, PETG creep, tether retention, complete rigging and future thruster compatibility remain unqualified.
+The baseline exported STLs were checked for watertightness, winding, millimetre scale and agreement with native solid volume. See M4_Frame_Joints_verification.json, service_stl_verification.json and M4_Frame_Joints_service_verification.json for the measured results. Strength, wet-service durability, PETG creep, tether retention, complete rigging and future thruster compatibility remain unqualified.
