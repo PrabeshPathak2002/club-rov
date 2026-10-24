@@ -129,3 +129,12 @@ Added a native-resolution FPV overlay with artificial horizon/pitch ladder, comp
 Sixteen focused attitude/heading/lifecycle checks passed, covering level and banked signs, cardinal headings and 359/1 wrap, inverted roll, view gating, independent hiding and duplicate-free re-enable. Synthetic O and left-stick-click checks passed. Fifteen existing view checks, nineteen course/UI checks (with panels shown for pointer testing) and ten asynchronous FPV checks passed. Level and banked (12 degrees nose up, 20 degrees right bank, heading 35) screenshots were inspected. Temporary pose/physics changes were discarded by exiting Play. Final Play Console had zero errors/warnings. No new physical-controller, live SITL or other-computer test was performed.
 
 The Windows x64 build succeeded with zero errors and zero warnings. A new portable practice ZIP includes the FPV instruments and updated quickstart.
+
+
+## Instrument styles and Betaflight-style OSD — 24 October 2026
+
+Added compact corner attitude/compass dials and a third Betaflight-style option while retaining the original flight overlay. The selector and I shortcut cycle stable saved style IDs 0/1/2. The new option uses original fixed-cell outlined bitmap lettering, a segmented horizon, crosshair and edge readouts; the official Betaflight OSD documentation was used as a visual reference, without copying firmware/font assets. The compact dials use clipped sky/earth faces, a rotating compass card and outlined bezels.
+
+Twenty-four focused checks passed, including actual selector callbacks, preferences for all three styles and restoration after HUD re-enable. A synthetic I-key test cycled through all three and wrapped correctly. Nineteen course/UI checks and ten FPV checks passed. Compact and Betaflight-style screenshots were visually inspected. An Editor hot-reload startup issue in the scenario panel was guarded by waiting for its preset list before binding. No new live SITL or physical controller validation was performed.
+
+The final Windows build succeeded with zero errors/warnings. A fresh Play session bound all four built-in scenario choices after the deferred initialization completed, with no current Console errors. The new practice ZIP includes all three styles and updated controls.

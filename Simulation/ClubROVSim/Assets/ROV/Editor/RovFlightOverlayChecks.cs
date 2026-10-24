@@ -25,8 +25,17 @@ namespace ClubROV.Simulation.Editor
             var rig=UnityEngine.Object.FindAnyObjectByType<RovCameraRig>();var original=rig.Mode;
             var root=hud.GetComponent<UIDocument>().rootVisualElement;
             var overlay=root.Q<RovFlightOverlay>("flight-osd");
+            var originalStyle=overlay.InstrumentStyle;
             try
             {
+                var selector=root.Q<DropdownField>("osd-style");
+                Check("Three instrument styles available",selector.choices.Count==3);
+                for(int i=0;i<3;i++)
+                {
+                    selector.value=selector.choices[i];
+                    Check("Selector applies style "+i,(int)overlay.InstrumentStyle==i);
+                    Check("Style preference saved "+i,PlayerPrefs.GetInt("osd.style",-1)==i);
+                }
                 rig.SetView(RovCameraRig.ViewMode.Fpv);overlay.Tick();
                 Check("FPV instruments visible by default",overlay.Visible);
                 root.Q("root").AddToClassList("hud-hidden");overlay.Tick();
@@ -36,9 +45,10 @@ namespace ClubROV.Simulation.Editor
                 rig.SetView(RovCameraRig.ViewMode.Chase);overlay.Tick();Check("Chase has no flight overlay",!overlay.Visible);
                 Check("Overlay does not intercept pilot clicks",overlay.pickingMode==PickingMode.Ignore);
             }
-            finally {root.Q("root").RemoveFromClassList("hud-hidden");rig.SetView(original);overlay.Tick();}
+            finally {overlay.SetStyle(originalStyle);root.Q("root").RemoveFromClassList("hud-hidden");rig.SetView(original);overlay.Tick();}
             hud.enabled=false;hud.enabled=true;
             Check("Re-enable creates one overlay and one toggle",root.Query<RovFlightOverlay>().ToList().Count==1 && root.Query<Button>("osd-toggle").ToList().Count==1);
+            Check("Style survives HUD recreation",root.Q<RovFlightOverlay>("flight-osd").InstrumentStyle==originalStyle);
             var report=string.Join("\n",results);
             System.IO.File.WriteAllText(System.IO.Path.Combine(Application.dataPath,"../Docs/FlightOverlayCheckResults.txt"),report);
             return report;

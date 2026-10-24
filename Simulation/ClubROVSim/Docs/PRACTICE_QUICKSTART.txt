@@ -31,3 +31,7 @@ FPV INSTRUMENTS: artificial horizon, pitch ladder, compass, depth and speed.
 O / left-stick click toggles these instruments. H hides only the large panels,
 so OSD can stay visible. Use H and O for completely clear FPV. Instruments use
 live simulated attitude/north and are not affected by the video delay preset.
+
+I cycles instrument styles: Compact dials / Flight overlay / Betaflight-style OSD.
+The Instrument style selector in Control & Settings offers the same choice,
+saved locally. O / left-stick click hides/shows whichever style is selected.

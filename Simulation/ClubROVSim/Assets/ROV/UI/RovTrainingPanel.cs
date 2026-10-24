@@ -17,9 +17,14 @@ namespace ClubROV.Simulation
         private RovPilotInput pilot;
         private string error;
         public void Configure(RovTrainingSettings training) => settings=training;
-        private bool started;
-        private void OnEnable() { if(started) Bind(); }
-        private void Start() { started=true; Bind(); }
+        private void OnEnable() { StartCoroutine(BindWhenReady()); }
+        private System.Collections.IEnumerator BindWhenReady()
+        {
+            // Also handles Editor hot reload, where OnEnable can precede the settings list.
+            yield return null;
+            while(settings!=null && settings.Scenarios.Count==0) yield return null;
+            if(settings!=null && isActiveAndEnabled) Bind();
+        }
         private void Bind()
         {
             if(settings==null) return;
@@ -93,7 +98,9 @@ namespace ClubROV.Simulation
         }
         private void OnDisable()
         {
+            StopAllCoroutines();
             foreach(var action in unbind) action(); unbind.Clear();
+            root=null;
             if(pilot!=null) pilot.SuppressInput=false;
         }
     }
