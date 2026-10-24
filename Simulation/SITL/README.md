@@ -2,24 +2,52 @@
 
 ArduSub 4.7.2 runs in Ubuntu under WSL2, with Unity providing the ROV physics and sensor backend. This is separate from the physical ARK. The simulator uses MAVLink system ID **42** and the six-motor **VECTORED** frame (`FRAME_CONFIG=1`). These parameter files are for SITL only.
 
-## Start on this desktop
+## Prerequisites
 
-1. Open `ClubROVSim` in Unity and play `Assets/Scenes/PoolTraining.unity`.
-2. Double-click **Start-ClubRovSitl.bat** in this folder. It finds PowerShell 7 and bypasses the script execution policy for this launch only, without changing the saved system policy. It automatically connects the running Unity scene. Keep its window open; press Enter there when finished to stop the session.
+Prepare these dependencies on the Windows computer that will run the simulation:
 
-   Alternatively, in PowerShell 7, run:
+- **WSL2 with an Ubuntu distribution registered as `Ubuntu`.** The launcher calls `wsl -d Ubuntu`; a differently named distribution requires updating those launcher references.
+- **Python 3 on Windows**, available as `python` on PATH, for the Windows relay.
+- **PowerShell 7**, available as `pwsh`, for the launcher.
+- **QGroundControl**, installed separately, with a joystick configured for piloting.
+- The Unity project running `Assets/Scenes/PoolTraining.unity`, or a complete Windows simulator build. See the [simulator guide](../ClubROVSim/README.md).
+
+The `.bat` launcher automatically connects the Unity Editor through the **Unity CLI** at `%LOCALAPPDATA%\Unity\bin\unity.exe` and the project's existing **Unity Pipeline** package. For a standalone player, or if Editor automation is unavailable, use the manual connection command below instead.
+
+## Build the Ubuntu tools
+
+In Ubuntu, change to this checkout's `Simulation/SITL` directory. For a checkout on a Windows drive, use its WSL-mounted path. Install the build dependencies, then run the setup script with Bash:
+
+```bash
+sudo apt-get update
+sudo apt-get install git build-essential python3-dev python3-venv pkg-config libtool libxml2-dev libxslt1-dev zlib1g-dev ccache rsync
+bash ./setup-sitl.sh
+```
+
+The script downloads the pinned ArduPilot source and Python dependencies and builds ArduSub. It must finish successfully before launching a session. Ubuntu, QGC and these build outputs are not supplied by cloning the repository.
+
+## Start a session
+
+1. Start the simulator, select the map/start pose, and enter Play Mode if using the Editor.
+2. Start SITL using one of the following options. Keep its terminal open throughout the session.
+
+   **Editor auto-connect:** double-click [Start-ClubRovSitl.bat](Start-ClubRovSitl.bat). It finds PowerShell 7, bypasses the execution policy for this launch only, and requests connection to the running Unity scene. It does not change the saved execution policy.
+
+   **Manual connection / standalone player:** from the repository root in PowerShell, run:
 
    ```powershell
-   cd 'C:\Users\drago\Documents\ROV project\ClubROV\Simulation\SITL'
-   pwsh -NoProfile -ExecutionPolicy Bypass -File ./Start-ClubRovSitl.ps1 -ConnectUnityEditor
+   Set-Location Simulation/SITL
+   pwsh -NoProfile -ExecutionPolicy Bypass -File ./Start-ClubRovSitl.ps1
    ```
 
-   Without `-ConnectUnityEditor`, press **CONNECT SITL** in the Game view. Keep its IPv4 field at `127.0.0.1`. The Windows player uses the same button.
-3. In QGroundControl, connect the **Club ROV SITL ONLY** TCP link: `127.0.0.1:5765`. Confirm vehicle ID 42. USB, radio, UDP and ZeroConf auto-discovery are disabled in the validated local QGC profile. A backup of the previous profile is in the workspace's `Archive/SITLSetup` folder.
-4. Use QGC's joystick controls for SITL; Unity's local pilot is disabled while ArduSub owns thrust. Camera and visibility controls remain in Unity. A hands-on controller test confirmed manual control, depth hold and heading hold. Remember to arm before expecting thrust.
-5. Disarm in QGC before ending a session. Press Enter in the launcher to stop its helpers. **DISCONNECT SITL** restores Unity's local controls. Restart both SITL and the Unity connection after a simulation reset, Editor pause/recompile, or lost link.
+   Then press **CONNECT SITL** in the simulator, with IPv4 set to `127.0.0.1`. Add `-ConnectUnityEditor` to the command only when using the Editor automation dependencies above.
+3. In QGroundControl, create a **TCP** communication link to **127.0.0.1:5765**; a suggested link name is **Club ROV SITL ONLY**. Connect and confirm **vehicle ID 42**. The link is not created by cloning the repository. Disable unrelated automatic connections while testing the simulator.
+4. Pilot with QGC's joystick controls. Unity's local pilot is disabled while ArduSub owns thrust; camera and visibility controls remain in Unity. **Arm in QGC before expecting thrust.**
+5. Disarm in QGC before ending a session. Press Enter in the launcher terminal to stop its helpers. **DISCONNECT SITL** restores Unity's local controls. Restart SITL and the Unity connection after a simulation reset, Editor pause/recompile, map/start change or lost link.
 
-The official QGC 5.1.5 files are available locally at `Archive/SITLSetup/QGroundControl/bin/QGroundControl.exe` outside this repository. The local startup uses `--swrast` for software rendering. They are not included in Git. Unity's existing public-network firewall block was preserved; no firewall rules were added.
+## QGroundControl configuration
+
+The recorded validation used **QGroundControl 5.1.5** with a TCP link and USB, radio, UDP and ZeroConf auto-discovery disabled. These are validation settings, not a profile installed automatically on another computer. The validation installation used `--swrast` for software rendering; this option is not required by the network protocol. QGC binaries and private profile backups are not distributed in this repository.
 
 ## How the connection works
 
@@ -31,9 +59,9 @@ The mapping from ArduSub motors 1–6 to Unity's H1/H2/H3/H4/V1/V2 is H2−, H1�
 
 The listener accepts only the configured source IP and locks to its first valid peer. Duplicate packets resend the previous sensor reply without stepping physics. A one-second link timeout clears thrust and holds physics until an explicit reconnect. Local and SITL inputs cannot command the vehicle simultaneously.
 
-## Rebuild the WSL tools
+## Build outputs and local data
 
-Ubuntu is already installed on this desktop. In a fresh Ubuntu environment, install the packages listed at the top of `setup-sitl.sh`, then run that script with Bash. It pins ArduPilot to `fb773567896014da007bca58358704d4a0d8516f` (`Sub-4.7.2`) and uses an isolated Python 3.12 environment at `~/club-rov-sitl/venv`. The source, compiled binary, EEPROM and logs stay under `~/club-rov-sitl`, outside Git. The Windows relay needs Python 3; the launcher needs PowerShell 7.
+[setup-sitl.sh](setup-sitl.sh) pins ArduPilot to `fb773567896014da007bca58358704d4a0d8516f` (`Sub-4.7.2`) and creates an isolated Python **3.12.15** environment at `~/club-rov-sitl/venv`. ArduPilot source, the compiled binary, EEPROM and Linux-side logs stay under `~/club-rov-sitl`, outside Git. Windows helper logs are written to this directory's ignored `logs/` folder. Rerun the setup script when rebuilding the pinned tools.
 
 ## Validation
 

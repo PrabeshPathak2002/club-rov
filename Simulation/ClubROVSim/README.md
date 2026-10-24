@@ -103,7 +103,7 @@ Instrument values come directly from simulation truth. No separate AHRS estimato
 The optional integration runs **ArduSub 4.7.2**, six-motor **VECTORED**, with MAVLink system ID **42**. Unity provides physics and sensor data; the autopilot provides actuator commands. This is separate from the physical ARK and ROV.
 
 1. Complete the prerequisites in the [SITL guide](../SITL/README.md): WSL2/Ubuntu, the pinned ArduSub setup, Python 3 and PowerShell 7.
-2. Start the Unity scene, select the map/start, then run [Start-ClubRovSitl.bat](../SITL/Start-ClubRovSitl.bat). On the configured desktop it connects the running Unity Editor automatically. For a standalone player, launch `Start-ClubRovSitl.ps1` without `-ConnectUnityEditor`, then use **CONNECT SITL** at `127.0.0.1`; the `.bat` always requests Editor auto-connect.
+2. Start the Unity scene, select the map/start, then run [Start-ClubRovSitl.bat](../SITL/Start-ClubRovSitl.bat). Editor auto-connect requires the Unity CLI and the existing Unity Pipeline package, as described in the SITL prerequisites. For a standalone player, launch `Start-ClubRovSitl.ps1` without `-ConnectUnityEditor`, then use **CONNECT SITL** at `127.0.0.1`; the `.bat` always requests Editor auto-connect.
 3. In QGC, connect a TCP communication link to **127.0.0.1:5765** and confirm **vehicle ID 42**. Configure the joystick in QGC and **arm** before expecting thrust.
 4. Disarm in QGC before stopping. Press Enter in the launcher to stop its helpers; **DISCONNECT SITL** restores local Unity controls.
 
