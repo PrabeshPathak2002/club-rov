@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace ClubROV.Simulation
@@ -108,7 +108,7 @@ namespace ClubROV.Simulation
             if(cameraToggle!=null && cameraRig!=null) cameraToggle.text=cameraRig.PilotView?"CAMERA · SWITCH TO CHASE":"CAMERA · SWITCH TO FPV";
             if (course != null && objective != null)
             {
-                if(score!=null) score.text=$"SCORE {course.Score} · BEST {(course.BestScore<0?"—":course.BestScore.ToString())} · {(course.Qualified?"SCORED":"PRACTICE")}\nDEPTH RMS {course.DepthRms:0.00} m · HEADING RMS {course.HeadingRms:0.0}°";
+                if(score!=null) score.text=!course.Configured ? "FREE SWIM | no scored course" : $"SCORE {course.Score} · BEST {(course.BestScore<0?"—":course.BestScore.ToString())} · {(course.Qualified?"SCORED":"PRACTICE")}\nDEPTH RMS {course.DepthRms:0.00} m · HEADING RMS {course.HeadingRms:0.0}°";
                 if(runSave!=null) runSave.text=course.SaveNotice;
                 objective.text = course.Objective;
                 run.text = $"TIME {System.TimeSpan.FromSeconds(course.ElapsedSeconds):mm\\:ss\\.f}    COLLISIONS {course.CollisionCount}    HOLD {Mathf.Min(3, course.HoldSeconds):0.0}/3 s";

@@ -53,8 +53,18 @@ namespace ClubROV.Simulation
             values.Validate(); active=values.Copy(); ApplyConditions(); UpdateKey();
             Notice=course.Started ? "Conditions changed · this run is practice only." : "Settings ready · apply a preset to reset the start.";
         }
+        public void SelectMap(int index)
+        {
+            if(index<0 || index>=RovTrainingMaps.Names.Length) throw new ArgumentOutOfRangeException(nameof(index));
+            if(vehicle.ExternalPhysics) throw new InvalidOperationException("Disconnect SITL before changing maps; restart both ends afterwards.");
+            var maps=GetComponent<RovTrainingMaps>();
+            active.map=index; active.startPosition=maps.StartPosition(index); active.startHeading=0;
+            ApplyConditions(); UpdateKey(); vehicle.SetStartPose(active.startPosition,Quaternion.identity);
+            Notice="Loaded " + RovTrainingMaps.Names[index] + " · start reset.";
+        }
         private void ApplyConditions()
         {
+            GetComponent<RovTrainingMaps>()?.Activate(active.map);
             vehicle.SetCurrent(active.current); vehicle.SetBuoyancyBias(active.buoyancyPercent / 100);
             for (int i=0;i<6;i++) vehicle.SetThrusterHealth(i, i==active.failedThruster ? active.thrusterPercent/100 : 1);
             water.SetVisibility(active.visibility); feed.SetDelay(active.videoDelayMs);
@@ -63,7 +73,9 @@ namespace ClubROV.Simulation
         public void Apply(int index)
         {
             if (vehicle.ExternalPhysics) { Notice="Disconnect SITL and restart both ends before loading a start pose."; return; }
-            active=scenarios[index].Copy(); active.Validate(); ApplyConditions();
+            int selectedMap=active.map; active=scenarios[index].Copy();
+            if(index<4) { active.map=selectedMap; active.startPosition=GetComponent<RovTrainingMaps>().StartPosition(selectedMap); active.startHeading=0; }
+            active.Validate(); ApplyConditions();
             lastController="LOCAL"; UpdateKey(); vehicle.SetStartPose(active.startPosition,Quaternion.Euler(0,active.startHeading,0));
             Notice="Loaded " + active.name + " · repeatable start and conditions.";
         }

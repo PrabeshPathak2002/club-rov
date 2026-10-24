@@ -8,6 +8,11 @@ namespace ClubROV.Simulation
         [SerializeField] private Transform[] gates;
         [SerializeField] private Transform hoverTarget;
         [SerializeField] private Transform dockTarget;
+        [SerializeField] private Transform marker;
+        [SerializeField] private bool freeSwim;
+        private float orbitDegrees;
+        private Vector3 orbitPrevious;
+        public bool MarkerRounded => Mathf.Abs(orbitDegrees)>=355;
         private RovDynamics vehicle;
         private Vector3 previousPosition;
         private float holdSeconds;
@@ -36,17 +41,19 @@ namespace ClubROV.Simulation
         public bool Started { get; private set; }
         public bool HoverComplete { get; private set; }
         public bool Complete { get; private set; }
-        public bool Configured => gates != null && gates.Length > 0 && hoverTarget != null && dockTarget != null;
+        public bool Configured => marker!=null || !freeSwim && gates != null && gates.Length > 0 && hoverTarget != null && dockTarget != null;
         public float HoldSeconds => holdSeconds;
-        public string Objective => !Configured ? "Course unavailable" : Complete ? "COURSE COMPLETE" :
+        public string Objective => freeSwim ? "FREE SWIM · no scored objective" : marker!=null ? (Complete ? "GATE & PILLAR COMPLETE" : GatesPassed==0 ? "Pass under the gate bar" : !MarkerRounded ? $"Circle the pillar · {Mathf.Abs(orbitDegrees):0}/360°" : "Return under the gate bar") : !Configured ? "Course unavailable" : Complete ? "COURSE COMPLETE" :
             GatesPassed < gates.Length ? $"Gate {GatesPassed + 1}/{gates.Length} — cross toward the far end" :
             !HoverComplete ? "Hover — hold 3 s, heading 000°, speed < 0.15 m/s" :
             "Dock — hold 3 s, heading 180°, speed < 0.10 m/s";
-        public Vector3 TargetPosition => !Configured ? transform.position : GatesPassed < gates.Length ?
+        public Vector3 TargetPosition => !Configured ? transform.position : marker!=null ? (GatesPassed==0 || MarkerRounded ? gates[0].position+Vector3.down*0.6f : new Vector3(marker.position.x,-1.6f,marker.position.z)) : GatesPassed < gates.Length ?
             gates[GatesPassed].position : !HoverComplete ? hoverTarget.position : dockTarget.position;
 
         public void Configure(Transform[] courseGates, Transform hover, Transform dock)
-        { gates = courseGates; hoverTarget = hover; dockTarget = dock; }
+        { gates = courseGates; hoverTarget = hover; dockTarget = dock; marker=null; freeSwim=false; }
+        public void ConfigureMap(Transform[] courseGates, Transform hover, Transform dock, Transform pillar, bool empty)
+        { Configure(courseGates,hover,dock); marker=pillar; freeSwim=empty; ResetCourse(); }
         private void OnEnable()
         {
             vehicle = GetComponent<RovDynamics>();
@@ -66,6 +73,7 @@ namespace ClubROV.Simulation
         public void Restart() => vehicle.ResetVehicle();
         public void ResetCourse()
         {
+            orbitDegrees=0; orbitPrevious=Vector3.zero;
             GatesPassed = 0; CollisionCount = 0; ElapsedSeconds = 0; holdSeconds = 0;
             Started = false; HoverComplete = false; Complete = false;
             depthSquared=headingSquared=metricSeconds=0; Qualified=true; RefreshBest();
@@ -86,10 +94,14 @@ namespace ClubROV.Simulation
             if (Started) ElapsedSeconds += Mathf.Max(0, deltaSeconds);
             if(Started && deltaSeconds>0)
             {
-                Transform aim=GatesPassed<gates.Length ? gates[GatesPassed] : HoverComplete ? dockTarget : hoverTarget;
-                float depthError=position.y-aim.position.y;
-                float headingError=Mathf.DeltaAngle(rotation.eulerAngles.y,aim.eulerAngles.y);
+                Transform aim=marker!=null ? gates[0] : GatesPassed<gates.Length ? gates[GatesPassed] : HoverComplete ? dockTarget : hoverTarget;
+                float depthError=position.y-(marker!=null ? -1.6f : aim.position.y);
+                float headingError=Mathf.DeltaAngle(rotation.eulerAngles.y,marker!=null && MarkerRounded ? 180 : aim.eulerAngles.y);
                 depthSquared+=depthError*depthError*deltaSeconds; headingSquared+=headingError*headingError*deltaSeconds; metricSeconds+=deltaSeconds;
+            }
+            if(marker!=null)
+            {
+                EvaluateMarker(position); previousPosition=position; return;
             }
             if (GatesPassed < gates.Length)
             {
@@ -119,6 +131,28 @@ namespace ClubROV.Simulation
                 }
             }
             previousPosition = position;
+        }
+        private void EvaluateMarker(Vector3 position)
+        {
+            if(position.y> -0.2f) Qualified=false;
+            var from=gates[0].InverseTransformPoint(previousPosition); var to=gates[0].InverseTransformPoint(position);
+            bool outbound=from.z<0 && to.z>=0, inbound=from.z>0 && to.z<=0;
+            if(outbound || inbound)
+            {
+                var hit=Vector3.Lerp(from,to,-from.z/(to.z-from.z));
+                bool clear=Mathf.Abs(hit.x)<=0.77f && hit.y<= -0.25f && hit.y>= -2.1f;
+                if(clear && GatesPassed==0 && outbound) {GatesPassed=1; orbitPrevious=Vector3.zero;}
+                else if(clear && GatesPassed==1 && MarkerRounded && inbound) {Complete=true; SaveResult();}
+            }
+            if(GatesPassed!=1 || MarkerRounded) return;
+            Vector3 radial=position-marker.position; radial.y=0;
+            if(radial.magnitude<0.6f || radial.magnitude>3) {orbitPrevious=Vector3.zero; return;}
+            if(orbitPrevious!=Vector3.zero)
+            {
+                float angle=Vector3.SignedAngle(orbitPrevious,radial,Vector3.up);
+                if(Mathf.Abs(angle)<45) orbitDegrees+=angle;
+            }
+            orbitPrevious=radial;
         }
         private void OnCollisionEnter(Collision collision) => RecordImpact(ElapsedSeconds);
         private void RefreshBest()

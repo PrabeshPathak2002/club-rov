@@ -11,6 +11,7 @@ namespace ClubROV.Simulation
     public sealed class RovScenario
     {
         public string name = "Pool practice";
+        public int map;
         public Vector3 startPosition = new(0, -1.2f, -1);
         public float startHeading;
         public Vector3 current;
@@ -24,6 +25,7 @@ namespace ClubROV.Simulation
         public RovScenario Copy() => JsonUtility.FromJson<RovScenario>(JsonUtility.ToJson(this));
         public void Validate()
         {
+            if (map<0 || map>3) throw new ArgumentException("Unknown training map.");
             if (string.IsNullOrWhiteSpace(name) || name.Length > 40) throw new ArgumentException("Use a scenario name of 1–40 characters.");
             foreach (float value in new[] {startPosition.x,startPosition.y,startPosition.z,startHeading,current.x,current.y,current.z,
                          buoyancyPercent,thrusterPercent,visibility,videoDelayMs,particles,light})

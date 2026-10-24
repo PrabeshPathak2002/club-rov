@@ -30,3 +30,5 @@
 .identity .unity-base-text-field__input:disabled { background-color: rgb(22,49,60); color: rgb(172,204,214); }
 .identity .unity-base-popup-field__input { background-color: rgb(22,49,60); color: rgb(232,242,246); }
 .identity .unity-base-field__label { color: rgb(172,204,214); }
+
+#training-map .unity-base-field__label, #scenario .unity-base-field__label { min-width: 85px; width: 85px; }

@@ -24,6 +24,11 @@ namespace ClubROV.Simulation
             scenario=root.Q<DropdownField>("scenario"); failed=root.Q<DropdownField>("failed-thruster");
             notice=root.Q<Label>("scenario-notice"); apply=root.Q<Button>("scenario-apply");
             RefreshNames();
+            var map=root.Q<DropdownField>("training-map");
+            map.choices=new List<string>(RovTrainingMaps.Names); map.SetValueWithoutNotify(map.choices[settings.Current.map]);
+            var loadMap=root.Q<Button>("map-apply");
+            Action switchMap=()=>Try(()=>{settings.SelectMap(map.index);Sync();});
+            loadMap.clicked+=switchMap; unbind.Add(()=>loadMap.clicked-=switchMap);
             failed.choices=new List<string>{"None","H1 front port","H2 front starboard","H3 rear port","H4 rear starboard","V1 port","V2 starboard"};
             EventCallback<ChangeEvent<string>> onFailure=e=>Change(s=>s.failedThruster=failed.index-1);
             failed.RegisterValueChangedCallback(onFailure); unbind.Add(()=>failed.UnregisterValueChangedCallback(onFailure));
@@ -62,6 +67,7 @@ namespace ClubROV.Simulation
         private void Sync()
         {
             var s=settings.Current;
+            root.Q<DropdownField>("training-map").SetValueWithoutNotify(RovTrainingMaps.Names[s.map]);
             root.Q<Slider>("current-east").SetValueWithoutNotify(s.current.x);
             root.Q<Slider>("current-north").SetValueWithoutNotify(s.current.z);
             root.Q<Slider>("buoyancy").SetValueWithoutNotify(s.buoyancyPercent);
@@ -78,6 +84,8 @@ namespace ClubROV.Simulation
             var focus=root.panel?.focusController?.focusedElement as VisualElement;
             pilot.SuppressInput=focus is TextField || focus?.GetFirstAncestorOfType<TextField>()!=null;
             apply.SetEnabled(!settings.GetComponent<RovDynamics>().ExternalPhysics);
+            root.Q<Button>("map-apply").SetEnabled(!settings.GetComponent<RovDynamics>().ExternalPhysics);
+            root.Q<Label>("map-description").text=RovTrainingMaps.Descriptions[settings.Current.map];
             notice.text=error ?? settings.Notice;
         }
         private void OnDisable()

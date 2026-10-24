@@ -13,7 +13,10 @@
                 <ui:Button name="sitl-toggle" text="CONNECT SITL · SIMULATION ONLY" focusable="false" />
                 <ui:Foldout text="TRAINING CONDITIONS &amp; SCENARIOS" value="false" class="training-foldout">
                     <ui:ScrollView class="settings-scroll">
-                        <ui:DropdownField name="scenario" label="Preset" />
+                        <ui:DropdownField name="training-map" label="Training map" />
+                        <ui:Button name="map-apply" text="LOAD MAP &amp; RESET START" focusable="false" />
+                        <ui:Label name="map-description" class="note wrap" />
+                        <ui:DropdownField name="scenario" label="Conditions preset" />
                         <ui:Button name="scenario-apply" text="APPLY PRESET &amp; RESET START" focusable="false" />
                         <ui:Slider name="current-east" label="Current east (m/s)" low-value="-1" high-value="1" show-input-field="true" focusable="false" />
                         <ui:Slider name="current-north" label="Current north (m/s)" low-value="-1" high-value="1" show-input-field="true" focusable="false" />
@@ -37,7 +40,7 @@
                 <ui:Label name="score" text="SCORE 1000 · BEST —" class="course-stat" />
                 <ui:Label name="run-save" class="course-stat" />
                 <ui:Label name="target" text="Follow the numbered yellow gates" class="course-stat" />
-                <ui:Label text="Then cyan hover ring → green dock" class="course-stat" />
+                <ui:Label text="Select a training map in Training Conditions &amp; Scenarios" class="course-stat" />
                 <ui:Label name="visibility-text" text="VISIBILITY 8.0 m · visual approximation" class="course-stat" />
                 <ui:Slider name="visibility" low-value="1" high-value="20" value="8" picking-mode="Position" focusable="false" />
                 <ui:Button name="restart" text="RESTART COURSE · HOME / START" picking-mode="Position" focusable="false" />

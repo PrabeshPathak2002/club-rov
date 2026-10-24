@@ -104,3 +104,17 @@ The generated mesh and scene are included, so opening this project does not requ
 The training revision passed six mixer checks, eleven Play Mode motion/lifecycle checks, twelve synthetic keyboard/gamepad/camera checks and nineteen course/UI/visibility checks. See [validation notes](Docs/VALIDATION.md) for evidence and remaining limits.
 
 This prototype is isolated from the physical ROV. I can now use ArduSub 4.7.2 SITL as the controller, with Unity supplying physics and sensor data through its JSON backend. See the [SITL setup and validation](../SITL/README.md) for the launcher, QGroundControl connection and remaining limits. Local piloting remains the default; CONNECT SITL explicitly transfers command ownership. ROS 2 and real-hardware connections are not implemented.
+
+
+### Training maps
+
+Open **TRAINING CONDITIONS & SCENARIOS**, choose **Training map**, then **LOAD MAP & RESET START**. Switch before connecting SITL; restart both SITL and Unity connection after changing the start pose. Four layouts share the 20 × 24 m pool:
+
+- **Pool course**: original three gates, hover ring and dock.
+- **Gate & pillar**: 2 m horizontal gate bar at 1 m depth, marker 10 m beyond, start 3 m behind. Pass under the bar, circle the marker within a 0.6–3 m radius, then return under the bar. Either orbit direction works. Surface breaches invalidate score eligibility. This is a practice approximation with center-path checks and hull clearance margins, not official judging or proof of autonomy.
+- **Empty pool**: free piloting and tuning without scored completion.
+- **Slalom**: five offset gates at varying depths, then hover and dock.
+
+Saved custom scenarios include their map; built-in conditions presets keep the selected map and reset its standard start. Personal bests are separated by map and conditions. Existing saved scenarios without a map load the original course. Earlier score records are preserved; their older condition keys are not compared with the new map-aware keys.
+
+Gate/pillar dimensions and sequence follow the [published RoboSub handbook](https://robonation.gitbook.io/robosub-resources/section-3-autonomy-challenge/3.4-competition-sequence-of-events), checked 24 October 2026. Official prequalification requires a real fully autonomous vehicle run and uninterrupted recording; simulator completion is training only. Verify the applicable season before building a competition course.
