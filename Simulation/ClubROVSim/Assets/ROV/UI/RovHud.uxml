@@ -47,7 +47,12 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement class="footer" picking-mode="Ignore">
-            <ui:Label name="telemetry" text="DEPTH  1.20 m     SPEED  0.00 m/s     HEADING  000°" class="telemetry" />
+            <ui:VisualElement class="graphics-row" picking-mode="Position">
+                <ui:Label name="performance" text="Measuring FPS..." class="course-stat" />
+                <ui:DropdownField name="graphics-quality" label="Graphics" />
+                <ui:DropdownField name="graphics-cap" label="FPS limit" />
+            </ui:VisualElement>
+                <ui:Label name="telemetry" text="DEPTH  1.20 m     SPEED  0.00 m/s     HEADING  000°" class="telemetry" />
             <ui:Label name="thrusters" text="H1 0.00   H2 0.00   H3 0.00   H4 0.00   V1 0.00   V2 0.00" class="outputs" />
             <ui:Label text="WASD move    R/F up/down    Q/E turn    V camera    HOME reset    SPACE cut thrust" class="controls" />
             <ui:Label text="Gamepad: left stick move · right stick turn/depth · Start reset · Back camera · A cut thrust" class="controls" />

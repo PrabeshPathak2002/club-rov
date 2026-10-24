@@ -28,11 +28,13 @@ namespace ClubROV.Simulation
         private Label arming, score, runSave;
         private RovTrainingSettings training;
         private float nextRefresh;
+        private RovGraphicsSettings graphics;
         public void Configure(RovDynamics dynamics) => vehicle = dynamics;
         public void ConfigureTraining(RovTrainingCourse training, RovWaterVisibility visibility) { course = training; water = visibility; }
         private void OnEnable()
         {
             VisualElement root = GetComponent<UIDocument>().rootVisualElement;
+            graphics = new RovGraphicsSettings(root);
             telemetry = root.Q<Label>("telemetry");
             arming=root.Q<Label>("arming"); score=root.Q<Label>("score");
             runSave=root.Q<Label>("run-save");
@@ -79,6 +81,7 @@ namespace ClubROV.Simulation
         }
         private void OnDisable()
         {
+            graphics?.Dispose(); graphics=null;
             visibilitySlider?.UnregisterValueChangedCallback(OnVisibility);
             if (restart != null) restart.clicked -= Restart;
             if (sitlToggle != null) sitlToggle.clicked -= ToggleSitl;
@@ -86,6 +89,7 @@ namespace ClubROV.Simulation
         }
         private void Update()
         {
+            graphics?.Tick();
             if (vehicle == null || telemetry == null || Time.unscaledTime < nextRefresh) return;
             nextRefresh = Time.unscaledTime + 0.1f;
             if (sitl != null)

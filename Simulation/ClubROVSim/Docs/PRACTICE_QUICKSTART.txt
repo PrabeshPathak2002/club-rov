@@ -1,0 +1,27 @@
+CLUB ROV SIMULATOR - WINDOWS PRACTICE
+
+Extract the entire ZIP to a writable folder. Run ClubROVSim.exe.
+Keep ClubROVSim_Data, MonoBleedingEdge and all DLLs beside the executable.
+Unity, Python, WSL and QGroundControl are not needed for local practice.
+This package targets Windows x64; Mac/Linux require separate builds.
+
+Click the game view before piloting. Keyboard: W/S forward/back, A/D sideways,
+R/F ascend/descend, Q/E turn, V camera, Space cut thrust, Home reset.
+Xbox: left stick moves, right stick yaw/depth, Back camera, A cut thrust,
+Start reset. Click away from dropdowns to return keyboard focus to piloting.
+Select maps under Training Conditions & Scenarios, then load the map.
+
+Graphics controls at the bottom: Low/Medium/High and 30/60/120 FPS limit.
+Start with Medium/60; try Low/30 on a slower laptop. Choices save locally.
+FPS and milliseconds/frame are a rolling rendering measurement, not SITL rate.
+The simulated FPV video remains capped at 30 samples/second on every preset.
+Graphics presets change resolution, HDR and shadows, not physics or conditions.
+All maps share one scene, so inactive maps may still occupy memory.
+
+Optional windowed 1280x720 launch: double-click Start-Practice.bat.
+For support, include computer CPU/GPU/RAM, map, resolution, preset and FPS.
+Minimum hardware requirements have not yet been established by laptop tests.
+
+This ZIP includes local practice only. QGC/ArduSub use requires the separate
+repository SITL tools and WSL setup. No real ROV connection is required.
+Physics remain provisional; competition tasks are currently static practice.

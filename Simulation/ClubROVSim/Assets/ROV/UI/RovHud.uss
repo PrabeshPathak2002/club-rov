@@ -32,3 +32,8 @@
 .identity .unity-base-field__label { color: rgb(172,204,214); }
 
 #training-map .unity-base-field__label, #scenario .unity-base-field__label { min-width: 85px; width: 85px; }
+
+.graphics-row { flex-direction: row; align-items: center; margin-bottom: 6px; }
+.graphics-row DropdownField { width: 210px; margin-left: 16px; }
+.graphics-row .unity-base-field__label { min-width: 62px; }
+#performance { width: 250px; margin-top: 0; }

@@ -127,3 +127,9 @@ Two additional maps reproduce the arrangement in the official July 11, 2026 hand
 Select either map under Training Conditions & Scenarios before connecting SITL. Task spacing is traced from diagrams marked not to scale. These are static, unscored practice maps with official task-image textures, not complete competition task simulators. Source links, exact-versus-estimated geometry and limitations are in [ROBOSUB_2026_MAPS.md](Docs/ROBOSUB_2026_MAPS.md).
 
 The 2026 maps use RoboNation’s official PNG task artwork rather than S&R/SOS text placeholders. All 16 source images and provenance are recorded in `Docs/robosub-2026-artwork.json`; four torpedo-board openings follow the official SVG geometry.
+
+## Portable practice and graphics
+
+Graphics controls in the footer offer Low/Medium/High and 30/60/120 FPS caps, saved locally through PlayerPrefs. Medium/60 is the default. Presets use runtime copies of the URP asset and change render scale (65/85/100%), shadow distance (0/15/30 m), cascades and HDR. They do not change physics or scenario conditions. The FPS display averages rendered frames over half a second; FPV samples still run at up to 30 Hz.
+
+After a successful Windows build, run `pwsh -NoProfile -File ./Package-Practice.ps1` to create a dated ZIP under Builds. It includes a quickstart and windowed 1280×720 launcher, excluding Unity backup/debug folders. Recipients extract everything and run ClubROVSim.exe; Unity and SITL dependencies are unnecessary for local controls. See [quickstart](Docs/PRACTICE_QUICKSTART.txt). Hardware requirements and performance on other PCs remain unverified.
