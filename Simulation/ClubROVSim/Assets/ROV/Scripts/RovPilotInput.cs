@@ -60,7 +60,7 @@ namespace ClubROV.Simulation
             float magnitude = value.magnitude;
             return magnitude < 0.00001f ? Vector2.zero : value / magnitude * ShapeAxis(magnitude, deadZone);
         }
-        private void OnApplicationFocus(bool focused) { if (!focused && vehicle != null) vehicle.StopThrusters(); }
+        private void OnApplicationFocus(bool focused) { if (!focused && vehicle != null && !vehicle.ExternalPhysics) vehicle.StopThrusters(); }
         private void OnDisable() { if (vehicle != null) vehicle.StopThrusters(); }
     }
 }

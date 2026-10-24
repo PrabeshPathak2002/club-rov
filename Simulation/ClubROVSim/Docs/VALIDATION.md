@@ -70,4 +70,10 @@ The FPV revision built successfully for Windows x64 with **zero errors and zero 
 
 Mass, displacement, drag, inertia and thrust curves are provisional; thrust lines now come from CAD. Passing these checks establishes the prototype's internal behavior, not agreement with the real ROV. Long-duration operation and frame-rate performance remain to be measured. Controller and camera coverage for the later revision is recorded above.
 
-There is no ROS, SITL, MAVLink, tether or real-hardware connection in this prototype. The simulation cannot command the ESP32 or ARK.
+There is no ROS, tether or real-hardware connection in this prototype. The simulation cannot command the ESP32 or ARK. SITL and MAVLink support were added in the revision below.
+
+## SITL integration validation
+
+ArduSub 4.7.2 built in WSL2 from pinned revision fb773567896014da007bca58358704d4a0d8516f. Live JSON exchange settled to 400 Hz. The final configuration uses MAV_SYSID=42 and FRAME_CONFIG=1 (six-motor VECTORED). The guarded MAVLink test verified neutral, forward, starboard, right-yaw and upward outputs, then disarmed with all six channels at 1500 µs. Unity visibly translated, turned and rose. QGroundControl received live telemetry over the dedicated localhost TCP 5765 link; its joystick calibration and hands-on controller use remain pending.
+
+Twelve protocol and twelve UDP/ownership/duplicate/timeout checks passed. Regression checks passed: eleven local motion/lifecycle, twelve synthetic controls/camera (with native Unity focus), nineteen course/UI/visibility and ten FPV checks. The Windows build succeeded with zero build errors and warnings, 112,769,468 bytes. Existing shader warnings in the Editor were not introduced by SITL. Depth/heading hold and absolute depth calibration were not tested. See [SITL notes](../../SITL/README.md) and its recorded MAVLink report.

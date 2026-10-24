@@ -1,0 +1,232 @@
+{
+  "system": 42,
+  "messages": {
+    "COMMAND_ACK": {
+      "mavpackettype": "COMMAND_ACK",
+      "command": 410,
+      "result": 4,
+      "progress": 0,
+      "result_param2": 0,
+      "target_system": 255,
+      "target_component": 230
+    },
+    "AUTOPILOT_VERSION": {
+      "mavpackettype": "AUTOPILOT_VERSION",
+      "capabilities": 63975,
+      "flight_sw_version": 67568383,
+      "middleware_sw_version": 0,
+      "os_sw_version": 0,
+      "board_version": 0,
+      "flight_custom_version": [
+        102,
+        98,
+        55,
+        55,
+        51,
+        53,
+        54,
+        55
+      ],
+      "middleware_custom_version": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "os_custom_version": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "vendor_id": 0,
+      "product_id": 0,
+      "uid": 0,
+      "uid2": [
+        98,
+        99,
+        100,
+        98,
+        57,
+        49,
+        52,
+        101,
+        100,
+        48,
+        52,
+        51,
+        52,
+        49,
+        55,
+        50,
+        56,
+        0
+      ]
+    },
+    "ATTITUDE": {
+      "mavpackettype": "ATTITUDE",
+      "time_boot_ms": 44091,
+      "roll": 0.004385535605251789,
+      "pitch": 0.002874279860407114,
+      "yaw": 0.4166233241558075,
+      "rollspeed": 0.000442715419922024,
+      "pitchspeed": 0.0015430571511387825,
+      "yawspeed": 9.66398511081934e-05
+    },
+    "SERVO_OUTPUT_RAW": {
+      "mavpackettype": "SERVO_OUTPUT_RAW",
+      "time_usec": 44091325,
+      "port": 0,
+      "servo1_raw": 1500,
+      "servo2_raw": 1500,
+      "servo3_raw": 1500,
+      "servo4_raw": 1500,
+      "servo5_raw": 1500,
+      "servo6_raw": 1500,
+      "servo7_raw": 0,
+      "servo8_raw": 1500,
+      "servo9_raw": 1100,
+      "servo10_raw": 1500,
+      "servo11_raw": 0,
+      "servo12_raw": 0,
+      "servo13_raw": 0,
+      "servo14_raw": 0,
+      "servo15_raw": 0,
+      "servo16_raw": 0
+    },
+    "SCALED_PRESSURE": {
+      "mavpackettype": "SCALED_PRESSURE",
+      "time_boot_ms": 44091,
+      "press_abs": 1062.4266357421875,
+      "press_diff": 0.0,
+      "temperature": 1487,
+      "temperature_press_diff": 0
+    },
+    "STATUSTEXT": {
+      "mavpackettype": "STATUSTEXT",
+      "severity": 6,
+      "text": "Disarming motors",
+      "id": 0,
+      "chunk_seq": 0
+    }
+  },
+  "phases": [
+    {
+      "name": "neutral",
+      "outputs": [
+        1500,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500
+      ]
+    },
+    {
+      "name": "forward",
+      "outputs": [
+        1420,
+        1420,
+        1580,
+        1580,
+        1500,
+        1500
+      ]
+    },
+    {
+      "name": "neutral",
+      "outputs": [
+        1500,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500
+      ]
+    },
+    {
+      "name": "starboard",
+      "outputs": [
+        1580,
+        1420,
+        1580,
+        1420,
+        1500,
+        1500
+      ]
+    },
+    {
+      "name": "neutral",
+      "outputs": [
+        1500,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500
+      ]
+    },
+    {
+      "name": "yaw right",
+      "outputs": [
+        1560,
+        1440,
+        1440,
+        1560,
+        1500,
+        1500
+      ]
+    },
+    {
+      "name": "neutral",
+      "outputs": [
+        1500,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500
+      ]
+    },
+    {
+      "name": "up",
+      "outputs": [
+        1500,
+        1500,
+        1500,
+        1500,
+        1440,
+        1440
+      ]
+    }
+  ],
+  "disarmed_outputs": {
+    "mavpackettype": "SERVO_OUTPUT_RAW",
+    "time_usec": 44091325,
+    "port": 0,
+    "servo1_raw": 1500,
+    "servo2_raw": 1500,
+    "servo3_raw": 1500,
+    "servo4_raw": 1500,
+    "servo5_raw": 1500,
+    "servo6_raw": 1500,
+    "servo7_raw": 0,
+    "servo8_raw": 1500,
+    "servo9_raw": 1100,
+    "servo10_raw": 1500,
+    "servo11_raw": 0,
+    "servo12_raw": 0,
+    "servo13_raw": 0,
+    "servo14_raw": 0,
+    "servo15_raw": 0,
+    "servo16_raw": 0
+  }
+}

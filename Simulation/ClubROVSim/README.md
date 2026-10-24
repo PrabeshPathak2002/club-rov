@@ -89,4 +89,4 @@ The generated mesh and scene are included, so opening this project does not requ
 
 The training revision passed six mixer checks, eleven Play Mode motion/lifecycle checks, twelve synthetic keyboard/gamepad/camera checks and nineteen course/UI/visibility checks. See [validation notes](Docs/VALIDATION.md) for evidence and remaining limits.
 
-This prototype is isolated from the real ROV. It does not connect to the ESP32, ARK, QGroundControl, ArduSub SITL or ROS 2. My next stages are to tune the vehicle dynamics, verify physical controller input, add simulated sensor interfaces and then integrate ArduSub SITL/ROS 2 with explicit command ownership.
+This prototype is isolated from the physical ROV. I can now use ArduSub 4.7.2 SITL as the controller, with Unity supplying physics and sensor data through its JSON backend. See the [SITL setup and validation](../SITL/README.md) for the launcher, QGroundControl connection and remaining limits. Local piloting remains the default; CONNECT SITL explicitly transfers command ownership. ROS 2 and real-hardware connections are not implemented.

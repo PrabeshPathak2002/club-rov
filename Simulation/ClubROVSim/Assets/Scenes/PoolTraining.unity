@@ -344,6 +344,7 @@ GameObject:
   - component: {fileID: 71942321}
   - component: {fileID: 71942323}
   - component: {fileID: 71942326}
+  - component: {fileID: 71942327}
   m_Layer: 0
   m_Name: Club ROV - simulation
   m_TagString: Untagged
@@ -478,6 +479,20 @@ MonoBehaviour:
   - {fileID: 1417221720}
   hoverTarget: {fileID: 1250552377}
   dockTarget: {fileID: 1543228096}
+--- !u!114 &71942327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71942320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6996ef18009444f838ede8245cbb1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClubROV.Simulation.RovSitlBridge
+  simulatorAddress: 127.0.0.1
+  listenPort: 9002
 --- !u!1 &88508064
 GameObject:
   m_ObjectHideFlags: 0

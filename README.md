@@ -32,6 +32,7 @@ I am documenting the build so new club members can understand the design, reprod
 - [Current component list](Documentation/BOM.md)
 - [Mechanical revisions and fit files](Hardware/README.md)
 - [Unity pool simulator](Simulation/ClubROVSim/README.md)
+- [ArduSub SITL and Unity setup](Simulation/SITL/README.md)
 - [Testing plan](Documentation/TESTING.md) and [bench results](Documentation/STATUS.md)
 - [New member learning path](Documentation/NEW_MEMBERS.md)
 - [Roadmap](Documentation/ROADMAP.md) and [contribution guide](CONTRIBUTING.md)

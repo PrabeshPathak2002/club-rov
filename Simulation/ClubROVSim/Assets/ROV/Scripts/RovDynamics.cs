@@ -27,6 +27,7 @@ namespace ClubROV.Simulation
         public float Speed => body == null ? 0 : body.linearVelocity.magnitude;
         public float Heading => transform.eulerAngles.y;
         public Rigidbody Body => body;
+        public bool ExternalPhysics { get; set; }
         public event System.Action VehicleReset;
         public float Output(int i) => actual[i];
 
@@ -40,6 +41,7 @@ namespace ClubROV.Simulation
 
         public void SetPilotCommand(Vector3 translation, float yaw, float thrustLimit = 1)
         {
+            if (ExternalPhysics) return;
             RovThrusterLayout.Mix(Vector3.ClampMagnitude(translation, 1), Mathf.Clamp(yaw, -1, 1), desired);
             // Mix in force space: honor the weaker reverse limit without introducing
             // an unrequested translation during yaw or strafe. Outputs are force fractions.
@@ -47,6 +49,13 @@ namespace ClubROV.Simulation
             for (int i = 0; i < desired.Length; i++)
                 if (desired[i] < 0) scale = Mathf.Max(scale, -desired[i] / reverseThrustRatio);
             for (int i = 0; i < desired.Length; i++) desired[i] *= Mathf.Clamp01(thrustLimit) / scale;
+        }
+
+        public void SetActuator(int index, float command)
+        {
+            if (!ExternalPhysics) return;
+            command = Mathf.Clamp(command, -1, 1);
+            desired[index] = command < 0 ? command * reverseThrustRatio : command;
         }
 
         public void StopThrusters()
@@ -57,6 +66,7 @@ namespace ClubROV.Simulation
 
         public void ResetVehicle()
         {
+            if (ExternalPhysics) return; // Restart the SITL session together with its physics origin.
             StopThrusters();
             body.position = startPosition;
             body.rotation = startRotation;
@@ -69,6 +79,11 @@ namespace ClubROV.Simulation
         private void OnDisable() => StopThrusters();
 
         private void FixedUpdate()
+        {
+            if (!ExternalPhysics) ApplyForces(Time.fixedDeltaTime);
+        }
+
+        public void ApplyForces(float stepSeconds)
         {
             float wetFraction = Mathf.Clamp01((surfaceY - (body.position.y - hullHeight * 0.5f)) / hullHeight);
             Vector3 buoyancy = -Physics.gravity * (waterDensity * displacedVolumeM3 * wetFraction);
@@ -84,7 +99,7 @@ namespace ClubROV.Simulation
 
             for (int i = 0; i < actual.Length; i++)
             {
-                actual[i] = Mathf.MoveTowards(actual[i], desired[i], Time.fixedDeltaTime / motorResponseSeconds);
+                actual[i] = Mathf.MoveTowards(actual[i], desired[i], stepSeconds / motorResponseSeconds);
                 float thrust = actual[i] * fullThrustNewtons;
                 body.AddForceAtPosition(transform.TransformDirection(RovThrusterLayout.Direction(i)) * (thrust * wetFraction),
                     transform.TransformPoint(RovThrusterLayout.Position(i)));
