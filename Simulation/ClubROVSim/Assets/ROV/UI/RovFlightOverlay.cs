@@ -14,6 +14,7 @@ namespace ClubROV.Simulation
         private readonly VisualElement root;
         private readonly Button toggle;
         private readonly DropdownField styleChoice;
+        private readonly Label compassDegrees;
         public enum HudStyle { CompactDials, FlightOverlay, BetaflightOsd }
         public HudStyle InstrumentStyle { get; private set; }
         private readonly System.Collections.Generic.List<Vector2> ground = new(68);
@@ -37,6 +38,17 @@ namespace ClubROV.Simulation
             name="flight-osd";pickingMode=PickingMode.Ignore;
             style.position=Position.Absolute;style.left=0;style.right=0;style.top=0;style.bottom=0;
             generateVisualContent+=Draw;root.Insert(0,this);
+            compassDegrees=new Label {name="compass-degrees",pickingMode=PickingMode.Ignore};
+            compassDegrees.style.position=Position.Absolute;
+            compassDegrees.style.marginLeft=0;compassDegrees.style.marginRight=0;
+            compassDegrees.style.marginTop=0;compassDegrees.style.marginBottom=0;
+            compassDegrees.style.paddingLeft=0;compassDegrees.style.paddingRight=0;
+            compassDegrees.style.paddingTop=0;compassDegrees.style.paddingBottom=0;
+            compassDegrees.style.unityTextAlign=TextAnchor.MiddleCenter;
+            compassDegrees.style.color=new Color(0.92f,0.96f,1f);
+            compassDegrees.style.unityTextOutlineColor=Color.black;
+            compassDegrees.style.unityTextOutlineWidth=1;
+            Add(compassDegrees);
             toggle=new Button(Toggle){name="osd-toggle",focusable=false};
             document.Q("panel-content-control").Add(toggle);UpdateButton();
             styleChoice=new DropdownField("Instrument style",new System.Collections.Generic.List<string>{"Compact dials","Flight overlay","Betaflight-style OSD"},0){name="osd-style"};
@@ -63,12 +75,21 @@ namespace ClubROV.Simulation
             if(!editing && (Keyboard.current?.iKey.wasPressedThisFrame??false))
                 SetStyle((HudStyle)(((int)InstrumentStyle+1)%3));
             style.display=Visible?DisplayStyle.Flex:DisplayStyle.None;
+            compassDegrees.style.display=InstrumentStyle==HudStyle.CompactDials?DisplayStyle.Flex:DisplayStyle.None;
             if(!Visible || vehicle==null || Time.unscaledTime<refresh)return;
             refresh=Time.unscaledTime+1f/30;
             Vector3 attitude=Attitude(vehicle.transform.rotation);
             pitch=attitude.x;roll=attitude.y;heading=attitude.z;
             depth=vehicle.Depth;speed=vehicle.Speed;
             control=sitl==null?"SIM":sitl.ControlState;
+            float frameHeight=Mathf.Min(contentRect.height,contentRect.width*0.75f);
+            float frameWidth=frameHeight*4f/3,scale=frameHeight/720f;
+            float cx=(contentRect.width-frameWidth)/2+frameWidth-88*scale;
+            float cy=(contentRect.height-frameHeight)/2+frameHeight-110*scale;
+            compassDegrees.text=$"{(int)Mathf.Repeat(Mathf.Round(heading),360):000}°";
+            compassDegrees.style.left=cx-48*scale;compassDegrees.style.top=cy-20*scale;
+            compassDegrees.style.width=96*scale;compassDegrees.style.height=40*scale;
+            compassDegrees.style.fontSize=17*scale;
             MarkDirtyRepaint();
         }
         private void Draw(MeshGenerationContext ctx)
@@ -146,7 +167,7 @@ namespace ClubROV.Simulation
             var p=ctx.painter2D;float pixel=2.4f*scale;Vector2 center=new(left+width/2,top+height/2);
             void Text(string text,float x,float y,bool centered=false)
             {
-                if(centered)x-=text.Length*6*pixel/2;
+                if(centered)x-=(text.Length*6-1)*pixel/2;
                 RovOsdLettering.Draw(p,text,new Vector2(x,y),pixel);
             }
             void Line(Vector2 a,Vector2 b,float size=2)
@@ -265,7 +286,7 @@ namespace ClubROV.Simulation
             }
             Line(compassCenter+new Vector2(-5,-50)*scale,compassCenter+new Vector2(0,-42)*scale,Color.red,3);
             Line(compassCenter+new Vector2(5,-50)*scale,compassCenter+new Vector2(0,-42)*scale,Color.red,3);
-            Text($"{heading:000}°",compassCenter-new Vector2(21,9)*scale,17);
+            // The child Label centers the complete heading including its degree glyph.
             Text("ATTITUDE",attitudeCenter+new Vector2(-29,-76)*scale,11);
             Text("COMPASS",compassCenter+new Vector2(-28,-76)*scale,11);
             Text($"P {pitch:+0;-0;0}°  R {roll:+0;-0;0}°",attitudeCenter+new Vector2(-46,61)*scale,11);
