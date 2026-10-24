@@ -1,8 +1,8 @@
-> This is my September 2026 baseline. Later mounts, electronics and endcap revisions supersede parts of this document. Use the [current revision index](../../Hardware/README.md) before building or ordering. Historical totals are not a current purchasing list.
+> This is the September 2026 baseline. Later mounts, electronics and endcap revisions supersede parts of this document. Use the [current revision index](../../Hardware/README.md) before building or ordering. Historical totals are not a current purchasing list.
 
 # Current ROV bill of materials
 
-Revision: M4 side-frame joints, 30 September 2026. I generated this design BOM from my Future ROV CAD document and the September print exports. I still need to verify the full purchasing list against the physical build. Model labels do not prove ownership or final electrical compatibility. Prices are not estimated.
+Revision: M4 side-frame joints, 30 September 2026. This design BOM was generated from the Future ROV CAD document and September print exports. The full purchasing list requires verification against the physical build. Model labels do not prove ownership or final electrical compatibility. Prices are not estimated.
 
 27 printed assembly parts; six U01 thrusters. The 10 supplied fit coupons and six STEP interface references are not installed vehicle parts. PETG spool quantity must come from the slicer, including supports, brim, coupons and waste.
 

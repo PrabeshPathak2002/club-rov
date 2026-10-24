@@ -1,6 +1,6 @@
 # RoboSub 2026 training arenas
 
-I used the [July 11 handbook](https://robonation.org/app/uploads/sites/4/2026/07/RoboSub-2026_Team-Handbook_20260711-compressed.pdf), pp. 80 and 82, for the practice and finals arrangements. The finals variant combines A/B1/B2; the other fields remain alongside it. The diagrams explicitly say they are not to scale. Normalized task centers are recorded in `robosub-2026-layout.json` and mirrored by `RoboSub2026Setup`; these are traced approximations, not measured task coordinates.
+The practice and finals arrangements follow the [July 11 handbook](https://robonation.org/app/uploads/sites/4/2026/07/RoboSub-2026_Team-Handbook_20260711-compressed.pdf), pp. 80 and 82. The finals variant combines A/B1/B2; the other fields remain alongside it. The diagrams explicitly say they are not to scale. Normalized task centers are recorded in `robosub-2026-layout.json` and mirrored by `RoboSub2026Setup`; these are traced approximations, not measured task coordinates.
 
 The venue footprint is 50 m × 25 yd (22.86 m), per [NOVA's facility description](https://www.gomotionapp.com/team/nova/page/locations/woollett-aquatic-center). Depth is 2.1 m, per handbook p. 72. The four earlier maps retain their original environment and depth.
 

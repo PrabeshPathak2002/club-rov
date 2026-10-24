@@ -1,6 +1,6 @@
 # Wi-Fi firmware updates
 
-I added OTA updates so I can install new companion firmware through the maintenance dashboard. The update writes an inactive application slot and keeps a recovery path if the new application fails its startup checks.
+OTA updates install companion firmware through the maintenance dashboard. The update writes an inactive application slot and keeps a recovery path if the new application fails its startup checks.
 
 ## Update from the dashboard
 
@@ -48,7 +48,7 @@ future images retain your credentials.
 
 ## Partitions and rollback
 
-My board has 32 MB flash. NVS and PHY data retain their original
+The bench board has 32 MB flash. NVS and PHY data retain their original
 offsets. The layout preserves a 4 MiB factory recovery app at 0x10000,
 adds OTA metadata at 0x410000, and provides 4 MiB app slots at 0x420000
 and 0x820000. Updates alternate between the OTA slots; they do not overwrite
@@ -118,7 +118,7 @@ These are the results from the OTA bench checks:
 - The physical controller's disarmed heartbeat unlocked uploading.
 - Actual HTTP tests returned 401 for absent/wrong passwords, 413 for an incomplete
   image, and 400 for an incompatible header and a corrupted firmware hash.
-- I uploaded the complete application through the dashboard at 192.168.4.1; device validation returned success and selected ota_0.
+- The complete application was uploaded through the dashboard at 192.168.4.1; device validation returned success and selected ota_0.
 - Desktop and 390 px phone layouts were checked, including offline/startup/armed
   upload locks, failed-upload feedback and clearing the entered password.
 - At 64 seconds, the OTA-installed application logged "Startup check passed;
@@ -128,4 +128,4 @@ These are the results from the OTA bench checks:
 - Flash writes temporarily reduced video rate and increased intentional command
   drops while forwarding was inhibited; the C6 SDIO driver logged queue pressure
   during the transfer. Normal operation recovered after restart.
-- I still need exhaustive power-loss and endurance tests.
+- Exhaustive power-loss and endurance testing remains incomplete.

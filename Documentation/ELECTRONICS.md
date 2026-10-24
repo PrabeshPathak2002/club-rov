@@ -1,6 +1,6 @@
 # Electronics setup and ESC recovery
 
-I am using an ARK FPV with ArduSub 4.7.2 and the six-thruster Vectored frame. The DAKEFPV four-in-one connects to outputs 1–4, and the Basic ESCs connect to outputs 5–6. I reset the FC parameters on 23 October 2026 and rebuilt the output setup below. I still need to save a complete parameter export.
+The control system uses an ARK FPV with ArduSub 4.7.2 and the six-thruster Vectored frame. The DAKEFPV four-in-one connects to outputs 1–4, and the Basic ESCs connect to outputs 5–6. FC parameters were reset on 23 October 2026 before applying the output setup below. A complete parameter export remains pending.
 
 ## Wiring first
 
@@ -12,7 +12,7 @@ The six-pin GPS connector provides 5 V on pin 1, I2C SCL on 4, SDA on 5, and GND
 
 ## Four-in-one ESC configuration
 
-I read all four channels through the matching F722 running Betaflight 4.5.2. They already had B-X-30 / Bluejay 0.19 / 24 kHz installed, so I could enable forward/reverse without flashing new firmware.
+All four channels were read through the matching F722 running Betaflight 4.5.2. They already had B-X-30 / Bluejay 0.19 / 24 kHz installed, allowing forward/reverse configuration without a firmware flash.
 
 With motors disconnected, select **Motor Direction → Forward/Reverse (3D mode)** on all four, write settings and read back. Use Brake on Stop off as the initial setup. Keep timing and startup power unchanged until tested. The plain Reversed choice changes a single rotation direction; it does not enable reversible thrust. Do not click Flash All ESCs merely to save settings.
 
@@ -33,7 +33,7 @@ MOT_PWM_TYPE      0     # Normal PWM; verify the displayed enum
 
 Numeric mask 15 selects channels 1, 2, 3 and 4; it does not mean channel 15. 3DMASK enables forward/reverse DShot mapping. BDMASK is for RPM feedback and is a different feature. Leave outputs 5–6 as ordinary PWM for the Basic ESCs.
 
-Save, reboot and check for `RCOut: DS300:1-4 PWM:5-9`. This is the line I got after resetting and configuring the ARK. It proves output protocol assignment only, not that the motors are connected, stopped at neutral, mapped correctly or producing correct thrust. Read back 3DMASK as well; it is not established by that startup line.
+Save, reboot and check for `RCOut: DS300:1-4 PWM:5-9`. This startup line was recorded after resetting and configuring the ARK. It proves output protocol assignment only, not that the motors are connected, stopped at neutral, mapped correctly or producing correct thrust. Read back 3DMASK as well; it is not established by that startup line.
 
 ## Test sequence after MR30 installation
 
@@ -43,13 +43,13 @@ Save, reboot and check for `RCOut: DS300:1-4 PWM:5-9`. This is the line I got af
 4. Secure the vehicle with thrusters submerged and hands clear. Use individual low-power QGC motor tests; record which physical thruster responds and both thrust directions. Do not assume channel numbers equal vehicle positions.
 5. Record corrections, a full parameter export and test results. Verify failure behavior before free-swimming trials.
 
-Do not bypass arming checks simply to clear an error. I am waiting for the MR30 connectors before connecting and testing all six thrusters.
+Do not bypass arming checks simply to clear an error. Connection and testing of all six thrusters remain pending delivery of the MR30 connectors.
 
 ## Troubleshooting
 
-- COM disappears / FC LED goes out on battery connection: disconnect power and inspect the harness and rails. I had this problem on the F722 and fixed it by correcting the harness wiring.
+- COM disappears / FC LED goes out on battery connection: disconnect power and inspect the harness and rails. This symptom occurred on the F722 and was resolved by correcting the harness wiring.
 - ARDU 3.3.1 in ESC Configurator: an MSP compatibility identifier, not proof the installed ArduSub is 3.3.1.
-- ARK passthrough short reads: all four tests returned zero bytes. I have not isolated the cause yet; successful Betaflight reads do not by themselves prove ARK passthrough compatibility.
+- ARK passthrough short reads: all four tests returned zero bytes. The cause remains unresolved; successful Betaflight reads do not by themselves prove ARK passthrough compatibility.
 - Two ARK serial ports: use the MAVLink interface, not SLCAN; close competing serial applications.
 
 Sources: [ARK hardware](https://docs.arkelectron.com/products/flight-controller/ark-fpv/hardware), [ArduSub ESC setup](https://ardupilot.org/sub/docs/common-blheli32-passthru.html), [Bluejay settings](https://github.com/bird-sanctuary/bluejay/wiki/Settings).

@@ -1,8 +1,8 @@
-> This is my September 2026 baseline. Later mounts, electronics and endcap revisions supersede parts of this document. Use the [current revision index](../Hardware/README.md) before building or ordering. Historical totals are not a current purchasing list.
+> This is the September 2026 baseline. Later mounts, electronics and endcap revisions supersede parts of this document. Use the [current revision index](../Hardware/README.md) before building or ordering. Historical totals are not a current purchasing list.
 
 # Final ROV design
 
-I standardized the side-frame joints to M4 on 30 September 2026. Start with the assembly and printing guide below.
+The side-frame joints were standardized to M4 on 30 September 2026. Start with the assembly and printing guide below.
 
 Current orientation revision: rear horizontal pair flipped back; front horizontal and vertical pairs retain their reversed orientations. The current relieved receiver pockets and print files are unchanged by this correction. See [revision details and fit-test requirements](#orientation-and-checks). Earlier validation reports are historical where superseded by the rear-pair correction reports.
 
@@ -32,4 +32,4 @@ The rear-pair correction passed six candidate intersection checks and all 402 sa
 
 This is the current design release, not a physically qualified vehicle. Lifting/attachment loads, final electronics, tether, buoyancy and ballast still require the checks described in the guide. Ten test coupons are not installed parts. The six adapter references are not complete working mounts.
 
-Earlier revisions, experiments, scripts, raw tool logs and backups are preserved at ../Archive/Design History 2026-09-29/S6Hybrid/. I retained the original design-history files. The archive inventory and restore instructions are in that archive's parent folder. Original source models, code and other project documents remain in their original project folders.
+Earlier revisions, experiments, scripts, raw tool logs and backups are preserved at ../Archive/Design History 2026-09-29/S6Hybrid/. The original design-history files were retained. The archive inventory and restore instructions are in that archive's parent folder. Original source models, code and other project documents remain in their original project folders.

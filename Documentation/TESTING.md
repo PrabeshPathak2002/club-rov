@@ -1,6 +1,6 @@
 # Validation plan
 
-I am using the following sequence to take the ROV from bench integration to water testing. Completed checks are in my [build notes](STATUS.md). The CAD checks cover geometry and meshes; I still need physical tests for printed-part strength, lifting loads, sealing, depth and endurance.
+The following sequence covers bench integration through water testing. Completed checks are in the [status notes](STATUS.md). The CAD checks cover geometry and meshes; physical tests for printed-part strength, lifting loads, sealing, depth and endurance remain pending.
 
 Before each test, create a [report](templates/TEST_REPORT.md) stating measurable acceptance criteria, configuration, supervision, and abort conditions. Leave a test pending when necessary limits or instruments are unavailable.
 
@@ -13,4 +13,4 @@ Before each test, create a [report](templates/TEST_REPORT.md) stating measurable
 7. **Progressive depth and endurance:** expand conditions only through reviewed tests supported by component ratings and earlier results. Publish demonstrated conditions, not just the design target.
 8. **Sensors and demonstrations:** qualify calibration, timestamps, logging, and effects on control/video. Establish repeatable preflight and recovery procedures before public events.
 
-For each run, I want to keep a concise report, useful measurements, credential-free configuration snapshots and a few relevant photos. Record failed or aborted tests. Link large logs and videos from a deliberate data archive rather than adding them casually to source history.
+For each run, retain a concise report, useful measurements, credential-free configuration snapshots and a few relevant photos. Record failed or aborted tests. Link large logs and videos from a deliberate data archive rather than adding them casually to source history.

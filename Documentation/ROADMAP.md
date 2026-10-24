@@ -1,6 +1,6 @@
 # Roadmap
 
-This is how I am tracking the build. The bench work below is complete; the remaining items are the next integration and testing stages.
+This roadmap tracks the build and integration work. The bench work below is complete; the remaining items are the next integration and testing stages.
 
 ## Established on the bench
 

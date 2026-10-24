@@ -1,6 +1,6 @@
 # ArduSub and Unity
 
-I run ArduSub 4.7.2 in Ubuntu under WSL2 and use Unity as the ROV's physics and sensor backend. This is separate from the physical ARK. The simulator uses MAVLink system ID **42** and the six-motor **VECTORED** frame (`FRAME_CONFIG=1`). These parameter files are for SITL only.
+ArduSub 4.7.2 runs in Ubuntu under WSL2, with Unity providing the ROV physics and sensor backend. This is separate from the physical ARK. The simulator uses MAVLink system ID **42** and the six-motor **VECTORED** frame (`FRAME_CONFIG=1`). These parameter files are for SITL only.
 
 ## Start on this desktop
 
@@ -15,11 +15,11 @@ I run ArduSub 4.7.2 in Ubuntu under WSL2 and use Unity as the ROV's physics and 
    ```
 
    Without `-ConnectUnityEditor`, press **CONNECT SITL** in the Game view. Keep its IPv4 field at `127.0.0.1`. The Windows player uses the same button.
-3. In QGroundControl, connect the **Club ROV SITL ONLY** TCP link: `127.0.0.1:5765`. Confirm vehicle ID 42. I disabled USB, radio, UDP and ZeroConf auto-discovery in the local QGC profile. A backup of the previous profile is in the workspace's `Archive/SITLSetup` folder.
-4. Use QGC's joystick controls for SITL; Unity's local pilot is disabled while ArduSub owns thrust. Camera and visibility controls remain in Unity. I configured the controller and confirmed manual control, depth hold and heading hold in a hands-on test. Remember to arm before expecting thrust.
+3. In QGroundControl, connect the **Club ROV SITL ONLY** TCP link: `127.0.0.1:5765`. Confirm vehicle ID 42. USB, radio, UDP and ZeroConf auto-discovery are disabled in the validated local QGC profile. A backup of the previous profile is in the workspace's `Archive/SITLSetup` folder.
+4. Use QGC's joystick controls for SITL; Unity's local pilot is disabled while ArduSub owns thrust. Camera and visibility controls remain in Unity. A hands-on controller test confirmed manual control, depth hold and heading hold. Remember to arm before expecting thrust.
 5. Disarm in QGC before ending a session. Press Enter in the launcher to stop its helpers. **DISCONNECT SITL** restores Unity's local controls. Restart both SITL and the Unity connection after a simulation reset, Editor pause/recompile, or lost link.
 
-The official QGC 5.1.5 files are available locally at `Archive/SITLSetup/QGroundControl/bin/QGroundControl.exe` outside this repository. I used `--swrast` for its software-rendering startup. They are not included in Git. Unity's existing public-network firewall block was preserved; I added no firewall rules.
+The official QGC 5.1.5 files are available locally at `Archive/SITLSetup/QGroundControl/bin/QGroundControl.exe` outside this repository. The local startup uses `--swrast` for software rendering. They are not included in Git. Unity's existing public-network firewall block was preserved; no firewall rules were added.
 
 ## How the connection works
 
@@ -37,8 +37,8 @@ Ubuntu is already installed on this desktop. In a fresh Ubuntu environment, inst
 
 ## Validation
 
-On this desktop I built ArduSub 4.7.2 and verified the live 400 Hz packet exchange, firmware version, six-motor frame, arming, neutral/forward/starboard/right-yaw/up outputs and disarming. The Unity vehicle moved from its initial 1.20 m depth to about 0.72 m, moved forward and starboard, and turned right. The test ended with all six outputs at 1500 µs. `validation-mavlink.json` records the final six-motor run.
+Local validation built ArduSub 4.7.2 and verified live 400 Hz packet exchange, firmware version, the six-motor frame, arming, neutral/forward/starboard/right-yaw/up outputs and disarming. The Unity vehicle moved from its initial 1.20 m depth to about 0.72 m, moved forward and starboard, and turned right. The test ended with all six outputs at 1500 µs. `validation-mavlink.json` records the final six-motor run.
 
 The focused Unity checks passed: 12 protocol, 12 ownership/UDP/timeout lifecycle, 11 local physics, 12 synthetic input/camera, 19 course/UI/visibility, and 10 FPV rendering checks. Synthetic input checks require Unity to have OS focus. The later hands-on QGC joystick, depth-hold and heading-hold checks were confirmed separately.
 
-Absolute depth calibration, autopilot tuning, camera streaming into QGC, and the real ROV are not validated by this integration. Mass, buoyancy, drag, inertia and thrust remain provisional until I measure the assembled vehicle.
+Absolute depth calibration, autopilot tuning, camera streaming into QGC, and the real ROV are not validated by this integration. Mass, buoyancy, drag, inertia and thrust remain provisional until the assembled vehicle is measured.

@@ -1,8 +1,10 @@
 # Contributing
 
-I am keeping this project open for club members to learn from and contribute to. Start with the [new member guide](Documentation/NEW_MEMBERS.md). Choose a small task from the [roadmap](Documentation/ROADMAP.md), agree on an expected result with a project mentor, and work in a separate branch.
+Club members are encouraged to learn from and contribute to this project. Start with the [new member guide](Documentation/NEW_MEMBERS.md). Choose a small task from the [roadmap](Documentation/ROADMAP.md), agree on an expected result with a project mentor, and work in a separate branch.
 
 A pull request should explain the problem, the change, how it was checked, and what remains uncertain. Update relevant documentation and BOM entries. Request review from someone familiar with the subsystem before merging.
+
+Write reference documentation in a neutral, project-focused voice. Use direct instructions for procedures and dated evidence for validation records. Keep personal development journals separate from setup and reference guides.
 
 Use explicit units, exact part/firmware revisions where known, and TBD where unknown. Distinguish planned, implemented, bench-tested, and water-tested behavior. Link original sources and explain important tradeoffs. Record failed tests as well as successes.
 

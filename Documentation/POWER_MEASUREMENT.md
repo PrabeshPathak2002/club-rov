@@ -1,12 +1,12 @@
 # Power and thermal measurements
 
-I have a multimeter, but I have not measured the complete vehicle power budget or tested the enclosure temperatures yet. For now, component specifications are estimates rather than measured consumption.
+A multimeter is available, but the complete vehicle power budget and enclosure temperatures have not been measured. For now, component specifications are estimates rather than measured consumption.
 
 Measure the propulsion battery branch and PoE electronics branch separately. Record voltage and current together: DC input power is approximately V × I. A 55 A ESC rating is not its idle draw, and 30–40% command is not 30–40% electrical power. Motor output power leaves the enclosure; the entire propulsion input does not become heat inside it.
 
 ## Bench sequence
 
-This is the sequence I plan to use when the propulsion wiring is ready.
+Follow this sequence after the propulsion wiring is ready.
 
 1. With propulsion disabled, record companion input at idle, then with Ethernet, ARK USB telemetry, camera encoding and maintenance Wi-Fi running together. Record whether the ARK is being powered through USB so its consumption is not counted twice.
 2. Repeat at the PoE input using suitable equipment. A USB input reading bypasses the PoE converter; injector readings also include tether losses.

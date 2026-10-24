@@ -1,6 +1,6 @@
 # Maintenance Wi-Fi
 
-I added a maintenance hotspot so I can check the ROV and update the companion without a programming cable. Ethernet remains the link for vehicle telemetry and video.
+The maintenance hotspot provides status checks and companion updates without a programming cable. Ethernet remains the link for vehicle telemetry and video.
 
 Connect to **ROV-Maintenance** with your configured password and open
 **http://192.168.4.1**. Stay connected if your device reports no Internet.
@@ -25,6 +25,6 @@ Do not publish the populated header, local password notes or deployed binaries.
 ## Compatibility notes
 
 The factory C6 firmware reports version 0.0.0, producing an ESP-Hosted
-host/coprocessor version warning. My bench configuration uses a 100 Hz FreeRTOS tick,
-also producing a recommendation for 1000 Hz. I checked startup and simultaneous telemetry, video and dashboard operation on the bench. I have kept the factory C6 firmware and the bench scheduler setting. Investigate these warnings if RPC timeouts or
+host/coprocessor version warning. The bench configuration uses a 100 Hz FreeRTOS tick,
+also producing a recommendation for 1000 Hz. Startup and simultaneous telemetry, video and dashboard operation were bench-tested. The factory C6 firmware and bench scheduler setting were retained. Investigate these warnings if RPC timeouts or
 instability occur. These observations do not constitute an endurance test.

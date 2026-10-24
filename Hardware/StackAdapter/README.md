@@ -1,6 +1,6 @@
 # ARK below / ESC above — printable stack adapter
 
-I needed to stack the ESC above the ARK to fit both boards in the enclosure. My ESC has **20 x 20 mm mounting-hole spacing**, while the ARK uses 30.5 x 30.5 mm, so the adapter bridges the two patterns. I used the spacing on my actual ESC rather than the 30.5 mm pattern shown in a different GT 55A drawing.
+The adapter stacks the ESC above the ARK to fit both boards in the enclosure. The selected ESC has **20 x 20 mm mounting-hole spacing**, while the ARK uses 30.5 x 30.5 mm, so the adapter bridges the two patterns. The adapter uses the measured ESC spacing; a different GT 55A drawing shows a 30.5 mm pattern.
 
 ## Print files
 
@@ -14,7 +14,7 @@ edge checks. The adapter is one solid, with a 3 mm web and four 3 mm raised ESC
 mounting bosses. Rounded diagonal arms leave the sides open for connectors.
 The centre opening is 11 mm diameter. All fastener holes are 3.4 mm M3 clearance.
 
-My starting H2D print setup is PETG at 0.20 mm layers, five walls and 100% infill. Neither part needs supports in the
+The starting H2D print setup is PETG at 0.20 mm layers, five walls and 100% infill. Neither part needs supports in the
 stated orientation. Use a small brim on the spacers if needed for adhesion.
 Check one printed hole/spacer fit before assembling the full stack.
 
@@ -45,14 +45,14 @@ candidates checked using solid intersections). This does not establish cable,
 plug, nut or solder-joint clearance. The actual ESC is not modeled: the old
 36 mm envelope was provisional. Dry-fit the real board, its underside parts,
 soft mounts, battery solder joints and USB/JST cables before final assembly.
-I still need thermal and structural load tests.
+Thermal and structural load tests remain pending.
 
 ## CAD reference
 
-I created the adapter in the `Future ROV` Fusion assembly under `09 ARK ESC printable stack - FC below ESC20 above - M3`.
+The adapter was created in the `Future ROV` Fusion assembly under `09 ARK ESC printable stack - FC below ESC20 above - M3`.
 The earlier exploded `ESC upper stack - middle adapter` is hidden, retained
 as a reference. Original tray and ARK geometry/position are unchanged.
-The STL and STEP exports in this folder are the files to use for this revision. I have checked the adapter fit, but still need to verify complete wiring and connector clearance.
+The STL and STEP exports in this folder are the files to use for this revision. Adapter fit has been checked; complete wiring and connector clearance remain to be verified.
 
 `stack_assembly_preview.png` shows the ARK/tray and adapter, with the enclosure
 temporarily hidden for viewing. No actual ESC PCB is represented in the preview.

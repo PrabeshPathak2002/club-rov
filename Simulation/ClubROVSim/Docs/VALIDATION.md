@@ -1,6 +1,6 @@
 # Simulator validation — 23 October 2026
 
-I checked the initial PoolTraining prototype in Unity 6000.6.7f1 on Windows. The fresh template started with no Console errors or warnings.
+The initial PoolTraining prototype was checked in Unity 6000.6.7f1 on Windows. The fresh template started with no Console errors or warnings.
 
 ## Editor checks
 
@@ -8,7 +8,7 @@ I checked the initial PoolTraining prototype in Unity 6000.6.7f1 on Windows. The
 - Six mixer checks passed: neutral, forward, sideways, vertical, yaw and bounded combined commands.
 - The imported assembly has 247,680 vertices and visual bounds of approximately 0.38 × 0.26 × 0.36 m.
 - The saved startup scene is `Assets/Scenes/PoolTraining.unity`, using the PC URP asset, a valid UI Toolkit document/PanelSettings and the imported mesh.
-- I inspected a rendered Game view with the assembly, pool, gate and HUD. Play Mode frame counts advanced between checks.
+- A rendered Game view containing the assembly, pool, gate and HUD was inspected. Play Mode frame counts advanced between checks.
 
 ## Runtime checks
 
@@ -26,31 +26,31 @@ All nine bounded Play Mode checks passed after correcting the reverse-thrust bal
 
 The retained [smoke-check results](smoke-checks.json) contain the final observations. The tests disable the pilot-input component, inject simulation commands and restore input/vehicle state afterward. They do not prove physical keyboard or controller operation.
 
-The first run exposed sideways drift during yaw because reverse thrust was weaker. The force mixer now accounts for that limit before applying the common command scale. I kept the original pass criteria and reran the checks. A deprecated Editor-only lookup was also replaced with the current Unity API.
+The first run exposed sideways drift during yaw because reverse thrust was weaker. The force mixer now accounts for that limit before applying the common command scale. Checks were rerun with the original pass criteria. A deprecated Editor-only lookup was also replaced with the current Unity API.
 
 ## Windows build
 
-The final Windows x64 build succeeded with zero errors and zero warnings. The local executable is `Builds/Windows/ClubROVSim.exe`; its accompanying files must stay in the same folder. I have not separately launch-tested the standalone executable.
+The final Windows x64 build succeeded with zero errors and zero warnings. The local executable is `Builds/Windows/ClubROVSim.exe`; its accompanying files must stay in the same folder. The standalone executable was not separately launch-tested for this revision.
 
 ## Measured geometry and control revision
 
-I integrated the live Fusion thrust-axis lines and envelope into the runtime layout, force markers, collider and partial-submersion height. A minimum-norm horizontal allocation accounts for the small differences in the measured yaw lever arms. The geometric reference is still a provisional center of mass.
+The live Fusion thrust-axis lines and envelope were integrated into the runtime layout, force markers, collider and partial-submersion height. A minimum-norm horizontal allocation accounts for the small differences in the measured yaw lever arms. The geometric reference is still a provisional center of mass.
 
 Six mixer checks, **eleven Play Mode checks** and **twelve synthetic input/camera checks** passed. The retained [motion results](smoke-checks.json) and [control results](control-checks.json) cover movement, neutral, yaw, floor contact, reset, thrust cut, a 30% force cap, input-disable cleanup, keyboard directions, gamepad axes/dead zones, cut/reset buttons and both camera-switch bindings. Physics frames advanced during the run.
 
-The first geometry application exposed a static-initialization-order error: the allocation was built before the direction array existed. I moved allocation initialization after its inputs, recompiled and reran the full checks. I did not change the pass criteria. The motion checks show about 29–30 mm of vertical displacement under full horizontal thrust over 0.8 seconds, because the measured thrust lines sit below the provisional center of mass. This is retained and documented rather than removed by moving the force points.
+The first geometry application exposed a static-initialization-order error: the allocation was built before the direction array existed. Allocation initialization was moved after its inputs, then the project was recompiled and the full checks rerun without changing the pass criteria. The motion checks show about 29–30 mm of vertical displacement under full horizontal thrust over 0.8 seconds, because the measured thrust lines sit below the provisional center of mass. This is retained and documented rather than removed by moving the force points.
 
-Unity detects an Xbox Controller. Automated mapping tests use temporary virtual devices; they do not prove physical stick/button operation. I confirmed that all controls work in a hands-on test with that controller. No hardware is commanded by these checks.
+Unity detects an Xbox Controller. Automated mapping tests use temporary virtual devices; they do not prove physical stick/button operation. A hands-on test with that controller confirmed that all controls worked. No hardware is commanded by these checks.
 
-The updated Windows x64 build succeeded with **zero errors and zero warnings**, producing 112,701,192 bytes of build output. An earlier build warned about pending Editor code changes; after Unity reported scripts up to date, I rebuilt successfully without that warning. The standalone executable has not been separately launch-tested.
+The updated Windows x64 build succeeded with **zero errors and zero warnings**, producing 112,701,192 bytes of build output. An earlier build warned about pending Editor code changes; after Unity reported scripts up to date, the rebuild succeeded without that warning. The standalone executable has not been separately launch-tested.
 
 ## Larger pool, course and visibility revision
 
-The saved scene now has a 20 × 24 m pool with the existing 3.5 m depth, three numbered gates, a cyan hover target and a green dock. I verified the HUD at 1600 × 900 and inspected captured 8 m and 2 m visibility views. Gate visibility and scene contrast drop visibly in the murky view while the HUD remains readable.
+The saved scene now has a 20 × 24 m pool with the existing 3.5 m depth, three numbered gates, a cyan hover target and a green dock. The HUD was checked at 1600 × 900 and captured 8 m and 2 m visibility views were inspected. Gate visibility and scene contrast drop visibly in the murky view while the HUD remains readable.
 
 All **19 course/UI/visibility checks** passed: out-of-order, backward and outside-opening rejection; ordered progress; hover heading/speed/continuous-hold requirements; docking requirements; collision debounce; frozen finish statistics; the live visibility slider; above-water fog disable; pointer-operated HUD reset; and expanded pool dimensions. See [course results](course-checks.json). These exercise course logic using injected poses; they do not claim a fully piloted course run.
 
-The initial reverse-crossing test had crossed forward while positioning the vehicle. I changed its starting pose to the far side before resetting tracking, preserving the rejection criterion. The initial synthetic navigation-submit event did not exercise the mouse restart button; pointer-down/up events now exercise its click behavior. Reset tracking now reads the rigid-body pose to avoid interpolation lag. The **11 physics checks** and **12 input/camera checks** passed again; the floor-contact check additionally verifies an actual collision increments the course counter. Six measured-layout mixer checks remain applicable.
+The initial reverse-crossing test had crossed forward while positioning the vehicle. Its starting pose was moved to the far side before resetting tracking, preserving the rejection criterion. The initial synthetic navigation-submit event did not exercise the mouse restart button; pointer-down/up events now exercise its click behavior. Reset tracking now reads the rigid-body pose to avoid interpolation lag. The **11 physics checks** and **12 input/camera checks** passed again; the floor-contact check additionally verifies an actual collision increments the course counter. Six measured-layout mixer checks remain applicable.
 
 URP camera rendering applies the fog; camera-above-water behavior and settings restoration are implemented. Fog distance is an artistic contrast threshold, not measured underwater optical performance. The controller confirmation from the preceding revision remains the physical-device evidence; the training course has not been manually completed end to end.
 
@@ -58,7 +58,7 @@ The saved training scene built successfully for Windows x64 with **zero errors a
 
 ## Pi-camera-style FPV revision
 
-I inspected FPV and chase captures at 1600 × 900. The scene image in FPV is sampled to 640 × 480 and letterboxed, while the HUD stays sharp. I reduced the initial grain after viewing it; the saved sensor-noise value is 0.0025, with softness 0.45. The 48.8° vertical lens baseline is from the standard Pi Camera Module 2; the preset does not reproduce a measured stream or underwater optical system.
+FPV and chase captures were inspected at 1600 × 900. The scene image in FPV is sampled to 640 × 480 and letterboxed, while the HUD stays sharp. The initial grain was reduced following visual inspection; the saved sensor-noise value is 0.0025, with softness 0.45. The 48.8° vertical lens baseline is from the standard Pi Camera Module 2; the preset does not reproduce a measured stream or underwater optical system.
 
 All **10 bounded FPV checks** passed: clean chase bypass, video-history allocation, capped sampling cadence, lens/aspect, native HUD overlay, shader compilation, chase projection restoration, history release, reallocation on return and cleanup when disabled. The timing observation was **29 video samples over 1.000 seconds with 351 Unity frames**. See [FPV results](fpv-checks.json). The **12 synthetic controls/camera checks** and **19 course/UI/visibility checks** also passed with the renderer installed. A naming collision in the Editor-only check class was corrected before the passing run.
 
@@ -74,19 +74,19 @@ There is no ROS, tether or real-hardware connection in this prototype. The simul
 
 ## SITL integration validation
 
-ArduSub 4.7.2 built in WSL2 from pinned revision fb773567896014da007bca58358704d4a0d8516f. Live JSON exchange settled to 400 Hz. The final configuration uses MAV_SYSID=42 and FRAME_CONFIG=1 (six-motor VECTORED). The guarded MAVLink test verified neutral, forward, starboard, right-yaw and upward outputs, then disarmed with all six channels at 1500 µs. Unity visibly translated, turned and rose. QGroundControl received live telemetry over the dedicated localhost TCP 5765 link. I subsequently configured the controller and confirmed manual control, depth hold and heading hold in hands-on tests.
+ArduSub 4.7.2 built in WSL2 from pinned revision fb773567896014da007bca58358704d4a0d8516f. Live JSON exchange settled to 400 Hz. The final configuration uses MAV_SYSID=42 and FRAME_CONFIG=1 (six-motor VECTORED). The guarded MAVLink test verified neutral, forward, starboard, right-yaw and upward outputs, then disarmed with all six channels at 1500 µs. Unity visibly translated, turned and rose. QGroundControl received live telemetry over the dedicated localhost TCP 5765 link. Subsequent hands-on controller tests confirmed manual control, depth hold and heading hold.
 
 Twelve protocol and twelve UDP/ownership/duplicate/timeout checks passed. Regression checks passed: eleven local motion/lifecycle, twelve synthetic controls/camera (with native Unity focus), nineteen course/UI/visibility and ten FPV checks. The Windows build succeeded with zero build errors and warnings, 112,769,468 bytes. Existing shader warnings in the Editor were not introduced by SITL. Absolute depth calibration remains untested. See [SITL notes](../../SITL/README.md) and its recorded MAVLink report.
 
 ## Training upgrades — 24 October 2026
 
-I added bounded current/buoyancy/thruster disturbances, repeatable built-in and custom scenarios, scored completed runs with condition-specific personal bests, suspended particles, a camera spotlight and 0–500 ms FPV delay. The arming badge reads actual system-42 heartbeats over the relay rather than inferring arming from PWM.
+The training update added bounded current/buoyancy/thruster disturbances, repeatable built-in and custom scenarios, scored completed runs with condition-specific personal bests, suspended particles, a camera spotlight and 0–500 ms FPV delay. The arming badge reads actual system-42 heartbeats over the relay rather than inferring arming from PWM.
 
 All 24 focused [training-upgrade checks](TrainingUpgradeCheckResults.txt) passed, including force effects, scenario round-trip/backup/corruption handling, personal-best retention, GUI-to-physics binding, delayed-buffer warmup/release, particle/light gating, wrong-system rejection and stale-status handling. The live ArduSub test observed both ARMED and DISARMED heartbeats in Unity and finished disarmed. Local motion (11), synthetic controls/camera (12), course/UI/visibility (19), FPV (10), SITL protocol (12) and link lifecycle (12) regressions passed. The final Windows build succeeded with zero errors and zero warnings, 112,839,528 bytes. The expanded panel and murky FPV feed were visually inspected.
 
-I also launch-tested the final standalone Windows player at 1280 × 800: opening the training panel, switching Chase/FPV with the mouse button, rendering suspended particles and applying the murky-water preset worked. No script exceptions or custom-FPV shader failures appeared. The player logged stripped/unsupported shader diagnostics for unused URP Gaussian/Bokeh depth-of-field and Panini-projection passes; the tested camera effects rendered correctly.
+The final standalone Windows player was also launch-tested at 1280 × 800: opening the training panel, switching Chase/FPV with the mouse button, rendering suspended particles and applying the murky-water preset worked. No script exceptions or custom-FPV shader failures appeared. The player logged stripped/unsupported shader diagnostics for unused URP Gaussian/Bokeh depth-of-field and Panini-projection passes; the tested camera effects rendered correctly.
 
-The optical effects and disturbance ranges are training approximations. I have not completed a fully piloted scored course under every preset, tested the new effects on another GPU, or matched dynamics to the real vehicle. Hands-on depth/heading hold confirmation predates these new disturbances; each disturbed scenario should be practiced separately.
+The optical effects and disturbance ranges are training approximations. A fully piloted scored course under every preset, testing on another GPU and dynamics matching to the real vehicle remained incomplete for this revision. Hands-on depth/heading hold confirmation predates these new disturbances; each disturbed scenario should be practiced separately.
 
 
 Training maps (24 October 2026): 18 compiled `RovMapChecks.Run` checks and seven direct runtime checks passed; see `MapCheckResults.txt`. Checked four layout selections, repeatable start, gate bounds/outbound/return sequence, orbit completion in either direction, premature return rejection, large position jumps, free-swim objective suppression, scenario copy/key identity, map selector/load action, gate dimensions, surface score invalidation and ExternalPhysics map-switch guard. A final check confirmed conditions presets retain the selected map. Original 19 course/UI/pool/visibility checks passed again. Synthetic completion runs disabled result recording. Windows x64 player build succeeded with zero build errors/warnings. Gate/pillar geometry was inspected in Game view. No complete hand-piloted/autonomous run or new live SITL session on each map was performed. The final loaded Editor assemblies passed the map and course checks again after refreshing outside the automation scope. Final Console: zero errors and warnings.
@@ -98,9 +98,9 @@ The handbook-map Windows x64 player build succeeded with zero build errors and w
 
 ## Official task artwork — 24 October 2026
 
-I replaced the placeholder role markings in both RoboSub 2026 maps with 16 unmodified official task images, covering 114 textured surfaces on gates, bins, torpedo boards, octagon signs, baskets and samples. The torpedo-board cutouts follow the official SVG geometry.
+Placeholder role markings in both RoboSub 2026 maps were replaced with 16 unmodified official task images, covering 114 textured surfaces on gates, bins, torpedo boards, octagon signs, baskets and samples. The torpedo-board cutouts follow the official SVG geometry.
 
-All 72 artwork checks passed, including material assignments and raycasts through every board opening and against its rim. The 26 handbook-layout, 18 training-map and 19 course/UI/visibility checks also passed. I visually checked the official gate signs in the normal FPV view; other task artwork has automated assignment and geometry checks but no separate visual sign-off. All 16 PNG hashes match the provenance manifest.
+All 72 artwork checks passed, including material assignments and raycasts through every board opening and against its rim. The 26 handbook-layout, 18 training-map and 19 course/UI/visibility checks also passed. The official gate signs were visually checked in the normal FPV view; other task artwork has automated assignment and geometry checks but no separate visual sign-off. All 16 PNG hashes match the provenance manifest.
 
 The Windows x64 build succeeded with zero errors and one warning: Unity automatically pre-baked collision for the two generated board meshes and recommends explicitly enabling pre-baked collision for future Unity versions. The final Editor Console had zero errors and that same warning. The player was not separately launch-tested. No new live SITL or task-interaction test was performed; these maps remain unscored course exploration.
 

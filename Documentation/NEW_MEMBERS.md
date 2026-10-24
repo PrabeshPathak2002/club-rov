@@ -1,6 +1,6 @@
 # New member learning path
 
-I want this ROV to give new club members a practical way to learn underwater robotics. Start with an unpowered vehicle or the design files and work with a project mentor. No prior underwater robotics experience is needed.
+This ROV provides a practical introduction to underwater robotics for new club members. Start with an unpowered vehicle or the design files and work with a project mentor. No prior underwater robotics experience is needed.
 
 ## 1. Understand the vehicle
 
