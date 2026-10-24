@@ -1,0 +1,11 @@
+.hud { flex-grow: 1; justify-content: space-between; padding: 24px; color: rgb(232, 242, 246); }
+.header { flex-direction: row; justify-content: space-between; align-items: flex-start; }
+.identity { background-color: rgba(9, 24, 32, 0.9); padding: 16px 22px; border-left-width: 4px; border-left-color: rgb(248, 211, 66); }
+.title { font-size: 24px; -unity-font-style: bold; letter-spacing: 2px; color: rgb(248, 211, 66); }
+.subtitle { font-size: 13px; margin-top: 6px; color: rgb(172, 204, 214); }
+.badge { font-size: 12px; -unity-font-style: bold; background-color: rgb(248, 211, 66); color: rgb(18, 30, 38); padding: 10px 16px; }
+.footer { align-self: flex-start; background-color: rgba(9, 24, 32, 0.92); padding: 16px 22px; border-left-width: 4px; border-left-color: rgb(248, 211, 66); }
+.telemetry { font-size: 19px; -unity-font-style: bold; }
+.outputs { font-size: 13px; margin-top: 10px; color: rgb(106, 222, 203); }
+.controls { font-size: 12px; margin-top: 8px; }
+.note { font-size: 11px; margin-top: 10px; color: rgb(166, 188, 198); }

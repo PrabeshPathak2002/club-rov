@@ -11,6 +11,7 @@ This is how I am tracking the build. The bench work below is complete; the remai
 - [x] Wi-Fi maintenance dashboard and real OTA update with startup rollback.
 - [x] Read all four DAKEFPV ESCs through Betaflight and save forward/reverse mode.
 - [x] ARK Vectored frame and mixed DShot/PWM startup confirmed.
+- [x] Create a Unity pool-training prototype with the ROV visual, six thruster forces, cameras and HUD; pass mixer and runtime smoke checks.
 
 ## Next integration work
 
@@ -28,6 +29,7 @@ This is how I am tracking the build. The bench work below is complete; the remai
 - [ ] Shallow-water trim, buoyancy, controllability and recovery tests.
 - [ ] Establish demonstrated depth through supervised progressive qualification.
 - [ ] Implement ROS 2 Humble routing, logging and explicit manual/autonomy command ownership.
+- [ ] Calibrate Unity vehicle dynamics and connect the simulator to ArduSub SITL and ROS 2.
 - [ ] Develop supervised autonomy and sensor experiments.
 - [ ] Publish measured results and a portfolio case study, crediting contributors.
 - [ ] Finish third-party CAD attribution and agree on licenses with the contributors.

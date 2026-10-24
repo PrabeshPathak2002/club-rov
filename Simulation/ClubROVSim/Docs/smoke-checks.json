@@ -1,0 +1,50 @@
+{
+    "complete": true,
+    "checks": [
+        {
+            "name": "Neutral",
+            "passed": true,
+            "observation": "delta=(0.000, 0.000, 0.000), yaw=0.00, speed=0.000, frame=139"
+        },
+        {
+            "name": "Forward",
+            "passed": true,
+            "observation": "delta=(0.000, 0.000, 0.863), yaw=0.00, speed=1.692, frame=279"
+        },
+        {
+            "name": "Reverse",
+            "passed": true,
+            "observation": "delta=(0.000, 0.000, -0.863), yaw=0.00, speed=1.692, frame=530"
+        },
+        {
+            "name": "Strafe",
+            "passed": true,
+            "observation": "delta=(0.885, 0.000, 0.000), yaw=0.00, speed=1.766, frame=801"
+        },
+        {
+            "name": "Yaw",
+            "passed": true,
+            "observation": "delta=(0.000, 0.000, 0.000), yaw=54.18, speed=0.000, frame=1087"
+        },
+        {
+            "name": "Ascend",
+            "passed": true,
+            "observation": "delta=(0.000, 0.775, 0.000), yaw=0.00, speed=1.504, frame=1373"
+        },
+        {
+            "name": "Thrust cut",
+            "passed": true,
+            "observation": "delta=(0.000, 0.000, 0.863), yaw=0.00, speed=1.692, frame=1646"
+        },
+        {
+            "name": "Floor collision",
+            "passed": true,
+            "observation": "delta=(0.000, -0.370, 0.000), yaw=0.00, speed=0.000, frame=1898"
+        },
+        {
+            "name": "Reset",
+            "passed": true,
+            "observation": "delta=(0.000, 0.000, 0.000), yaw=0.00, speed=0.000, frame=2179"
+        }
+    ]
+}

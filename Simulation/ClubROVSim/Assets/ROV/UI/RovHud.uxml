@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="RovHud.uss" />
+    <ui:VisualElement name="root" class="hud" picking-mode="Ignore">
+        <ui:VisualElement class="header" picking-mode="Ignore">
+            <ui:VisualElement class="identity" picking-mode="Ignore">
+                <ui:Label text="CLUB ROV / POOL LAB" class="title" />
+                <ui:Label text="Pilot training · six independent thrusters" class="subtitle" />
+            </ui:VisualElement>
+            <ui:Label text="SIMULATION ONLY" class="badge" />
+        </ui:VisualElement>
+        <ui:VisualElement class="footer" picking-mode="Ignore">
+            <ui:Label name="telemetry" text="DEPTH  1.20 m     SPEED  0.00 m/s     HEADING  000°" class="telemetry" />
+            <ui:Label name="thrusters" text="H1 0.00   H2 0.00   H3 0.00   H4 0.00   V1 0.00   V2 0.00" class="outputs" />
+            <ui:Label text="WASD move    R/F up/down    Q/E turn    V camera    HOME reset    SPACE cut thrust" class="controls" />
+            <ui:Label text="Gamepad: left stick move · right stick turn/depth · Start reset · Back camera · A cut thrust" class="controls" />
+            <ui:Label text="Provisional mass, buoyancy, drag and thrust. No connection to the physical ROV." class="note" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
