@@ -25,13 +25,13 @@ namespace ClubROV.Simulation
         public RovScenario Copy() => JsonUtility.FromJson<RovScenario>(JsonUtility.ToJson(this));
         public void Validate()
         {
-            if (map<0 || map>3) throw new ArgumentException("Unknown training map.");
+            if (map<0 || map>5) throw new ArgumentException("Unknown training map.");
             if (string.IsNullOrWhiteSpace(name) || name.Length > 40) throw new ArgumentException("Use a scenario name of 1–40 characters.");
             foreach (float value in new[] {startPosition.x,startPosition.y,startPosition.z,startHeading,current.x,current.y,current.z,
                          buoyancyPercent,thrusterPercent,visibility,videoDelayMs,particles,light})
                 if (!float.IsFinite(value)) throw new ArgumentException("Scenario contains a non-finite number.");
-            if (Mathf.Abs(startPosition.x)>9 || Mathf.Abs(startPosition.z)>11 || startPosition.y> -0.2f || startPosition.y< -3.1f)
-                throw new ArgumentException("Start must be inside the pool, 0.2–3.1 m deep.");
+            if (Mathf.Abs(startPosition.x)>(map>=4?24:9) || Mathf.Abs(startPosition.z)>(map>=4?10.9f:11) || startPosition.y> -0.2f || startPosition.y< (map>=4?-1.85f:-3.1f))
+                throw new ArgumentException("Start must stay inside the selected pool and below the surface (handbook maps: 0.2–1.85 m deep).");
             if (current.magnitude>1.001f || Mathf.Abs(buoyancyPercent)>10 || failedThruster< -1 || failedThruster>5 ||
                 thrusterPercent<0 || thrusterPercent>100 || visibility<1 || visibility>20 || videoDelayMs<0 || videoDelayMs>500 ||
                 particles<0 || particles>1 || light<0 || light>1) throw new ArgumentException("Scenario settings exceed the supported range.");

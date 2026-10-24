@@ -58,8 +58,8 @@ namespace ClubROV.Simulation
             if(index<0 || index>=RovTrainingMaps.Names.Length) throw new ArgumentOutOfRangeException(nameof(index));
             if(vehicle.ExternalPhysics) throw new InvalidOperationException("Disconnect SITL before changing maps; restart both ends afterwards.");
             var maps=GetComponent<RovTrainingMaps>();
-            active.map=index; active.startPosition=maps.StartPosition(index); active.startHeading=0;
-            ApplyConditions(); UpdateKey(); vehicle.SetStartPose(active.startPosition,Quaternion.identity);
+            active.map=index; active.startPosition=maps.StartPosition(index); active.startHeading=maps.StartHeading(index);
+            ApplyConditions(); UpdateKey(); vehicle.SetStartPose(active.startPosition,Quaternion.Euler(0,active.startHeading,0));
             Notice="Loaded " + RovTrainingMaps.Names[index] + " · start reset.";
         }
         private void ApplyConditions()
@@ -74,7 +74,7 @@ namespace ClubROV.Simulation
         {
             if (vehicle.ExternalPhysics) { Notice="Disconnect SITL and restart both ends before loading a start pose."; return; }
             int selectedMap=active.map; active=scenarios[index].Copy();
-            if(index<4) { active.map=selectedMap; active.startPosition=GetComponent<RovTrainingMaps>().StartPosition(selectedMap); active.startHeading=0; }
+            if(index<4) { active.map=selectedMap; active.startPosition=GetComponent<RovTrainingMaps>().StartPosition(selectedMap); active.startHeading=GetComponent<RovTrainingMaps>().StartHeading(selectedMap); }
             active.Validate(); ApplyConditions();
             lastController="LOCAL"; UpdateKey(); vehicle.SetStartPose(active.startPosition,Quaternion.Euler(0,active.startHeading,0));
             Notice="Loaded " + active.name + " · repeatable start and conditions.";

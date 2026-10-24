@@ -118,3 +118,10 @@ Open **TRAINING CONDITIONS & SCENARIOS**, choose **Training map**, then **LOAD M
 Saved custom scenarios include their map; built-in conditions presets keep the selected map and reset its standard start. Personal bests are separated by map and conditions. Existing saved scenarios without a map load the original course. Earlier score records are preserved; their older condition keys are not compared with the new map-aware keys.
 
 Gate/pillar dimensions and sequence follow the [published RoboSub handbook](https://robonation.gitbook.io/robosub-resources/section-3-autonomy-challenge/3.4-competition-sequence-of-events), checked 24 October 2026. Official prequalification requires a real fully autonomous vehicle run and uninterrupted recording; simulator completion is training only. Verify the applicable season before building a competition course.
+
+
+### RoboSub 2026 handbook courses
+
+Two additional maps reproduce the arrangement in the official July 11, 2026 handbook: **RoboSub 2026 practice** (p. 80) and **RoboSub 2026 finals** (p. 82). These use a separate venue-sized arena and shallow floor; the original four maps keep their previous pool. Stations have collision geometry and the new maps work with the existing optics, disturbance presets and custom scenario saves.
+
+Select either map under Training Conditions & Scenarios before connecting SITL. Task spacing is traced from diagrams marked not to scale. These are static, unscored practice maps with simplified visual markings, not complete competition task simulators. Source links, exact-versus-estimated geometry and limitations are in [ROBOSUB_2026_MAPS.md](Docs/ROBOSUB_2026_MAPS.md).

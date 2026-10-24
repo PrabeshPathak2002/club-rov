@@ -12,6 +12,7 @@ namespace ClubROV.Simulation
         [SerializeField] private bool freeSwim;
         private float orbitDegrees;
         private Vector3 orbitPrevious;
+        public string PracticeObjective { get; set; } = "FREE SWIM | no scored objective";
         public bool MarkerRounded => Mathf.Abs(orbitDegrees)>=355;
         private RovDynamics vehicle;
         private Vector3 previousPosition;
@@ -43,7 +44,7 @@ namespace ClubROV.Simulation
         public bool Complete { get; private set; }
         public bool Configured => marker!=null || !freeSwim && gates != null && gates.Length > 0 && hoverTarget != null && dockTarget != null;
         public float HoldSeconds => holdSeconds;
-        public string Objective => freeSwim ? "FREE SWIM · no scored objective" : marker!=null ? (Complete ? "GATE & PILLAR COMPLETE" : GatesPassed==0 ? "Pass under the gate bar" : !MarkerRounded ? $"Circle the pillar · {Mathf.Abs(orbitDegrees):0}/360°" : "Return under the gate bar") : !Configured ? "Course unavailable" : Complete ? "COURSE COMPLETE" :
+        public string Objective => freeSwim ? PracticeObjective : marker!=null ? (Complete ? "GATE & PILLAR COMPLETE" : GatesPassed==0 ? "Pass under the gate bar" : !MarkerRounded ? $"Circle the pillar · {Mathf.Abs(orbitDegrees):0}/360°" : "Return under the gate bar") : !Configured ? "Course unavailable" : Complete ? "COURSE COMPLETE" :
             GatesPassed < gates.Length ? $"Gate {GatesPassed + 1}/{gates.Length} — cross toward the far end" :
             !HoverComplete ? "Hover — hold 3 s, heading 000°, speed < 0.15 m/s" :
             "Dock — hold 3 s, heading 180°, speed < 0.10 m/s";

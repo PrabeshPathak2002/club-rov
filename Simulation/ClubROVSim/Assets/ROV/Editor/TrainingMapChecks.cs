@@ -34,7 +34,7 @@ namespace ClubROV.Simulation.Editor
                 settings.SelectMap(3);Check("Slalom has five gates",course.Objective.Contains("1/5"));
                 var s=settings.Current;Check("Scenario copy retains map",s.Copy().map==3);var key=s.Key();s.map=0;Check("Map changes score identity",s.Key()!=key);
                 var root=UnityEngine.Object.FindAnyObjectByType<UIDocument>().rootVisualElement;
-                Check("Map selector has four choices",root.Q<DropdownField>("training-map").choices.Count==4);
+                Check("Map selector has all layouts",root.Q<DropdownField>("training-map").choices.Count==RovTrainingMaps.Names.Length);
                 Check("Map load button present",root.Q<Button>("map-apply")!=null);
             }
             finally {settings.SelectMap(0);course.RecordResults=record;}

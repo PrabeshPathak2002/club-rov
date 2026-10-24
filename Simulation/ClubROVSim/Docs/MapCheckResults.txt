@@ -14,12 +14,5 @@ PASS: Original three-gate course restored
 PASS: Slalom has five gates
 PASS: Scenario copy retains map
 PASS: Map changes score identity
-PASS: Map selector has four choices
+PASS: Map selector has all layouts
 PASS: Map load button present
-PASS: SITL blocks map switch without changing layout
-PASS: Surface breach invalidates eligibility
-PASS: Opposite orbit direction accepted
-PASS: Map load button loads selected layout (UI Toolkit NavigationSubmitEvent)
-PASS: Gate width 2m
-PASS: Marker 10m beyond gate
-PASS: Conditions preset preserves selected map

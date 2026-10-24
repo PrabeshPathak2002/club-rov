@@ -1,0 +1,144 @@
+{
+  "handbook": "https://robonation.org/app/uploads/sites/4/2026/07/RoboSub-2026_Team-Handbook_20260711-compressed.pdf",
+  "sha256": "4c24b43283de655905692139886ec9d93268f5500fdc1bbdc8abf8496f5f1efc",
+  "layoutPages": [
+    80,
+    82
+  ],
+  "taskDrawingPages": [
+    45,
+    47,
+    49,
+    51,
+    53,
+    54
+  ],
+  "venueSource": "https://www.gomotionapp.com/team/nova/page/locations/woollett-aquatic-center",
+  "poolMetres": [
+    50,
+    22.86,
+    2.1
+  ],
+  "coordinates": "Diagram normalized u east from left, v south from top. World x=(u-.5)*50, z=(.5-v)*22.86. Station placements approximate, not surveyed.",
+  "practice": {
+    "A": {
+      "gate": [
+        0.095,
+        0.16
+      ],
+      "slalom": [
+        0.06,
+        0.4
+      ],
+      "bins": [
+        0.205,
+        0.52
+      ],
+      "deploy": [
+        0.2,
+        0.72
+      ],
+      "restore": [
+        0.08,
+        0.85
+      ]
+    },
+    "B1": {
+      "gate": [
+        0.395,
+        0.175
+      ],
+      "slalom": [
+        0.31,
+        0.35
+      ],
+      "bins": [
+        0.46,
+        0.43
+      ]
+    },
+    "B2": {
+      "gate": [
+        0.395,
+        0.85
+      ],
+      "slalom": [
+        0.38,
+        0.72
+      ],
+      "bins": [
+        0.3,
+        0.6
+      ]
+    },
+    "C1": {
+      "gate": [
+        0.625,
+        0.17
+      ],
+      "slalom": [
+        0.685,
+        0.33
+      ],
+      "bins": [
+        0.56,
+        0.43
+      ]
+    },
+    "C2": {
+      "deploy": [
+        0.56,
+        0.65
+      ],
+      "restore": [
+        0.7,
+        0.86
+      ]
+    },
+    "D": {
+      "gate": [
+        0.845,
+        0.17
+      ],
+      "slalom": [
+        0.89,
+        0.36
+      ],
+      "bins": [
+        0.81,
+        0.51
+      ],
+      "deploy": [
+        0.845,
+        0.72
+      ],
+      "restore": [
+        0.93,
+        0.86
+      ]
+    }
+  },
+  "finalsAB": {
+    "gate": [
+      0.095,
+      0.17
+    ],
+    "slalom": [
+      0.22,
+      0.4
+    ],
+    "bins": [
+      0.4,
+      0.49
+    ],
+    "deploy": [
+      0.2,
+      0.72
+    ],
+    "restore": [
+      0.4,
+      0.85
+    ]
+  },
+  "finalsOtherFields": "C1, C2 and D retain the practice arrangement."
+}
