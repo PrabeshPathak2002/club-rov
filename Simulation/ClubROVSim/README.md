@@ -34,6 +34,8 @@ The HUD shows simulated depth, speed, heading and all six normalized thruster-fo
 
 Units are metres, kilograms, seconds and newtons. Unity axes are +Z forward, +X starboard and +Y up. The mesh importer converts the source CAD millimetres and centers the visual mesh. The imported visual bounds are approximately 0.38 × 0.26 × 0.36 m. A box collider approximates the hull; it does not reproduce every rail or thruster guard.
 
+The current live Fusion dimensions, six thrust-axis locations and mounting angles are recorded in [Fusion geometry](Docs/FUSION_GEOMETRY.md). My printed parts use Bambu Lab PETG Basic at 100% infill. This snapshot is available for the next dynamics update; it has not yet replaced the prototype's actuator locations.
+
 ## Provisional parameters
 
 I still need measurements from the real ROV. The initial values are **8 kg mass**, **0.008 m³ displacement**, **1000 kg/m³ water density**, **15 N full forward thrust per motor**, **0.8 reverse ratio**, **0.15 s response** and **35 mm buoyancy offset**. Angular speed is capped at **1.2 rad/s** for the starter training setup. These are starting values, not measured U01 performance or a verified vehicle mass. Drag, thrust locations, inertia and collider geometry also need calibration.

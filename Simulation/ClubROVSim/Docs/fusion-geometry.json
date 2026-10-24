@@ -1,0 +1,226 @@
+{
+  "source_document": "Future ROV",
+  "unsaved_changes": true,
+  "coordinate_units": "mm",
+  "cad_axes": {
+    "x": "forward",
+    "y": "port",
+    "z": "up"
+  },
+  "visible_body_count": 1914,
+  "bounds_cad_mm": [
+    [
+      -180.1028660644771,
+      -188.73621547418333,
+      -4
+    ],
+    [
+      181.81686461780203,
+      188.73621547418333,
+      256
+    ]
+  ],
+  "dimensions_LWH_mm": [
+    361.9197306822791,
+    377.47243094836665,
+    260
+  ],
+  "geometric_reference_cad_mm": [
+    0.8569992766624601,
+    0,
+    126.00000000000001
+  ],
+  "thrusters": [
+    {
+      "occurrence": "02 S6 inspired frame - concept geometry:1+H Rear Starboard - APISQUEEN U01 with attached rail:1",
+      "shroud_cylinders": [
+        {
+          "radius_mm": 31.000000000000014,
+          "axis_point_cad_mm": [
+            -133.08026511553632,
+            -128.91973488446368,
+            110
+          ],
+          "axis_cad": [
+            0.7071067811865476,
+            -0.7071067811865476,
+            0
+          ]
+        }
+      ],
+      "axis_point_unity_m": [
+        0.12891973488446368,
+        -0.016000000000000014,
+        -0.13393726439219877
+      ],
+      "axis_unity": [
+        0.7071067811865476,
+        0,
+        0.7071067811865476
+      ],
+      "axis_angle_to_horizontal_deg": 0,
+      "horizontal_axis_acute_angle_to_forward_deg": 45
+    },
+    {
+      "occurrence": "02 S6 inspired frame - concept geometry:1+H Rear Port - APISQUEEN U01 with attached rail:1",
+      "shroud_cylinders": [
+        {
+          "radius_mm": 31.000000000000014,
+          "axis_point_cad_mm": [
+            -133.08026511553632,
+            128.91973488446368,
+            110
+          ],
+          "axis_cad": [
+            0.7071067811865476,
+            0.7071067811865476,
+            0
+          ]
+        }
+      ],
+      "axis_point_unity_m": [
+        -0.12891973488446368,
+        -0.016000000000000014,
+        -0.13393726439219877
+      ],
+      "axis_unity": [
+        -0.7071067811865476,
+        0,
+        0.7071067811865476
+      ],
+      "axis_angle_to_horizontal_deg": 0,
+      "horizontal_axis_acute_angle_to_forward_deg": 45
+    },
+    {
+      "occurrence": "02 S6 inspired frame - concept geometry:1+H Front Starboard - APISQUEEN U01 with attached rail:1",
+      "shroud_cylinders": [
+        {
+          "radius_mm": 31.000000000000014,
+          "axis_point_cad_mm": [
+            131.3662665622114,
+            -127.2057363311387,
+            110
+          ],
+          "axis_cad": [
+            -0.7071067811865475,
+            -0.7071067811865477,
+            0
+          ]
+        }
+      ],
+      "axis_point_unity_m": [
+        0.12720573633113869,
+        -0.016000000000000014,
+        0.13050926728554893
+      ],
+      "axis_unity": [
+        0.7071067811865477,
+        0,
+        -0.7071067811865475
+      ],
+      "axis_angle_to_horizontal_deg": 0,
+      "horizontal_axis_acute_angle_to_forward_deg": 45.00000000000001
+    },
+    {
+      "occurrence": "02 S6 inspired frame - concept geometry:1+H Front Port - APISQUEEN U01 with attached rail:1",
+      "shroud_cylinders": [
+        {
+          "radius_mm": 31.000000000000014,
+          "axis_point_cad_mm": [
+            134.79426366886128,
+            130.63373343778864,
+            110
+          ],
+          "axis_cad": [
+            -0.7071067811865477,
+            0.7071067811865475,
+            0
+          ]
+        }
+      ],
+      "axis_point_unity_m": [
+        -0.13063373343778864,
+        -0.016000000000000014,
+        0.1339372643921988
+      ],
+      "axis_unity": [
+        -0.7071067811865475,
+        0,
+        -0.7071067811865477
+      ],
+      "axis_angle_to_horizontal_deg": 0,
+      "horizontal_axis_acute_angle_to_forward_deg": 44.99999999999999
+    },
+    {
+      "occurrence": "02 S6 inspired frame - concept geometry:1+V Starboard - APISQUEEN U01 with attached rail:1",
+      "shroud_cylinders": [
+        {
+          "radius_mm": 31.000000000000007,
+          "axis_point_cad_mm": [
+            -2.42396,
+            -152,
+            111.52772557735
+          ],
+          "axis_cad": [
+            1.2246467991473532e-16,
+            0,
+            -1
+          ]
+        }
+      ],
+      "axis_point_unity_m": [
+        0.152,
+        -0.014472274422650018,
+        -0.0032809592766624603
+      ],
+      "axis_unity": [
+        0,
+        -1,
+        1.2246467991473532e-16
+      ],
+      "axis_angle_to_horizontal_deg": 90,
+      "horizontal_axis_acute_angle_to_forward_deg": null
+    },
+    {
+      "occurrence": "02 S6 inspired frame - concept geometry:1+V Port - APISQUEEN U01 with attached rail:1",
+      "shroud_cylinders": [
+        {
+          "radius_mm": 31.000000000000007,
+          "axis_point_cad_mm": [
+            2.42396,
+            152,
+            111.52772557735
+          ],
+          "axis_cad": [
+            -1.2246467991473532e-16,
+            0,
+            -1
+          ]
+        }
+      ],
+      "axis_point_unity_m": [
+        -0.152,
+        -0.014472274422650018,
+        0.00156696072333754
+      ],
+      "axis_unity": [
+        0,
+        -1,
+        -1.2246467991473532e-16
+      ],
+      "axis_angle_to_horizontal_deg": 90,
+      "horizontal_axis_acute_angle_to_forward_deg": null
+    }
+  ],
+  "printed_parts": {
+    "material": "Bambu Lab PETG Basic",
+    "infill_percent": 100,
+    "source": "build specification supplied by me on 2026-10-23",
+    "mass_status": "Not measured. Fully filled PETG is the build specification; manufactured mass still depends on slicing and the finished part."
+  },
+  "extraction_date": "2026-10-23",
+  "source_status": "Active live Fusion document, including unsaved changes; source not saved or modified by extraction.",
+  "geometric_reference_note": "Center of the visible BRep axis-aligned bounding box; not center of mass. Dimensions exclude unmodeled connectors, tether and cables.",
+  "axis_point_note": "Point on the 31mm-radius analytic shroud cylinder axis; suitable for force-line geometry. It is not an identified propeller-plane center. Moving a force application point along its own axis does not change torque.",
+  "direction_note": "Cylinder axis signs are CAD parameterization, not verified positive motor thrust or ArduSub channel direction."
+}

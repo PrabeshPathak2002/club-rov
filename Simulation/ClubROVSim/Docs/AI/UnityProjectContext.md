@@ -8,4 +8,6 @@ Use Unity units as metres, +Z forward, +X starboard, +Y up. Source STL uses mill
 
 Apply forces only in FixedUpdate. Separate input from physics so a future SITL bridge can supply six actuator commands. Use UI Toolkit, not OnGUI. No tests framework has been added. Meaningful mixer checks are available via the scene builder; runtime checks must also establish actual movement and reset behavior.
 
+The live Future ROV assembly was measured on 23 October 2026; Docs/FUSION_GEOMETRY.md and Docs/fusion-geometry.json contain its envelope and six analytic thrust-axis lines. This is a geometry input snapshot, not a completed runtime integration. The reference point is geometric, not measured COM. All printed parts use Bambu Lab PETG Basic at 100% infill (corrected from an initial 10% statement). Do not estimate their mass by applying a 10% solid-volume multiplier.
+
 Keep Library, Temp, Logs, UserSettings, generated IDE projects and player builds out of Git. Include Unity-generated .meta files with assets. Do not change firmware or upload simulator assets without a reviewed source set.

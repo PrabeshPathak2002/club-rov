@@ -4,6 +4,8 @@
 
 This guide covers my September frame revision. Later mount and electronics changes are listed in the revision index above.
 
+My current material specification for all 3D printed parts is **Bambu Lab PETG Basic at 100% infill**, confirmed on 23 October 2026.
+
 ## M4 side-frame joints
 
 The four side-frame joints now use M4x30 socket-head screws and 9 mm OD / 4.4 mm ID / 0.8 mm washers. Reprint the four uprights and two top beams; their new filenames contain M4. Use the three updated M4 fit coupons. The rest of the printed geometry is unchanged by this fastener conversion.
