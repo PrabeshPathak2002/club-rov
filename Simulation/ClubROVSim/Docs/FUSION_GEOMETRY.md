@@ -25,7 +25,7 @@ The [machine-readable snapshot](fusion-geometry.json) preserves the source occur
 
 ## Printed parts and remaining calibration
 
-All project 3D printed parts use **Bambu Lab PETG Basic at 100% infill**. The 100% specification is recorded in the [print guide](../../../Final%20Design/Guides/PRINT_GUIDE.md).
+All project 3D printed parts use **Bambu Lab PETG Basic at 100% infill**. See the [current BOM](../../../Documentation/BOM.md#enclosure-and-printed-parts) for the material specification.
 
 A CAD solid-mass estimate has not been substituted for the finished vehicle weight. Battery, wiring, hardware, printed-part slicing and actual water displacement still need to be accounted for. The simulator's 8 kg mass, buoyancy, drag and thrust values remain provisional.
 

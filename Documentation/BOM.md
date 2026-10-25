@@ -1,6 +1,6 @@
 # Current ROV bill of materials
 
-Build selection reviewed 24 October 2026. Quantities below are for one six-thruster ROV. This is the primary build list. The superseded September CAD inventory is retained in the private maintainer archive rather than duplicated in the public BOM.
+Build selection reviewed 24 October 2026. Quantities below are for one six-thruster ROV. This is the primary build list.
 
 **On hand** and **ordered** reflect the last recorded inventory on 23 October; confirm stock before purchasing. **Selected** identifies a build choice, not confirmed ownership. **Provisional** quantities or dimensions require a final fit/wiring check.
 
@@ -32,7 +32,7 @@ A **mated pair/set** includes both connecting halves; it is not two additional i
 
 - **1 × reusable enclosure assembly** — existing 4-inch, 200 mm tube with its flanges and retained endcap/seal hardware. Verify the actual assembly before replacing or ordering parts.
 - **1 × replacement acrylic endcap** — 6.35 mm stock, using the current LP20/LP12 fit-study layout. Coupon fit and pressure qualification remain pending; count it as a replacement, not a second enclosure.
-- **1 × printed frame set** — collars, decks, covers, side frames and handle. Use the September frame references with the later revisions identified in [Hardware](../Hardware/README.md); a complete combined revision export is still pending.
+- **1 × printed frame set** — collars, decks, covers, side frames and handle. Use the revisions identified in [Hardware](../Hardware/README.md); a complete combined frame export is still pending.
 - **6 × revised integral rail-slot thruster mounts** — four horizontal and two vertical; use [current mount exports](../Hardware/ThrusterMounts/README.md). The obsolete separate clamp jaws are not additional parts.
 - **1 × ARK/ESC stack adapter** and **4 × 7 mm M3 spacers** — use the [stack exports](../Hardware/StackAdapter/README.md).
 - **1 × electronics tray** — reuse the existing tray where suitable. The wire-management holders are a packaging study, not released print parts.
@@ -43,7 +43,7 @@ Printed parts use **Bambu Lab PETG Basic, 100% infill**. Fit coupons, CAD refere
 
 The current thruster-mount selection uses **6 × M4 × 50 mm bolts, 6 × M4 nuts and 6 × M4 washers**. Confirm actual grip length and washer fit before purchasing. These belong to the six mounts above and are not an additional mount assembly.
 
-Frame/enclosure hardware and ARK/ESC M3 screw lengths still require a consolidated recount against the final assembly. Do not add the historical totals of 38 frame screws and 30 imported screw bodies to a shopping list: they describe an older CAD snapshot, not a verified current fastener requirement. Existing fasteners may be reused where their dimensions and condition are suitable.
+Frame/enclosure hardware and ARK/ESC M3 screw lengths still require a consolidated recount against the final assembly. Use verified physical fastener requirements, not imported CAD-body counts, for purchasing. Existing fasteners may be reused where their dimensions and condition are suitable.
 
 ## Items requiring final sizing or inventory checks
 

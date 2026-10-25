@@ -1,15 +1,7 @@
-> This is the September assembly preview. It does not include the newer mounts, battery, stack or endcap; those changes are listed under [hardware revisions](../Hardware/README.md).
+# Assembly preview
 
-# Interactive assembly preview
+[Open the STL in GitHub's 3D viewer](club-rov-preview.stl). Drag to rotate, right-drag to pan, and scroll to zoom. The root README uses [preview.png](preview.png) as its color illustration; STL viewing is monochrome.
 
-Preview revision: [M4 side-frame joints](../Final%20Design/README.md#m4-frame-joints), with the [rear horizontal pair corrected](../Final%20Design/README.md#orientation-and-checks); the front horizontal and vertical pairs retain their orientations. The relieved fixed-receiver pockets are retained.
+This visual reference was exported from the `Future ROV` assembly on 30 September 2026. It includes the enclosure, six thrusters, frame, clamps and handle, and predates the later mounts, battery layout, stack and endcap. Use [Hardware](../Hardware/README.md) for current part exports. The assembly mesh is not a printable part or manufacturing release.
 
-[Open the detailed STL in GitHub's 3D viewer](club-rov-preview.stl). Drag to rotate, right-drag to pan, and scroll to zoom.
-
-The root README links its full-color Fusion screenshot and View in 3D button to the detailed binary STL in GitHub's interactive viewer. The STL includes the enclosure flanges and stays below GitHub's 10 MB viewer limit. STL is monochrome; the screenshot shows the design colors.
-
-This preview was exported from the `Future ROV` Fusion assembly on 30 September 2026. It includes the enclosure, six thrusters, frame, clamps, and handle. Internal electronics, liners, and fasteners are omitted. This mesh is not a printable assembly or a manufacturing reference; use the original individual print parts for fabrication.
-
-The assembly includes imported enclosure and APISQUEEN U01 reference geometry alongside the custom frame and mounts. Those third-party designs remain credited to their original creators. See [publishing and attribution](../Documentation/PUBLISHING.md).
-
-[GitHub's STL documentation](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams#creating-stl-3d-models)
+Imported enclosure and APISQUEEN U01 geometry remains credited to its original creators; see [publishing and attribution](../Documentation/PUBLISHING.md). The mesh is also the source for the simulator's visual asset and remains tracked for that purpose.

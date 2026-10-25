@@ -16,6 +16,6 @@ The simulator includes official RoboSub task images. Their source URLs and hashe
 
 ## Private development history
 
-Maintainer archives preserve camera bring-up records, animation exports, superseded CAD, scripts and bench logs. They are not included in a Git clone and are not prerequisites for running the published software. September design-package references identify historical files available only in those archives; [Hardware](../Hardware/README.md) is the current public revision index.
+Maintainer archives preserve camera bring-up records, animation exports, superseded CAD, scripts and bench logs. They are not included in a Git clone and are not prerequisites for running the published software. [Hardware](../Hardware/README.md) is the current public revision index.
 
 Never upload `rov_wifi_credentials.h`, password notes, built firmware, full local configuration or unrelated screenshots. Before publishing firmware binaries, a credential-provisioning approach that does not embed the maintenance password is required. Selected dashboard screenshots show UI only; new photography should be reviewed before publication.
