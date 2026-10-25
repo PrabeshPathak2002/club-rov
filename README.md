@@ -29,7 +29,7 @@ The build documentation supports learning the design, reproducing the software s
 - [Firmware build and source tour](Code/ROV%20ESP32-P4%20code/README.md)
 - [Architecture and network setup](Documentation/ARCHITECTURE.md)
 - [Electronics and ESC setup](Documentation/ELECTRONICS.md)
-- [Current component list](Documentation/BOM.md)
+- [Current ROV bill of materials](Documentation/BOM.md)
 - [Mechanical revisions and fit files](Hardware/README.md)
 - [Unity pool simulator](Simulation/ClubROVSim/README.md)
 - [ArduSub SITL and Unity setup](Simulation/SITL/README.md)
