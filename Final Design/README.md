@@ -11,7 +11,7 @@ September orientation revision: rear horizontal pair flipped back; front horizon
 - Frame STEP export (historical local-only asset: `CAD/Service_Upgrade_Frame.step`) — frame component only, not the complete enclosure/thruster assembly
 - Print package (historical local-only asset: `Prints/Service_Upgrade_STLs.zip`) — 27 assembly parts, 10 fit coupons, guides, BOM, checks and adapter references
 - Individual STL files (historical local-only asset: `Prints/Service_Upgrade_STLs/`)
-- [September CAD inventory](BOM/September_2026_CAD_Inventory.md) and [original detailed CSV](BOM/September_2026_CAD_Inventory.csv) — historical reference; use the [current ROV BOM](../Documentation/BOM.md) for build selections
+- [Current ROV BOM](../Documentation/BOM.md) — use for build selections; the original per-body September inventory is retained privately.
 - [Printing and assembly guide](Guides/PRINT_GUIDE.md)
 - Validation reports (historical local-only asset: `Validation/`) and design previews (historical local-only asset: `Previews/`)
 - Future thruster adapter references (historical local-only asset: `Thruster Interface References/README.md`)

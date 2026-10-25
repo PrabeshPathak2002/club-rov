@@ -1,6 +1,6 @@
 # Current ROV bill of materials
 
-Build selection reviewed 24 October 2026. Quantities below are for one six-thruster ROV. This is the primary build list; the [September CAD inventory](../Final%20Design/BOM/September_2026_CAD_Inventory.md) is historical reference only.
+Build selection reviewed 24 October 2026. Quantities below are for one six-thruster ROV. This is the primary build list. The superseded September CAD inventory is retained in the private maintainer archive rather than duplicated in the public BOM.
 
 **On hand** and **ordered** reflect the last recorded inventory on 23 October; confirm stock before purchasing. **Selected** identifies a build choice, not confirmed ownership. **Provisional** quantities or dimensions require a final fit/wiring check.
 

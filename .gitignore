@@ -28,3 +28,8 @@
 *.key
 Thumbs.db
 .DS_Store
+
+# Superseded CAD inventory is retained in the private maintainer archive.
+/Final Design/BOM/
+# Generated SITL validation output.
+/Simulation/SITL/validation-mavlink.json

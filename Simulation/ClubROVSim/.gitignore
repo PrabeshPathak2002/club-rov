@@ -30,3 +30,12 @@ crash-report*
 # Preserve crash-recovery copies locally or archive them; never publish them.
 /Assets/_Recovery/
 /Assets/_Recovery.meta
+
+# Generated validation reports; implementations and summary stay tracked.
+/Docs/*CheckResults.txt
+/Docs/*-checks.json
+
+# Publish curated documentation images, not diagnostic screenshot history.
+/Assets/Screenshots/*
+!/Assets/Screenshots/betaflight-style-osd.png
+!/Assets/Screenshots/betaflight-style-osd.png.meta

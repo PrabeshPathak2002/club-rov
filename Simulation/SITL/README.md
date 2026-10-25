@@ -65,7 +65,7 @@ The listener accepts only the configured source IP and locks to its first valid 
 
 ## Validation
 
-Local validation built ArduSub 4.7.2 and verified live 400 Hz packet exchange, firmware version, the six-motor frame, arming, neutral/forward/starboard/right-yaw/up outputs and disarming. The Unity vehicle moved from its initial 1.20 m depth to about 0.72 m, moved forward and starboard, and turned right. The test ended with all six outputs at 1500 µs. `validation-mavlink.json` records the final six-motor run.
+Local validation built ArduSub 4.7.2 and verified live 400 Hz packet exchange, firmware version, the six-motor frame, arming, neutral/forward/starboard/right-yaw/up outputs and disarming. The Unity vehicle moved from its initial 1.20 m depth to about 0.72 m, moved forward and starboard, and turned right. The test ended with all six outputs at 1500 µs. The generated MAVLink report was retained locally; [check-mavlink.py](check-mavlink.py) remains available to reproduce the guarded simulator check.
 
 The focused Unity checks passed: 12 protocol, 12 ownership/UDP/timeout lifecycle, 11 local physics, 12 synthetic input/camera, 19 course/UI/visibility, and 10 FPV rendering checks. Synthetic input checks require Unity to have OS focus. The later hands-on QGC joystick, depth-hold and heading-hold checks were confirmed separately.
 

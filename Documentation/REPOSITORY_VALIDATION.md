@@ -1,38 +1,23 @@
-# Repository validation history
+# Repository validation
 
-The entries below record checks performed on 23–24 October 2026. Counts, paths and generated-output inventories apply to the recorded operation; they do not describe files supplied by every Git clone. Later archive-retention entries supersede earlier restoration availability.
+## Recorded source checks — 23–24 October 2026
 
-## Source publication — 23 October 2026
+- A fresh ESP-IDF **5.5.2** configuration and full companion build passed with the committed dependency lockfile. The tested target used the pre-v3 P4 revision setting, 32 MB flash, IMX219 format index 2, 100 Hz scheduler and custom OTA layout.
+- Host MAVLink framing checks recorded **110,979 exact frame deliveries**; heartbeat parsing checks recorded **168 passing cases**.
+- The [.github workflow](../.github/workflows/host-checks.yml) runs the portable host tests on pushes and pull requests. Hosted ESP-IDF builds are not configured.
+- Unity/SITL checks, Windows builds and remaining simulator limits are summarized in [simulator validation](../Simulation/ClubROVSim/Docs/VALIDATION.md).
+- Physical bench observations and outstanding vehicle tests are recorded in [hardware status](STATUS.md). Software and CAD checks do not establish pressure capacity or field reliability.
 
-The published source package was checked as follows:
+## Publication checks
 
-- Fresh ESP-IDF 5.5.2 configuration and full build passed from the consolidated directory, with the existing dependency lockfile unchanged.
-- P4 target: pre-v3 bench-board revision setting, 32 MB flash, IMX219 format index 2, 100 Hz scheduler and custom OTA partition table.
-- Application size: 1,145,920 bytes; 73% of the smallest 4 MiB application partition free. This image was not flashed during repository cleanup and is excluded from Git because it embeds local credentials.
-- Host framing tests: 110,979 exact frame deliveries passed, covering fragmentation, signed frames, boundaries and malformed datagrams.
-- Host heartbeat tests: 168 cases passed for CRC, arm state, MAVLink v1/v2, malformed input and controller identity.
-- Reviewed publication set: no deployed Wi-Fi password, populated credential header, binary, build directory, serial log or complete local sdkconfig tracked. First-party Markdown file links resolve.
-- Text/source whitespace check passed. Native STEP exporter comment whitespace is preserved in the CAD files.
-- Original workspace history: 371 files, 840,717,358 bytes moved into the private dated archive and verified by size and SHA-256. The earlier OneDrive checkout and its archive were retained.
+The reviewed source set excludes populated credential headers, deployed firmware binaries, complete local `sdkconfig`, private serial logs, downloaded dependency/build directories and private archives. Images and configuration used by the Unity scene remain tracked; generated reports and superseded diagnostic captures are ignored.
 
-The GitHub workflow runs the portable host tests on pushes and pull requests. The firmware build above ran locally; hosted ESP-IDF builds are not configured. None of these checks establishes motor behavior, enclosure pressure capacity or field reliability. See [physical integration status](STATUS.md).
+The practice packager was checked for ZIP integrity, agreement with the compiled player and exclusion of debug/backup output. Packaging copies an existing player; source changes require a new build before distribution.
 
-## Workspace cleanup — 24 October 2026
+Local documentation links, heading anchors and text whitespace were checked during the documentation review. Fenced commands and parameter blocks were preserved. These checks are publication checks, not new firmware flashes, player builds or physical tests.
 
-The cleanup archived 944 files from obsolete practice packages, redundant extracted players, a player log and the Unity recovery scene. Each move was verified by size and SHA-256; the private archive contains the inventory and original/destination mapping. No files were deleted during that initial move; the later retention pass is recorded below. Source, CAD files, credentials, active firmware builds, Unity caches, SITL installation and app-managed attachments were preserved.
+## Retained development history
 
-The practice packager now streams directly to a ZIP and publishes it only after the archive closes successfully. A real packaging run passed ZIP integrity checks; all 185 included player files matched the active Windows build by SHA-256. The quickstart matched its source, the launcher had no byte-order mark, debug/backup folders were excluded and no extracted staging directory was created. This packages an existing compiled player; it does not rebuild or validate new simulator source changes.
+Detailed per-run reports, old screenshots, the superseded September CAD inventory and workspace cleanup inventories are retained locally by the maintainer. The current repository contains the build inputs, selected hardware files, active documentation and concise validation summaries. The [folder guide](FOLDER_GUIDE.md) distinguishes tracked inputs from generated outputs.
 
-At completion of that cleanup, the local Builds folder contained Windows and one shareable ZIP. Recovery paths are ignored. The folder guide and simulation overview were refreshed, and source whitespace checks passed. No new firmware flash, Unity player build or hardware test was performed for this cleanup.
-
-## Documentation and archive retention — 24 October 2026
-
-Project reference guides were rewritten in a neutral voice while retaining dated test evidence, pending work and existing technical instructions. Validation found no new broken local Markdown links or changes to fenced command/code blocks. `git diff --check` passed. No firmware or simulator source changed during this pass, so application builds and runtime tests were not repeated.
-
-The private archive retention pass verified obsolete package files against their size/SHA-256 inventory before deleting 940 generated files across ten package roots. The archived assembly mesh was gzip-compressed; its decompressed SHA-256 matched the original before removal of the uncompressed copy. Deletion and compression manifests remain beside the original inventories. The active Windows player, latest practice ZIP, installed QGroundControl, Unity recovery scene and archived startup log were confirmed present. Approximately 1.67 GiB was recovered. Original move inventories describe the earlier cleanup; consult the subsequent manifests for current restoration availability.
-
-## Full documentation review — 24 October 2026
-
-The editorial review covered all 35 first-party Markdown guides, the portable practice quickstart and six retained simulator check-result files. Setup and reference wording was checked for private-machine assumptions, undocumented dependencies, inaccessible archive references, conversational narration and stale completion status. The roadmap now distinguishes completed SITL integration from pending physical calibration and ROS integration; September design documents explicitly identify their historical source set.
-
-Local file links and heading anchors were checked across the guides. Fenced commands and parameter blocks were preserved, and retained check-result files were not modified. `git diff --check` passed. This was a documentation-only review; firmware builds, Unity runtime checks and physical tests were not repeated.
+The repository cleanup removed redundant material from the current branch without rewriting Git history. Previously committed versions remain recoverable from their commits.
