@@ -26,6 +26,7 @@ Vehicle control and communications are split between two boards: the ARK handles
 
 The build documentation supports learning the design, reproducing the software setup and contributing to the project.
 
+- [Technical Design Report - integration draft](Documentation/TDR/output/pdf/Club_ROV_TDR.pdf) ([editable source](Documentation/TDR/Technical_Design_Report.md))
 - [Firmware build and source tour](Code/ROV%20ESP32-P4%20code/README.md)
 - [Architecture and network setup](Documentation/ARCHITECTURE.md)
 - [Electronics and ESC setup](Documentation/ELECTRONICS.md)
