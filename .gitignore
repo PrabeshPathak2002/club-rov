@@ -33,3 +33,6 @@ Thumbs.db
 /Final Design/
 # Generated SITL validation output.
 /Simulation/SITL/validation-mavlink.json
+
+# Keep the TDR draft local until the finalized report is approved for publication.
+/Documentation/TDR/
