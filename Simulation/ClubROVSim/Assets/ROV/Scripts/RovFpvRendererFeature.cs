@@ -27,7 +27,8 @@ namespace ClubROV.Simulation
             var feed = renderingData.cameraData.camera.GetComponent<RovFpvCameraFeed>();
             if (feed == null) return;
             if (!feed.Active) { pass.Release(); feed.BufferAllocated = false; return; }
-            pass.Setup(feed);
+            var mapping = renderingData.cameraData.camera.GetComponent<RovMappingFeed>();
+            pass.Setup(feed, mapping);
             renderer.EnqueuePass(pass);
         }
         protected override void Dispose(bool disposing) { pass?.Detach(); CoreUtils.Destroy(material); }
@@ -38,12 +39,15 @@ namespace ClubROV.Simulation
             private static readonly int DisplayParams = Shader.PropertyToID("_DisplayParams");
             private readonly Material material;
             private RovFpvCameraFeed feed;
+            private RovMappingFeed mapping;
             private RTHandle[] frames;
             private int writeIndex, available;
             private float nextCapture = float.NegativeInfinity;
             public FeedPass(Material effect) { material = effect; requiresIntermediateTexture = true; }
-            public void Setup(RovFpvCameraFeed cameraFeed)
+            public void Setup(RovFpvCameraFeed cameraFeed, RovMappingFeed capture)
             {
+                mapping = capture;
+                ConfigureInput(capture != null && capture.isActiveAndEnabled ? ScriptableRenderPassInput.Depth : ScriptableRenderPassInput.None);
                 if(feed==cameraFeed) return;
                 Detach(); feed=cameraFeed; feed.Stopped+=Release;
             }
@@ -65,6 +69,7 @@ namespace ClubROV.Simulation
                 var cameraData = frameData.Get<UniversalCameraData>();
                 if (resources.isActiveTargetBackBuffer || !resources.activeColorTexture.IsValid()) return;
                 var source = resources.activeColorTexture;
+                if (mapping != null) mapping.Record(graph, source, resources.cameraDepthTexture);
                 var descriptor = cameraData.cameraTargetDescriptor;
                 descriptor.width = feed.Width; descriptor.height = feed.Height;
                 descriptor.depthBufferBits = 0; descriptor.msaaSamples = 1;

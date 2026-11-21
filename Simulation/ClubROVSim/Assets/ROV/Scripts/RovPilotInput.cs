@@ -17,15 +17,19 @@ namespace ClubROV.Simulation
         private void Update()
         {
             if(SuppressInput) { vehicle.StopThrusters(); return; }
-            ReadDevices(Keyboard.current, Gamepad.current, out Vector3 command, out float yaw, out bool cut, out bool reset);
+            ReadDevices(Keyboard.current, Gamepad.current, out Vector3 command, out float yaw, out float roll, out bool cut, out bool reset);
             if (reset) vehicle.ResetVehicle();
             if (!Application.isFocused || cut) { vehicle.StopThrusters(); return; }
-            vehicle.SetPilotCommand(command, yaw, thrustLimit);
+            vehicle.SetPilotCommand(command, yaw, thrustLimit, roll);
         }
 
         // Device sampling is separate from focus/physics so mappings can be verified safely.
         public void ReadDevices(Keyboard keys, Gamepad pad, out Vector3 command, out float yaw, out bool cut, out bool reset)
+            => ReadDevices(keys, pad, out command, out yaw, out _, out cut, out reset);
+
+        public void ReadDevices(Keyboard keys, Gamepad pad, out Vector3 command, out float yaw, out float roll, out bool cut, out bool reset)
         {
+            roll = 0;
             command = Vector3.zero;
             yaw = 0;
             cut = false;
@@ -38,6 +42,7 @@ namespace ClubROV.Simulation
                 command.z = (keys.wKey.isPressed ? 1 : 0) - (keys.sKey.isPressed ? 1 : 0);
                 command.y = (keys.rKey.isPressed ? 1 : 0) - (keys.fKey.isPressed ? 1 : 0);
                 yaw = (keys.eKey.isPressed ? 1 : 0) - (keys.qKey.isPressed ? 1 : 0);
+                roll = (keys.xKey.isPressed ? 1 : 0) - (keys.zKey.isPressed ? 1 : 0);
             }
             if (pad != null)
             {
@@ -46,11 +51,14 @@ namespace ClubROV.Simulation
                 Vector2 turn = pad.rightStick.ReadUnprocessedValue();
                 command += new Vector3(move.x, ShapeAxis(turn.y, stickDeadZone), move.y);
                 yaw += ShapeAxis(turn.x, stickDeadZone);
+                roll += ShapeAxis(pad.rightTrigger.ReadValue(), stickDeadZone)
+                    - ShapeAxis(pad.leftTrigger.ReadValue(), stickDeadZone);
                 reset |= pad.startButton.wasPressedThisFrame;
                 cut |= pad.buttonSouth.isPressed;
             }
             command = Vector3.ClampMagnitude(command, 1) * translationSensitivity;
             yaw = Mathf.Clamp(yaw, -1, 1) * yawSensitivity;
+            roll = Mathf.Clamp(roll, -1, 1);
         }
         public static float ShapeAxis(float value, float deadZone)
         {

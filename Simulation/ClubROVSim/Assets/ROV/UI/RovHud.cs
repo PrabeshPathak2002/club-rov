@@ -31,14 +31,31 @@ namespace ClubROV.Simulation
         private RovGraphicsSettings graphics;
         private RovHudPanels panels;
         private RovFlightOverlay flightOverlay;
+        private RovDvlMap dvlMap;
+        private RovThrusterOverlay thrusterOverlay;
+        private RovRunReviewPanel reviewPanel;
+        private RovCourseGuide courseGuide;
+        private RovTether tether;
+        private Label tetherStatus;
+        private RovDebugPanel debugPanel;
+        private RovSoundSettings soundSettings;
+        private Button mappingToggle;
+        private Label mappingStatus;
+        private RovMappingFeed mappingFeed;
+        private RovDvlSensor mappingSensor;
         public void Configure(RovDynamics dynamics) => vehicle = dynamics;
         public void ConfigureTraining(RovTrainingCourse training, RovWaterVisibility visibility) { course = training; water = visibility; }
         private void OnEnable()
         {
             VisualElement root = GetComponent<UIDocument>().rootVisualElement;
             graphics = new RovGraphicsSettings(root);
+            soundSettings = new RovSoundSettings(root, vehicle);
+            debugPanel = new RovDebugPanel(root, vehicle, () => dvlMap?.Data);
             panels = new RovHudPanels(root);
+            thrusterOverlay = new RovThrusterOverlay(root, vehicle);
             telemetry = root.Q<Label>("telemetry");
+            tetherStatus = root.Q<Label>("tether-status");
+            tether = vehicle == null ? null : vehicle.GetComponent<RovTether>();
             arming=root.Q<Label>("arming"); score=root.Q<Label>("score");
             runSave=root.Q<Label>("run-save");
             training=vehicle==null?null:vehicle.GetComponent<RovTrainingSettings>();
@@ -55,10 +72,21 @@ namespace ClubROV.Simulation
             if(cameraToggle!=null) cameraToggle.clicked+=ToggleCamera;
             if (water != null) cameraFeed = water.GetComponent<RovFpvCameraFeed>();
             flightOverlay=new RovFlightOverlay(root,vehicle,cameraRig,sitl);
+            var sensor = vehicle == null ? null : vehicle.GetComponent<RovDvlSensor>();
+            mappingSensor = sensor;
+            mappingFeed = cameraRig == null ? null : cameraRig.GetComponent<RovMappingFeed>();
+            mappingToggle = root.Q<Button>("mapping-toggle");
+            mappingStatus = root.Q<Label>("mapping-status");
+            mappingToggle?.SetEnabled(sensor != null && cameraRig != null);
+            if (mappingToggle != null) mappingToggle.clicked += ToggleMapping;
+            dvlMap = new RovDvlMap(root, () => sensor == null ? null : sensor.Session,
+                () => sensor != null && sensor.Streaming);
             objective = root.Q<Label>("objective"); run = root.Q<Label>("run"); target = root.Q<Label>("target");
             visibilityText = root.Q<Label>("visibility-text");
             visibilitySlider = root.Q<Slider>("visibility");
             restart = root.Q<Button>("restart");
+            courseGuide = new RovCourseGuide(root, course, vehicle, water == null ? null : water.GetComponent<Camera>(), () => panels?.OpenPanel("course"));
+            reviewPanel = new RovRunReviewPanel(root, course, () => panels?.SetHidden(false));
             if (visibilitySlider != null && water != null)
             {
                 visibilitySlider.SetValueWithoutNotify(water.VisibilityMetres);
@@ -73,6 +101,15 @@ namespace ClubROV.Simulation
         }
         private void Restart() { if (course != null) course.Restart(); else if (vehicle != null) vehicle.ResetVehicle(); }
         private void ToggleCamera() { if(cameraRig!=null) cameraRig.CycleView(); }
+        private void ToggleMapping()
+        {
+            if (cameraRig == null || mappingSensor == null) return;
+            if (mappingFeed != null && mappingFeed.enabled) { mappingFeed.enabled = false; return; }
+            if (mappingFeed == null) mappingFeed = cameraRig.gameObject.AddComponent<RovMappingFeed>();
+            mappingFeed.Configure(mappingSensor);
+            mappingFeed.enabled = true;
+            cameraRig.SetView(RovCameraRig.ViewMode.Fpv);
+        }
         private void ToggleSitl()
         {
             if (sitl == null) return;
@@ -85,8 +122,16 @@ namespace ClubROV.Simulation
         }
         private void OnDisable()
         {
+            soundSettings?.Dispose(); soundSettings = null;
+            if (mappingToggle != null) mappingToggle.clicked -= ToggleMapping;
+            if (mappingFeed != null) mappingFeed.enabled = false;
+            courseGuide?.Dispose(); courseGuide = null;
+            reviewPanel?.Dispose(); reviewPanel = null;
+            thrusterOverlay?.Dispose(); thrusterOverlay = null;
+            dvlMap?.Dispose(); dvlMap=null;
             flightOverlay?.Dispose(); flightOverlay=null;
             panels?.Dispose(); panels=null;
+            debugPanel?.Dispose(); debugPanel=null;
             graphics?.Dispose(); graphics=null;
             visibilitySlider?.UnregisterValueChangedCallback(OnVisibility);
             if (restart != null) restart.clicked -= Restart;
@@ -95,11 +140,26 @@ namespace ClubROV.Simulation
         }
         private void Update()
         {
+            dvlMap?.Tick();
             flightOverlay?.Tick();
             panels?.Tick();
             graphics?.Tick();
+            debugPanel?.Tick(panels != null && !panels.Hidden && panels.ActivePanel == "debug");
             if (vehicle == null || telemetry == null || Time.unscaledTime < nextRefresh) return;
             nextRefresh = Time.unscaledTime + 0.1f;
+            if (mappingToggle != null)
+            {
+                bool capturing = mappingFeed != null && mappingFeed.enabled;
+                mappingToggle.text = capturing ? "STOP RGB-D MAPPING" : "START RGB-D MAPPING";
+                if (mappingStatus != null)
+                    mappingStatus.text = !capturing ? "" : cameraRig.PilotView ? mappingFeed.Status : "Mapping paused · switch to FPV";
+            }
+            if (tether == null) tether = vehicle.GetComponent<RovTether>();
+            if (tetherStatus != null && tether != null) tetherStatus.text = tether.Status + (tether.SimulationEnabled && tether.Ready
+                ? $" · payout {tether.PaidOutMetres:0.0}/{tether.LengthMetres:0.00} m · load {tether.LastForce.magnitude:0.0} N" : "");
+            courseGuide?.Tick();
+            reviewPanel?.Tick();
+            thrusterOverlay?.Tick();
             if (sitl != null)
             {
                 if(arming!=null)
@@ -123,7 +183,7 @@ namespace ClubROV.Simulation
                 if(score!=null) score.text=!course.Configured ? "FREE SWIM | no scored course" : $"SCORE {course.Score} · BEST {(course.BestScore<0?"—":course.BestScore.ToString())} · {(course.Qualified?"SCORED":"PRACTICE")}\nDEPTH RMS {course.DepthRms:0.00} m · HEADING RMS {course.HeadingRms:0.0}°";
                 if(runSave!=null) runSave.text=course.SaveNotice;
                 objective.text = course.Objective;
-                run.text = $"TIME {System.TimeSpan.FromSeconds(course.ElapsedSeconds):mm\\:ss\\.f}    COLLISIONS {course.CollisionCount}    HOLD {Mathf.Min(3, course.HoldSeconds):0.0}/3 s";
+                run.text = $"TIME {System.TimeSpan.FromSeconds(course.Configured ? course.ElapsedSeconds : course.RecordedSeconds):mm\\:ss\\.f}    COLLISIONS {course.CollisionCount}    HOLD {Mathf.Min(3, course.HoldSeconds):0.0}/3 s";
                 Vector3 delta = course.TargetPosition - vehicle.transform.position;
                 float bearing = Mathf.Repeat(Mathf.Atan2(delta.x, delta.z) * Mathf.Rad2Deg, 360);
                 target.text = course.Complete ? "Finished — restart for another run" :

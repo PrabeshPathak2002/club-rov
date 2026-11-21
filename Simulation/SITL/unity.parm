@@ -1,7 +1,8 @@
 # SIMULATION ONLY. Never load this into the physical ARK.
 MAV_SYSID 42
 FRAME_CONFIG 1
-SCHED_LOOP_RATE 400
+# Desktop lockstep: 200 Hz autopilot scheduler, 400 Hz JSON physics backend.
+SCHED_LOOP_RATE 200
 SERVO1_FUNCTION 33
 SERVO2_FUNCTION 34
 SERVO3_FUNCTION 35

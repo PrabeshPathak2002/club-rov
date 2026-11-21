@@ -8,7 +8,7 @@ The Waveshare **ESP32-P4-WIFI6-POE-ETH** provides the ROV companion services. It
 - Raspberry Pi Camera V2.1 / IMX219 CSI capture, hardware H.264 and RTP/UDP video.
 - WPA2 maintenance hotspot, responsive status dashboard, authenticated application updates and boot rollback.
 
-Ethernet telemetry, camera video, the dashboard and an OTA update have been bench-tested. The [status notes](../../Documentation/STATUS.md) track those results and the pending propulsion, failsafe and water tests. ROS, backup-power supervision and onboard autonomy are still future work.
+Ethernet telemetry, camera video, the dashboard and an OTA update have been bench-tested. The [status notes](../../Documentation/STATUS.md) track those results and the pending propulsion, failsafe and water tests. ROS 2 navigation and mission experiments are available in simulation under `ROS2/`. Physical ROS integration, backup-power supervision and onboard autonomy remain pending.
 
 ## Fresh checkout on Windows
 

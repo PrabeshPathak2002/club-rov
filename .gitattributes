@@ -1,1 +1,13 @@
 *.pdf binary
+*.sh text eol=lf
+*.onnx binary
+*.npz binary
+*.wav binary
+# Preserve the exact evaluated runtime bytes recorded by the policy manifest.
+ReinforcementLearning/tracked_geometry.py -text
+ReinforcementLearning/marker_measurements.py -text
+# Unity writes empty serialized fields with trailing spaces.
+*.meta whitespace=-blank-at-eol
+*.unity whitespace=-blank-at-eol
+*.asset whitespace=-blank-at-eol
+*.mat whitespace=-blank-at-eol

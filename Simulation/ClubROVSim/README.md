@@ -4,6 +4,8 @@ ClubROVSim is a Windows desktop training simulator for the club's six-thruster R
 
 The vehicle envelope and thruster locations come from a Fusion geometry snapshot. Mass, buoyancy, drag and thrust remain provisional; simulator results do not establish the physical ROV's performance or competition readiness.
 
+An optional [ROS 2 Humble navigation pipeline](../../ROS2/README.md) publishes simulated DVL, IMU and depth measurements and estimates local odometry. A CAD-derived Tracker 650 and adapter are visible beneath the ROV. Start and stop the stream through **ROV -> ROS2** in the Unity Editor. The [DVL navigation launcher](../SITL/Start-ClubRovSitl-ExternalNav.bat) starts the complete ROS/ArduSub session and stream automatically, supplying QGC position telemetry and Position Hold through an isolated SITL profile.
+
 ![FPV view with Betaflight-style OSD and the large telemetry panels hidden](Assets/Screenshots/betaflight-style-osd.png)
 
 FPV with Betaflight-style instruments and the large panels hidden. Instrument styles can be switched during practice.
@@ -17,9 +19,13 @@ FPV with Betaflight-style instruments and the large panels hidden. Instrument st
 1. Add this `ClubROVSim` folder to Unity Hub as an existing project.
 2. Open it with **Unity 6000.6.7f1**.
 3. Open [PoolTraining.unity](Assets/Scenes/PoolTraining.unity), press Play and click the Game view for input focus.
-4. Use local controls immediately, or choose a map under **TRAINING CONDITIONS & SCENARIOS** and select **LOAD MAP & RESET START**.
+4. Use local controls immediately, or choose a map under **COURSE** and select **LOAD MAP & RESET START**.
 
 The project uses **URP 17.6.0**, **Input System 1.20.1** and UI Toolkit. The existing Unity Pipeline package supports local Editor automation; running the simulator does not require a cloud project.
+
+Player builds also include **ML-Agents 4.2.0** and **Inference Engine 2.6.1**. After opening the project once to resolve packages, close Unity and run `pwsh -File Tools/Prepare-InferencePackage.ps1` from this project directory. Reopen Unity before building. This prepares the local Editor-only ONNX importer dependency required by the training/player builds. The embedded package is downloaded locally and excluded from Git.
+
+The [learning tools](../../ReinforcementLearning/README.md) provide separate legacy PPO and sensor-only workflows. The [delivered sensor policy](../../ReinforcementLearning/Models/README.md) includes its model, map and recorded limitations. Build the sensor-training player before starting its launcher.
 
 Compiled players and practice ZIPs under `Builds/` are local generated outputs and are **not included in a Git clone**. Build from source or obtain a complete practice package from the club.
 
@@ -29,10 +35,12 @@ Local vehicle controls:
 
 - **W/S**, **A/D**, **R/F**: forward/back, sideways and ascend/descend.
 - **Q/E**: turn left/right.
+- **Z/X**: roll port/starboard in local mode.
 - **Space**: cut thrust while held; existing momentum remains.
 - **Home**: reset the vehicle pose, velocity, thrust and course progress.
 - **Xbox/controller left stick**: horizontal movement.
 - **Right stick**: yaw and vertical movement.
+- **Left/right triggers**: roll port/starboard in local mode.
 - **A / south button**: cut thrust while held. **Start**: reset.
 
 View and display controls:
@@ -41,17 +49,39 @@ View and display controls:
 - **H / right-stick click**: hide or restore the large telemetry/settings panels and their buttons. FPV instruments remain independently visible.
 - **O / left-stick click**: show or hide FPV instruments.
 - **I**: cycle the three instrument styles, including while panels are hidden.
-- Each panel's title button minimizes or restores that panel. Use **H and O** for completely clear FPV video.
+- The left sidebar opens **CONTROLS**, **COURSE** or **VEHICLE** in one scrollable drawer. All drawers start closed; click the active button again, **Close**, or **Esc** to close it. The slim status strip keeps arm state and basic telemetry visible. **H** hides the sidebar/status; **MENU** restores them. FPV instruments remain independent through **O**.
 
 Click away from text fields and dropdowns to return keyboard focus to piloting. Losing application focus clears local thrust commands. Panel visibility lasts for the current session; instrument style and graphics preferences are saved locally.
 
 Local pilot defaults are a **0.15 dead zone**, **0.65 translation sensitivity**, **0.50 yaw sensitivity** and **0.60 thrust limit**. To tune them, select **Club ROV - simulation** and edit **Rov Pilot Input** before entering Play Mode. Keyboard movement uses the same sensitivity and limit without the stick dead zone. The limit scales mixed actuator commands together to preserve balance.
 
+For local roll experiments, hold **Z/X** or one gamepad trigger. With the provisional 8 kg mass, 35 mm buoyancy offset and normal 60% thrust limit, isolated tests settled near **53 degrees** of roll. Setting **Rov Pilot Input > Thrust Limit** to **1** allowed continuous barrel rolls in both directions. Release the input to remove commanded roll torque; buoyancy still acts to right the vehicle. **Space/A** cuts thrust and **Home/Start** resets. These results are simulator behavior with assumed parameters, not a prediction of the assembled ROV.
+
 When SITL is connected, QGroundControl owns vehicle commands. Unity's local movement, thrust-cut and reset bindings are not the autopilot controls; use QGC to pilot and disarm. Unity still controls the camera and display.
+
+## Ethernet tether
+
+The simulator now defaults to a **100 ft (30.48 m) Cat5/Cat6-style tether**. A visible orange cable runs from the launch-side pool edge to the ROV, with automatic payout, transverse water drag, net submerged weight and tension at the soft length limit. The status strip reports payout, available length and load.
+
+Under **COURSE → TRAINING CONDITIONS & SCENARIOS**, toggle the tether or adjust cable length, drag and net weight. Settings save with custom scenarios. Restart/map start reset reseats the bank endpoint at the saved launch location. This is an approximate training model with no cable snagging or wrapping. See [TETHER_MODEL.md](Docs/TETHER_MODEL.md) for assumptions and validation.
+
+## Course objectives while piloting
+
+The bottom-left course card shows only the current instruction, target range/bearing/depth and a completion counter. Open **COURSE** for the full **NOW / NEXT / DONE** checklist. An on-screen target label identifies the active gate/ring/dock when it is in view. Completed steps turn green and display a completion message. Hover/dock stages show the continuous 3-second hold and identify position, heading or speed conditions preventing progress.
+
+The pool course has five objectives, slalom seven, and gate-and-pillar three. Empty pool and the two RoboSub arenas are exploration maps with no automatic task judging; the card states this explicitly. **COURSE** also contains the full briefing and checklist. H hides the main HUD; MENU restores it. Details: [COURSE_GUIDE.md](Docs/COURSE_GUIDE.md).
+
+## Pilot run review
+
+Open **COURSE → END PRACTICE & REVIEW** to review free swim, a RoboSub exploration session, or an unfinished course. Scored courses open the review automatically on completion, including when the HUD was hidden. **VIEW LAST RUN REVIEW** reopens the latest review in the current session. Restart the course to record a new run; opening a review does not pause the simulator or disarm SITL.
+
+The review shows a top-down simulator route, collision locations, duration, distance, existing depth/heading target-error RMS, and each thruster's time-weighted mean absolute output, peak and direction reversals. Low-speed thrust time is a station-keeping effort proxy, not an assessment that corrections were unnecessary. Free exploration has no target-error RMS or score. This trace uses simulator position and is separate from the ROS estimated-path minimap.
+
+Comparisons use the previous run with the same map, conditions and control mode, separating completed courses from ended practice. Changed conditions/control mode invalidate comparison and saving for that run. Summary metrics are saved in the existing local history; routes and collision positions remain in memory for the latest review. Existing scores and older history remain compatible. Details and validation: [RUN_REVIEW.md](Docs/RUN_REVIEW.md).
 
 ## Training maps
 
-Select **Training map**, then **LOAD MAP & RESET START**. Map/start changes require disconnecting SITL and restarting the SITL session after the new start is applied.
+Open **COURSE**, select **Training map**, then **LOAD MAP & RESET START**. Map/start changes require disconnecting SITL and restarting the SITL session after the new start is applied.
 
 - **Pool course:** three gates, a cyan hover target and a green docking bay.
 - **Gate & pillar:** pass beneath a 2 m bar at 1 m depth, circle the marker 10 m beyond it, then return beneath the bar. The start is 3 m behind the gate. Either orbit direction works; a surface breach invalidates score eligibility. This is a prequalification practice approximation.
@@ -74,7 +104,7 @@ The timer starts with movement and freezes on completion. Collisions count conta
 
 ## Water conditions and scenarios
 
-**TRAINING CONDITIONS & SCENARIOS** provides normal-pool, cross-current, murky-water and H2-failure presets. Conditions include current up to **1 m/s**, buoyancy bias **±10%**, single-thruster health **0–100%**, visibility, suspended particles, spotlight and video delay. These are training disturbances rather than measured pool conditions.
+Under **COURSE**, **TRAINING CONDITIONS & SCENARIOS** provides normal-pool, cross-current, murky-water and H2-failure presets. Conditions include current up to **1 m/s**, buoyancy bias **±10%**, single-thruster health **0–100%**, visibility, suspended particles, spotlight and video delay. These are training disturbances rather than measured pool conditions.
 
 Visibility ranges from **1–20 m**, with an **8 m** default. It adjusts underwater fog and tint; the selected distance is an artistic contrast range, not calibrated turbidity. Fog disables above the surface.
 
@@ -117,11 +147,11 @@ Scored courses record elapsed simulation time, collisions, depth RMS error and h
 
 `training-runs.json` under `Application.persistentDataPath` retains the latest 100 completed runs and up to 256 condition/mode bests. Empty-pool and handbook-map exploration do not produce scored completion.
 
-The **VEHICLE & GRAPHICS** panel offers **Low / Medium / High** and **30 / 60 / 120 FPS** caps. **Medium / 60** is the default. Presets use **65 / 85 / 100%** render scale and **0 / 15 / 30 m** shadow distance; HDR is enabled on High. They change rendering, not physics or scenario conditions. Displayed FPS is a rolling rendering measurement; FPV sampling remains capped separately. Minimum hardware requirements have not been established.
+The sidebar�s **VEHICLE** panel offers **Low / Medium / High** and **30 / 60 / 120 FPS** caps. **Medium / 60** is the default. Presets use **65 / 85 / 100%** render scale and **0 / 15 / 30 m** shadow distance; HDR is enabled on High. They change rendering, not physics or scenario conditions. Displayed FPS is a rolling rendering measurement; FPV sampling remains capped separately. Minimum hardware requirements have not been established.
 
 ## Physics and calibration limits
 
-Four horizontal thrusters provide surge, sway and yaw; two vertical thrusters provide heave. Forces act at individual measured thrust-axis locations, with response delay, reduced reverse thrust, gravity, buoyancy, quadratic drag and angular damping. An offset center of buoyancy provides passive roll/pitch stability.
+Four horizontal thrusters provide surge, sway and yaw; two vertical thrusters provide heave and differential roll control. Forces act at individual measured thrust-axis locations, with response delay, reduced reverse thrust, gravity, buoyancy, quadratic drag and angular damping. An offset center of buoyancy provides a restoring moment in roll and pitch. Pitch has no dedicated control input. The pinned ArduSub VECTORED mixer also includes differential roll on its vertical pair; QGC inputs and flight mode determine the SITL attitude command. Local roll bindings do not send commands to QGC.
 
 Current scene values are **8 kg mass**, **0.008 m³ displacement**, **1000 kg/m³ water density**, **15 N full forward thrust per motor**, **0.8 reverse ratio**, **0.15 s response** and **35 mm buoyancy offset**. Angular speed is capped at **1.2 rad/s**. These are provisional settings, not measured vehicle performance.
 
@@ -129,7 +159,7 @@ The [Fusion snapshot](Docs/FUSION_GEOMETRY.md) supplies a **361.920 × 377.472 �
 
 Unity uses metres, kilograms, seconds and newtons, with **+Z forward, +X starboard, +Y up**. The HUD's H1/H2/H3/H4/V1/V2 values are normalized simulated force fractions, not PWM/DShot outputs or verified physical wiring labels.
 
-There is no tether model, added mass, wave solver, realistic sonar or calibrated sensor-noise/underwater optics model. Mass, inertia, balance, displacement, drag and thrust need measurements from the assembled ROV. ROS 2 and real-hardware connections are not implemented.
+There is no tether model, added mass, wave solver, realistic sonar or calibrated sensor-noise/underwater optics model. Mass, inertia, balance, displacement, drag and thrust need measurements from the assembled ROV. ROS 2 navigation is available in simulation; real-hardware connections remain pending.
 
 ## Build and share
 
@@ -158,3 +188,9 @@ Start with these source files:
 The scene and viewing mesh are included; normal opening does not require a CAD importer. Rebuilding the mesh uses [club-rov-preview.stl](../../Models/club-rov-preview.stl). Commercial reference geometry retains its [attribution](../../Documentation/PUBLISHING.md).
 
 The [validation record](Docs/VALIDATION.md) documents mixer, movement, input, course, map, artwork, FPV, panel and instrument checks, Windows build results and remaining limits. The [SITL record](../SITL/README.md#validation) covers protocol and live autopilot checks. These dated checks are not a claim that every feature has been retested on every computer or that the real vehicle is calibrated.
+
+## DVL track minimap
+
+The top-right **DVL TRACK** map shows a launch-relative path and heading arrow from the ROS DVL/IMU odometry estimate. Run the combined DVL navigation launcher to supply it. The yellow cross marks the start; up means launch-forward, not geographic north. The grid auto-fits the trail. No ground-truth vehicle position is used.
+
+The display pauses on lost bottom lock, stale data or excessive estimator uncertainty and leaves gaps across outages. Its header collapses/expands it; **Clear Trail** resets only the visible history, and H hides it with the rest of the HUD. A new sensor session starts a fresh trail. See the [ROS data path](../../ROS2/README.md#unity-dvl-track-minimap).

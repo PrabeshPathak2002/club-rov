@@ -1,0 +1,84 @@
+behaviors:
+  PoolCourseSensors:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 256
+      buffer_size: 8192
+      # Separate sensor-only visual/recurrent policy; incompatible with the legacy 26-vector policy.
+      learning_rate: 0.0001
+      beta: 0.005
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: true
+      hidden_units: 256
+      num_layers: 2
+      vis_encode_type: simple
+      memory:
+        sequence_length: 64
+        memory_size: 128
+    reward_signals:
+      extrinsic:
+        gamma: 0.995
+        strength: 1.0
+    max_steps: 10000000
+    time_horizon: 128
+    summary_freq: 10000
+    checkpoint_interval: 25000
+    keep_checkpoints: 20
+engine_settings:
+  time_scale: 10
+  target_frame_rate: -1
+environment_parameters:
+  sensor_camera_hfov: 48.7
+  # course-trainer.py supplies Course/Completed to these reward-measure criteria.
+  # PPO still learns from the existing shaped rewards. Each lesson needs 200 fresh episodes.
+  course_randomisation:
+    curriculum:
+      - name: Fixed layout warmup
+        completion_criteria:
+          measure: reward
+          behavior: PoolCourseSensors
+          min_lesson_length: 200
+          signal_smoothing: false
+          threshold: 0.9
+          require_reset: true
+        value: 0.0
+      - name: Quarter ranges
+        completion_criteria:
+          measure: reward
+          behavior: PoolCourseSensors
+          min_lesson_length: 200
+          signal_smoothing: false
+          threshold: 0.9
+          require_reset: true
+        value: 0.25
+      - name: Half ranges
+        completion_criteria:
+          measure: reward
+          behavior: PoolCourseSensors
+          min_lesson_length: 200
+          signal_smoothing: false
+          threshold: 0.9
+          require_reset: true
+        value: 0.5
+      - name: Three quarter ranges
+        completion_criteria:
+          measure: reward
+          behavior: PoolCourseSensors
+          min_lesson_length: 200
+          signal_smoothing: false
+          threshold: 0.9
+          require_reset: true
+        value: 0.75
+      - name: Full ranges
+        value: 1.0
+  start_lateral_range: 1.5
+  start_depth_range: 0.3
+  start_heading_range: 30.0
+  layout_lateral_range: 1.0
+  layout_depth_range: 0.4
+  layout_heading_range: 15.0
+  layout_longitudinal_range: 0.75

@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "policy_kind": "learned_landmark_and_map_prior_with_visual_sensor_feedback",
+  "course": "standard_first_pool_course",
+  "runtime": {
+    "SensorCourseGeometry.onnx": "65fc0fd5540d4e76f7687142fea687c87db1f5765e5e930cda1f9b11b47213a9",
+    "CourseMap.npz": "1ed0f75d7ee6b21ab137ce2a94f40c0c2cce1e5f433976e73f3bfcb61d4cc45b",
+    "tracked_geometry.py": "54131abea640885180ac9cb5312644c2f74ead57441c52c00ac7572110d34c60",
+    "marker_measurements.py": "4e85f97ee55446154f4bba86a70f616103cb05ed49d27eeb9afe447f913608ae"
+  },
+  "observations": {
+    "camera": [
+      3,
+      64,
+      84
+    ],
+    "sensor_scalars": 16,
+    "imu": true,
+    "pressure_depth": true,
+    "dvl": true,
+    "simulator_target_truth": false,
+    "judge_phase_input": false
+  },
+  "validation": {
+    "fixed": {
+      "episodes": 40,
+      "successes": 39,
+      "seed": 32000,
+      "workers": 4,
+      "mean_objectives": 4.975
+    },
+    "randomised": {
+      "episodes": 20,
+      "successes": 0,
+      "seed": 32100,
+      "workers": 4
+    },
+    "initial_fixed_batch": {
+      "episodes": 8,
+      "successes": 8,
+      "seed": 31700
+    },
+    "actual_launcher": {
+      "episodes": 1,
+      "successes": 1,
+      "seed": 41000
+    }
+  },
+  "scope": "Fixed-layout simulation policy; randomized layouts failed validation; no hardware validation",
+  "normal_course_judge_unchanged": true
+}

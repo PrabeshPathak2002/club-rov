@@ -25,6 +25,9 @@ namespace ClubROV.Simulation
         private Quaternion startRotation;
         private readonly float[] health = { 1, 1, 1, 1, 1, 1 };
         private float buoyancyBias;
+        private RovTether tether;
+        public float WaterDensity => waterDensity;
+        public Vector3 StartPosition => startPosition;
         public Vector3 CurrentVelocity => currentVelocity;
         public float BuoyancyBias => buoyancyBias;
         public event System.Action<float> PhysicsStepped;
@@ -52,12 +55,16 @@ namespace ClubROV.Simulation
             body.maxAngularVelocity = 1.2f;
             startPosition = body.position;
             startRotation = body.rotation;
+            if (GetComponent<RovAppearance>() == null) gameObject.AddComponent<RovAppearance>();
+            if (GetComponent<RovAudio>() == null) gameObject.AddComponent<RovAudio>();
+            tether = GetComponent<RovTether>();
+            if (tether == null) tether = gameObject.AddComponent<RovTether>();
         }
 
-        public void SetPilotCommand(Vector3 translation, float yaw, float thrustLimit = 1)
+        public void SetPilotCommand(Vector3 translation, float yaw, float thrustLimit = 1, float roll = 0)
         {
             if (ExternalPhysics) return;
-            RovThrusterLayout.Mix(Vector3.ClampMagnitude(translation, 1), Mathf.Clamp(yaw, -1, 1), desired);
+            RovThrusterLayout.Mix(Vector3.ClampMagnitude(translation, 1), Mathf.Clamp(yaw, -1, 1), desired, Mathf.Clamp(roll, -1, 1));
             // Mix in force space: honor the weaker reverse limit without introducing
             // an unrequested translation during yaw or strafe. Outputs are force fractions.
             float scale = 1;
@@ -100,6 +107,8 @@ namespace ClubROV.Simulation
 
         public void ApplyForces(float stepSeconds)
         {
+            if (tether == null) tether = GetComponent<RovTether>();
+            tether?.ApplyForces(stepSeconds);
             float wetFraction = Mathf.Clamp01((surfaceY - (body.position.y - hullHeight * 0.5f)) / hullHeight);
             Vector3 buoyancy = -Physics.gravity * (waterDensity * displacedVolumeM3 * (1 + buoyancyBias) * wetFraction);
             body.AddForceAtPosition(buoyancy, transform.TransformPoint(centerOfBuoyancy));

@@ -69,6 +69,7 @@ namespace ClubROV.Simulation
             for (int i=0;i<6;i++) vehicle.SetThrusterHealth(i, i==active.failedThruster ? active.thrusterPercent/100 : 1);
             water.SetVisibility(active.visibility); feed.SetDelay(active.videoDelayMs);
             optics.ConfigureEffects(active.particles, active.light);
+            vehicle.GetComponent<RovTether>()?.Configure(active.tetherEnabled, active.tetherLengthMetres, active.tetherDragScale, active.tetherWeightScale);
         }
         public void Apply(int index)
         {

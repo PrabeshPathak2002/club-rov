@@ -24,7 +24,7 @@ namespace ClubROV.Simulation
         public string ControlMode => TelemetryFresh ? ModeName(mode) : "Unknown";
         public string ControlState => !Active ? "LOCAL CONTROL" : !TelemetryFresh ? "ARM STATE UNKNOWN" :
             armed ? "ARMED · " + ModeName(mode) : "DISARMED · arm in QGroundControl";
-        private static string ModeName(int value) => value == 19 ? "Manual" : value == 2 ? "Depth hold" : value == 0 ? "Stabilize" : "Mode " + value;
+        private static string ModeName(int value) => value == 19 ? "Manual" : value == 2 ? "Depth hold" : value == 16 ? "Position hold" : value == 0 ? "Stabilize" : "Mode " + value;
         private IPAddress allowed;
         private IPEndPoint peer;
         private readonly byte[] receive = new byte[256];
@@ -36,9 +36,13 @@ namespace ClubROV.Simulation
         private SimulationMode previousMode;
         private Vector3 origin;
         private double lastPacket, startedAt, simulated;
+        private double rateWall, rateSimulation;
+        private long rateSteps;
         public bool Active => socket != null;
         public long Steps { get; private set; }
         public double SimulatedSeconds => simulated;
+        public double RealTimeFactor { get; private set; }
+        public double PhysicsStepsPerWallSecond { get; private set; }
         public string Status { get; private set; } = "LOCAL · Unity pilot";
         public string SimulatorAddress => simulatorAddress;
 
@@ -71,6 +75,8 @@ namespace ClubROV.Simulation
             backgroundWasEnabled = Application.runInBackground; Application.runInBackground = true;
             origin = new Vector3(vehicle.Body.position.x, 0, vehicle.Body.position.z);
             simulated = 0; Steps = 0; hasFrame = false; peer = null; lastReply = null;
+            rateWall = rateSimulation = 0; rateSteps = 0;
+            RealTimeFactor = PhysicsStepsPerWallSecond = 0;
             clock.Restart(); lastPacket = 0; socket = next;
             Status = $"SITL · waiting for {allowed}:{listenPort}";
         }
@@ -85,6 +91,12 @@ namespace ClubROV.Simulation
             Status = "LOCAL · Unity pilot";
         }
         private void OnDisable() => Disconnect();
+        // A fixed 10 ms per rendered frame starves lockstep at lower FPS.
+        // Reserve part of the current frame interval, bounded to keep the UI
+        // responsive even after a long frame. The wall-clock guard below still
+        // stops physics as soon as it catches up; this does not change dt.
+        public static double PumpBudgetSeconds(double frameSeconds) =>
+            Math.Min(0.025, Math.Max(0.010, frameSeconds * 0.75));
         private void Update()
         {
             if (!Active) return;
@@ -96,13 +108,18 @@ namespace ClubROV.Simulation
                 Status = "SITL · link lost, thrust cleared · reconnect both ends";
                 return; // Hold physics; require a coordinated restart, never replay stale thrust.
             }
-            double budget = now + 0.010;
+            double budget = now + PumpBudgetSeconds(Time.unscaledDeltaTime);
             try
             {
                 for (int i = 0; i < 64 && clock.Elapsed.TotalSeconds < budget; i++)
                 {
                     if (hasFrame && simulated >= clock.Elapsed.TotalSeconds - startedAt) break;
-                    if (!socket.Poll(100, SelectMode.SelectRead)) break;
+                    // A short poll timeout must not discard the rest of this
+                    // frame's budget when the WSL reply is slightly late.
+                    // Do not wait for an absent simulator before the first packet.
+                    int waitMicroseconds = hasFrame ?
+                        (int)Math.Max(0, (budget - clock.Elapsed.TotalSeconds) * 1e6) : 0;
+                    if (!socket.Poll(waitMicroseconds, SelectMode.SelectRead)) break;
                     EndPoint sender = new IPEndPoint(IPAddress.Any, 0);
                     int count = socket.ReceiveFrom(receive, ref sender);
                     var endpoint = (IPEndPoint)sender;
@@ -117,7 +134,7 @@ namespace ClubROV.Simulation
                         vehicle.StopThrusters(); Status = "SITL · simulator restarted · reconnect both ends";
                         lastPacket = double.NegativeInfinity; return;
                     }
-                    if (!hasFrame) { peer = endpoint; startedAt = clock.Elapsed.TotalSeconds; }
+                    if (!hasFrame) { peer = endpoint; startedAt = rateWall = clock.Elapsed.TotalSeconds; }
                     float dt = 1f / rate;
                     Vector3 before = vehicle.Body.linearVelocity;
                     RovSitlProtocol.Apply(pwm, vehicle);
@@ -129,7 +146,14 @@ namespace ClubROV.Simulation
                         vehicle.Body.rotation, vehicle.Body.linearVelocity, vehicle.Body.angularVelocity, force);
                     socket.SendTo(lastReply, endpoint);
                     lastFrame = frame; hasFrame = true; lastPacket = clock.Elapsed.TotalSeconds;
-                    Status = $"SITL · {rate} Hz physics · {simulated:0.0} s · ArduSub owns thrust";
+                    double sampleSeconds = lastPacket - rateWall;
+                    if (sampleSeconds >= 0.5)
+                    {
+                        RealTimeFactor = (simulated - rateSimulation) / sampleSeconds;
+                        PhysicsStepsPerWallSecond = (Steps - rateSteps) / sampleSeconds;
+                        rateWall = lastPacket; rateSimulation = simulated; rateSteps = Steps;
+                    }
+                    Status = $"SITL · {rate} Hz step · {RealTimeFactor:0.00}× real time · {simulated:0.0} s · ArduSub owns thrust";
                 }
             }
             catch (SocketException error)

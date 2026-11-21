@@ -8,14 +8,30 @@
                 <ui:Label text="Pilot training · six independent thrusters" class="subtitle" />
                 <ui:Label name="camera-mode" text="CHASE · native display" class="subtitle" />
                 <ui:Button name="camera-toggle" text="CAMERA · SWITCH TO FPV" focusable="false" />
+                <ui:Button name="mapping-toggle" text="START RGB-D MAPPING" focusable="false" />
+                <ui:Label name="mapping-status" class="note wrap" />
                 <ui:Label name="sitl-status" text="LOCAL · Unity pilot" class="subtitle" />
                 <ui:TextField name="sitl-address" label="SITL IPv4" value="127.0.0.1" />
                 <ui:Button name="sitl-toggle" text="CONNECT SITL · SIMULATION ONLY" focusable="false" />
+                <ui:Foldout text="SOUND" value="false" class="sound-settings">
+                    <ui:Toggle name="sound-mute" label="Mute all sound" />
+                    <ui:Slider name="sound-master" label="Master (%)" low-value="0" high-value="100" show-input-field="true" />
+                    <ui:Slider name="sound-motors" label="Thrusters (%)" low-value="0" high-value="100" show-input-field="true" />
+                    <ui:Slider name="sound-ambience" label="Underwater ambience (%)" low-value="0" high-value="100" show-input-field="true" />
+                    <ui:Label text="Synthesized underwater sound · motor pitch and volume follow actual thruster use." class="note wrap" />
+                </ui:Foldout>
+            </ui:VisualElement>
+            <ui:VisualElement class="course-panel">
+                <ui:Label text="POOL COURSE · SIMULATION ONLY" class="badge" />
+                <ui:DropdownField name="training-map" label="Training map" />
+                <ui:Button name="map-apply" text="LOAD MAP &amp; RESET START" focusable="false" />
+                <ui:Label name="map-description" class="note wrap" />
+                <ui:Label name="objective" text="Gate 1/3 — cross toward the far end" class="objective" />
+                <ui:Label name="course-briefing" class="course-stat" />
+                <ui:ProgressBar name="course-progress" low-value="0" high-value="1" title="Course progress" class="guide-progress" />
+                <ui:VisualElement name="course-checklist" />
                 <ui:Foldout text="TRAINING CONDITIONS &amp; SCENARIOS" value="false" class="training-foldout">
                     <ui:ScrollView class="settings-scroll">
-                        <ui:DropdownField name="training-map" label="Training map" />
-                        <ui:Button name="map-apply" text="LOAD MAP &amp; RESET START" focusable="false" />
-                        <ui:Label name="map-description" class="note wrap" />
                         <ui:DropdownField name="scenario" label="Conditions preset" />
                         <ui:Button name="scenario-apply" text="APPLY PRESET &amp; RESET START" focusable="false" />
                         <ui:Slider name="current-east" label="Current east (m/s)" low-value="-1" high-value="1" show-input-field="true" focusable="false" />
@@ -26,24 +42,28 @@
                         <ui:Slider name="delay" label="FPV delay (ms)" low-value="0" high-value="500" show-input-field="true" focusable="false" />
                         <ui:Slider name="particles" label="Suspended particles" low-value="0" high-value="1" focusable="false" />
                         <ui:Slider name="light" label="Camera light" low-value="0" high-value="1" focusable="false" />
+                        <ui:Toggle name="tether-enabled" label="Ethernet tether" value="true" />
+                        <ui:Slider name="tether-length" label="Cable length (m)" low-value="3" high-value="60" value="30.48" show-input-field="true" focusable="false" />
+                        <ui:Slider name="tether-drag" label="Cable drag scale" low-value="0" high-value="3" value="1" show-input-field="true" focusable="false" />
+                        <ui:Slider name="tether-weight" label="Net weight (0 = neutral)" low-value="0" high-value="3" value="0" show-input-field="true" focusable="false" />
+                        <ui:Label text="100 ft = 30.48 m · neutral tether by default; drag and length limit remain active. Auto payout from the launch-side pool edge. Approximate cable forces; no snag detection." class="note wrap" />
                         <ui:TextField name="scenario-name" label="Save as" value="My practice" max-length="40" />
                         <ui:Button name="scenario-save" text="SAVE / REPLACE · CURRENT POSE AS START" focusable="false" />
                         <ui:Label name="scenario-notice" class="course-stat" />
                         <ui:Label text="Conditions changed during a run make it practice only. Preset loading requires SITL disconnected." class="note wrap" />
                     </ui:ScrollView>
                 </ui:Foldout>
-            </ui:VisualElement>
-            <ui:VisualElement class="course-panel">
-                <ui:Label text="POOL COURSE · SIMULATION ONLY" class="badge" />
-                <ui:Label name="objective" text="Gate 1/3 — cross toward the far end" class="objective" />
                 <ui:Label name="run" text="TIME 00:00.0    COLLISIONS 0    HOLD 0.0/3 s" class="course-stat" />
                 <ui:Label name="score" text="SCORE 1000 · BEST —" class="course-stat" />
                 <ui:Label name="run-save" class="course-stat" />
+                <ui:Label name="tether-status" class="course-stat" />
                 <ui:Label name="target" text="Follow the numbered yellow gates" class="course-stat" />
-                <ui:Label text="Select a training map in Training Conditions &amp; Scenarios" class="course-stat" />
                 <ui:Label name="visibility-text" text="VISIBILITY 8.0 m · visual approximation" class="course-stat" />
                 <ui:Slider name="visibility" low-value="1" high-value="20" value="8" picking-mode="Position" focusable="false" />
                 <ui:Button name="restart" text="RESTART COURSE · HOME / START" picking-mode="Position" focusable="false" />
+                <ui:Button name="review-finish" text="END PRACTICE &amp; REVIEW" focusable="false" />
+                <ui:Button name="review-last" text="VIEW LAST RUN REVIEW" focusable="false" />
+                <ui:Label text="Completed courses open a review automatically. End practice to review an unfinished course or free swim; restart to begin another run." class="note wrap" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement class="footer" picking-mode="Ignore">
@@ -54,8 +74,8 @@
             </ui:VisualElement>
                 <ui:Label name="telemetry" text="DEPTH  1.20 m     SPEED  0.00 m/s     HEADING  000°" class="telemetry" />
             <ui:Label name="thrusters" text="H1 0.00   H2 0.00   H3 0.00   H4 0.00   V1 0.00   V2 0.00" class="outputs" />
-            <ui:Label text="WASD move    R/F up/down    Q/E turn    V camera    H hide HUD    HOME reset    SPACE cut thrust" class="controls" />
-            <ui:Label text="Gamepad: left stick move · right stick turn/depth · Start reset · Back camera · right-stick click HUD · A cut thrust" class="controls" />
+            <ui:Label text="WASD move    R/F up/down    Q/E turn    Z/X roll (local)    V camera    H hide HUD    HOME reset    SPACE cut thrust" class="controls" />
+            <ui:Label text="Gamepad: left stick move · right stick turn/depth · triggers roll (local) · Start reset · Back camera · right-stick click HUD · A cut thrust" class="controls" />
             <ui:Label text="Provisional mass, buoyancy, drag and thrust. No connection to the physical ROV." class="note" />
         </ui:VisualElement>
     </ui:VisualElement>

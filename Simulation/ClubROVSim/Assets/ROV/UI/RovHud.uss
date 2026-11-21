@@ -26,10 +26,10 @@
 .settings-scroll TextField { margin-top: 9px; }
 .identity Button { height: 30px; margin-top: 7px; font-size: 10px; background-color: rgb(31,83,88); color: rgb(235,247,249); }
 .wrap { white-space: normal; }
-.identity .unity-base-text-field__input { background-color: rgb(22,49,60); color: rgb(232,242,246); }
-.identity .unity-base-text-field__input:disabled { background-color: rgb(22,49,60); color: rgb(172,204,214); }
-.identity .unity-base-popup-field__input { background-color: rgb(22,49,60); color: rgb(232,242,246); }
-.identity .unity-base-field__label { color: rgb(172,204,214); }
+.hud .unity-base-text-field__input { background-color: rgb(22,49,60); color: rgb(232,242,246); }
+.hud .unity-base-text-field__input:disabled { background-color: rgb(22,49,60); color: rgb(172,204,214); }
+.hud .unity-base-popup-field__input { background-color: rgb(22,49,60); color: rgb(232,242,246); }
+.hud .unity-base-field__label { color: rgb(172,204,214); }
 
 #training-map .unity-base-field__label, #scenario .unity-base-field__label { min-width: 85px; width: 85px; }
 
@@ -38,8 +38,105 @@
 .graphics-row .unity-base-field__label { min-width: 62px; }
 #performance { width: 250px; margin-top: 0; }
 
-.panel-toggle { height: 26px; margin-bottom: 8px; background-color: rgb(31,83,88); color: rgb(232,242,246); font-size: 10px; -unity-text-align: middle-left; }
-.identity.panel-minimized, .course-panel.panel-minimized, .footer.panel-minimized { width: 215px; padding: 6px; }
-.panel-minimized .panel-toggle { margin: 0; }
-.hud-hide { position: absolute; top: 8px; left: 42%; height: 24px; font-size: 10px; background-color: rgba(9,24,32,0.85); color: rgb(232,242,246); }
-.hud-hidden > .header, .hud-hidden > .footer, .hud-hidden > .hud-hide { display: none; }
+
+/* Edge navigation: panels are reparented into one scrollable drawer at runtime. */
+.hud-docked { padding: 0; }
+.hud-docked > .header { display: none; }
+.hud-dock { position: absolute; left: 12px; top: 16px; width: 84px; padding: 5px; background-color: rgba(9,24,32,0.92); border-radius: 6px; }
+#dock-brand { color: rgb(248,211,66); -unity-font-style: bold; -unity-text-align: middle-center; font-size: 13px; margin: 6px 0 10px 0; }
+.dock-button { height: 40px; margin: 3px 0; font-size: 10px; background-color: rgb(22,49,60); color: rgb(206,227,234); border-width: 0; border-radius: 4px; }
+.dock-button:hover { background-color: rgb(31,83,88); }
+.dock-button.selected { background-color: rgb(248,211,66); color: rgb(9,24,32); -unity-font-style: bold; }
+.hud-drawer { position: absolute; left: 108px; top: 76px; bottom: 16px; width: 430px; max-width: 76%; background-color: rgba(9,24,32,0.96); border-left-width: 3px; border-left-color: rgb(248,211,66); border-radius: 6px; }
+.drawer-heading { flex-direction: row; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom-width: 1px; border-bottom-color: rgb(31,83,88); }
+.drawer-heading Label { -unity-font-style: bold; font-size: 13px; color: rgb(248,211,66); }
+#close-panel { height: 28px; width: 80px; font-size: 10px; background-color: rgb(22,49,60); color: rgb(232,242,246); border-width: 0; }
+.drawer-scroll { flex-grow: 1; min-height: 0; }
+.hud-docked .dock-panel { width: auto; align-self: stretch; background-color: rgba(0,0,0,0); padding: 12px; border-width: 0; }
+.dock-panel .title { font-size: 19px; letter-spacing: 1px; white-space: normal; }
+.dock-panel .telemetry { font-size: 14px; white-space: normal; }
+.dock-panel .outputs, .dock-panel .controls, .dock-panel .note { white-space: normal; }
+.dock-panel .graphics-row { flex-direction: column; align-items: stretch; }
+.dock-panel .graphics-row DropdownField { width: auto; margin-left: 0; margin-top: 10px; }
+.dock-panel #performance { width: auto; }
+.hud-status { position: absolute; left: 108px; right: 16px; top: 16px; align-items: flex-start; }
+.hud-status Label { background-color: rgba(9,24,32,0.82); font-size: 12px; padding: 4px 10px; margin: 0; white-space: normal; color: rgb(192,220,225); }
+.hud-status .status-arm { -unity-font-style: bold; }
+.hud-status .armed { color: rgb(107,239,166); }
+.hud-status .disarmed { color: rgb(255,146,123); }
+.hud-reveal { position: absolute; left: 12px; top: 16px; width: 64px; height: 32px; background-color: rgba(9,24,32,0.85); color: rgb(232,242,246); font-size: 11px; border-width: 0; }
+.hud-hidden > .hud-dock, .hud-hidden > .hud-drawer, .hud-hidden > .hud-status { display: none; }
+
+.dvl-map { position: absolute; right: 16px; top: 16px; width: 238px; max-width: 36%; padding: 7px; background-color: rgba(9,24,32,0.92); border-radius: 6px; }
+#dvl-map-toggle { height: 26px; margin: 0; font-size: 11px; -unity-font-style: bold; -unity-text-align: middle-left; color: rgb(248,211,66); background-color: rgb(22,49,60); border-width: 0; }
+.map-plot { height: 180px; overflow: hidden; }
+.map-caption { font-size: 10px; margin: 4px 0; white-space: normal; color: rgb(172,204,214); }
+.map-live { color: rgb(106,222,203); }
+.map-paused { color: rgb(255,190,100); }
+#dvl-map-clear { height: 23px; font-size: 9px; background-color: rgb(22,49,60); color: rgb(192,220,225); border-width: 0; }
+.hud-docked > .hud-status { right: 270px; }
+.hud-hidden > .dvl-map { display: none; }
+
+.hud .unity-base-text-field__input .unity-text-element { color: rgb(232,242,246); }
+.hud .unity-base-popup-field__text { color: rgb(232,242,246); }
+.thruster-overlay { position: absolute; right: 16px; bottom: 16px; width: 270px; padding: 8px; background-color: rgba(9,24,32,0.94); border-radius: 6px; }
+.thruster-overlay > Label { font-size: 10px; color: rgb(192,220,225); }
+.thruster-plot { height: 260px; }
+.thruster-value { position: absolute; font-size: 11px; color: rgb(172,204,214); background-color: rgb(9,24,32); padding: 2px; }
+.thruster-slot-0 { left: 0; top: 8px; }
+.thruster-slot-1 { right: 0; top: 8px; }
+.thruster-slot-2 { left: 0; bottom: 8px; }
+.thruster-slot-3 { right: 0; bottom: 8px; }
+.thruster-slot-4 { left: 0; top: 100px; }
+.thruster-slot-5 { right: 0; top: 100px; }
+.thruster-value.thrust-positive { color: rgb(107,242,209); }
+.thruster-value.thrust-negative { color: rgb(255,176,82); }
+.hud-hidden > .thruster-overlay { display: none; }
+.run-review { position: absolute; left: 0; right: 0; top: 0; bottom: 0; align-items: center; justify-content: center; background-color: rgba(0,10,16,0.78); }
+.run-review.review-closed, .hud-hidden > .run-review { display: none; }
+.review-panel { width: 720px; max-width: 90%; max-height: 90%; background-color: rgb(10,28,37); border-radius: 8px; border-top-width: 3px; border-top-color: rgb(248,211,66); padding: 16px; }
+.review-heading { flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.review-heading Label { color: rgb(248,211,66); font-size: 18px; -unity-font-style: bold; }
+.review-heading Button { width: 90px; height: 30px; background-color: rgb(31,83,88); color: rgb(235,247,249); border-width: 0; }
+.review-scroll { flex-shrink: 1; min-height: 0; }
+.review-subtitle { font-size: 13px; color: rgb(232,242,246); white-space: normal; margin-bottom: 10px; }
+.review-metrics { font-size: 13px; color: rgb(232,242,246); white-space: normal; margin-top: 8px; margin-bottom: 8px; }
+.review-comparison { font-size: 12px; color: rgb(248,211,140); white-space: normal; margin-bottom: 10px; }
+.review-caption { font-size: 11px; color: rgb(172,204,214); white-space: normal; margin-top: 8px; margin-bottom: 8px; }
+.review-route { height: 235px; flex-shrink: 0; background-color: rgb(6,21,29); border-radius: 4px; }
+.review-thrust { height: 24px; flex-shrink: 0; margin-bottom: 4px; }
+.review-thrust .unity-progress-bar__background { background-color: rgb(18,44,55); }
+.review-thrust .unity-progress-bar__progress { background-color: rgb(28,100,96); }
+.review-thrust .unity-progress-bar__title { color: rgb(235,247,249); font-size: 11px; }
+#review-finish, #review-last { margin-top: 7px; }
+
+.course-guide { position: absolute; left: 16px; bottom: 16px; width: 380px; max-width: 40%; padding: 10px 12px; background-color: rgba(9,24,32,0.94); border-radius: 6px; border-top-width: 3px; border-top-color: rgb(248,211,66); }
+.guide-heading { flex-direction: row; align-items: center; margin-bottom: 5px; }
+#guide-title { flex-grow: 1; flex-shrink: 1; white-space: normal; font-size: 12px; -unity-font-style: bold; color: rgb(248,211,66); }
+.guide-heading Button { width: 72px; height: 25px; font-size: 9px; margin-left: 4px; background-color: rgb(22,49,60); color: rgb(232,242,246); border-width: 0; }
+.guide-instruction { font-size: 14px; -unity-font-style: bold; white-space: normal; color: rgb(232,242,246); }
+.guide-caption { font-size: 11px; white-space: normal; margin-top: 5px; color: rgb(172,204,214); }
+.guide-hold { font-size: 11px; white-space: normal; margin-top: 6px; color: rgb(248,211,140); }
+.guide-progress { height: 22px; margin-top: 7px; margin-bottom: 5px; }
+.guide-progress .unity-progress-bar__background { background-color: rgb(18,44,55); }
+.guide-progress .unity-progress-bar__progress { background-color: rgb(28,100,96); }
+.guide-progress .unity-progress-bar__title { color: rgb(235,247,249); font-size: 11px; }
+.guide-step { font-size: 12px; white-space: normal; margin-top: 4px; color: rgb(155,180,190); }
+.guide-step.guide-done { color: rgb(107,239,166); }
+.guide-step.guide-current { color: rgb(248,211,66); -unity-font-style: bold; }
+.guide-toast { font-size: 12px; white-space: normal; -unity-font-style: bold; margin-top: 8px; padding-top: 6px; color: rgb(107,239,166); border-top-width: 1px; border-top-color: rgb(31,83,88); }
+.guide-complete { border-top-color: rgb(107,239,166); }
+.course-guide .guide-checklist, .guide-empty { display: none; }
+.course-waypoint { position: absolute; width: 120px; -unity-text-align: middle-center; font-size: 12px; -unity-font-style: bold; color: rgb(248,211,66); background-color: rgba(9,24,32,0.70); border-radius: 4px; }
+.hud-hidden > .course-guide, .hud-hidden > .course-waypoint { display: none; }
+.course-guide.guide-fpv { bottom: 130px; }
+
+.hud-drawer-open > .course-guide { display: none; }
+.debug-heading { margin-top: 18px; margin-bottom: 6px; font-size: 14px; -unity-font-style: bold; color: rgb(248,211,66); white-space: normal; }
+.debug-values { font-size: 14px; color: rgb(224,242,244); white-space: normal; margin-bottom: 5px; }
+.debug-note { font-size: 12px; color: rgb(170,207,213); white-space: normal; }
+#debug-stream-toggle { min-height: 38px; margin-top: 10px; margin-bottom: 8px; font-size: 12px; -unity-font-style: bold; white-space: normal; background-color: rgb(31,83,88); color: rgb(235,247,249); border-width: 0; }
+#debug-stream-toggle:hover { background-color: rgb(44,111,115); }
+.sound-settings { margin-top: 14px; color: rgb(232,242,246); }
+.sound-settings Slider { margin-top: 10px; margin-bottom: 10px; }
+.sound-settings .unity-base-field__label { min-width: 130px; font-size: 12px; }

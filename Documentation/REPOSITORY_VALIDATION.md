@@ -1,5 +1,14 @@
 # Repository validation
 
+## Source publication review - 21 November 2026
+
+- ROS 2 Humble rebuilt `club_rov_interfaces` and `club_rov_navigation`, with 82 tests passing.
+- Course-learning tooling passed 35 Python tests. The selected model, learned map and two inference-runtime files match their recorded SHA-256 hashes in the staged Git content.
+- Firmware host tests passed 110,979 frame-delivery cases and 168 heartbeat cases.
+- PowerShell files parsed, 26 Bash scripts passed syntax checks, and the local Inference Engine preparation script passed first-run and repeated-run checks.
+- The staged source passed local documentation-file link checks and credential/personal-path pattern checks. Unity assets have matching metadata and no duplicate GUIDs. Generated timers, logs, local dependencies and the unfinished TDR are excluded.
+- A clean Unity 6000.6.7f1 batch import exited with code 198 before compilation because no active Editor license was available. Fresh Unity compilation, player builds and runtime behavior were not verified during this publication review. Previous dated simulator results remain recorded separately.
+
 ## Recorded source checks — 23–24 October 2026
 
 - A fresh ESP-IDF **5.5.2** configuration and full companion build passed with the committed dependency lockfile. The tested target used the pre-v3 P4 revision setting, 32 MB flash, IMX219 format index 2, 100 Hz scheduler and custom OTA layout.

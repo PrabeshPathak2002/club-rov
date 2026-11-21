@@ -9,8 +9,9 @@ if not defined ROV_PWSH if exist "%USERPROFILE%\.cache\codex-runtimes\codex-prim
 if not defined ROV_PWSH goto missing
 echo Open PoolTraining in Unity and enter Play Mode before continuing.
 echo This window starts the simulator and connects Unity automatically.
+echo SITL runs in Ubuntu-22.04, alongside ROS 2 Humble.
 echo.
-"%ROV_PWSH%" -NoProfile -ExecutionPolicy Bypass -File "%~dp0Start-ClubRovSitl.ps1" -ConnectUnityEditor
+"%ROV_PWSH%" -NoProfile -ExecutionPolicy Bypass -File "%~dp0Start-ClubRovSitl.ps1" -ConnectUnityEditor %*
 set "ROV_RESULT=%ERRORLEVEL%"
 if not "%ROV_RESULT%"=="0" pause
 exit /b %ROV_RESULT%

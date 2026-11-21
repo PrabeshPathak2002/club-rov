@@ -20,7 +20,7 @@ Vehicle control and communications are split between two boards: the ARK handles
 - Raspberry Pi Camera V2.1 / IMX219: hardware H.264 video over Ethernet.
 - DAKEFPV four-in-one ESC plus two Blue Robotics Basic ESCs.
 - Propulsion battery: Zeee 4S 3300 mAh, 132 × 43 × 29 mm nominal. PoE supplies companion electronics; backup power remains to be designed.
-- QGroundControl at the surface. ROS 2 Humble on Ubuntu 22.04 is planned for sensor experiments and tethered autonomy.
+- QGroundControl at the surface. ROS 2 Humble on Ubuntu 22.04 supports simulated navigation-sensor experiments; physical ROS autonomy integration remains pending.
 
 ## Build, learn and contribute
 
@@ -33,6 +33,19 @@ The build documentation supports learning the design, reproducing the software s
 - [Mechanical revisions and fit files](Hardware/README.md)
 - [Unity pool simulator](Simulation/ClubROVSim/README.md)
 - [ArduSub SITL and Unity setup](Simulation/SITL/README.md)
+- [ROS 2 DVL simulation and local odometry](ROS2/README.md)
+- [Autonomous dive, return and surface exercise](ROS2/MISSION.md)
+- [Camera calibration and prequalification experiments](ROS2/PREQUAL.md)
+- [Course learning and sensor-policy tools](ReinforcementLearning/README.md)
+- [Runnable first-course sensor policy and measured limits](ReinforcementLearning/Models/README.md)
 - [Testing plan](Documentation/TESTING.md) and [bench results](Documentation/STATUS.md)
 - [New member learning path](Documentation/NEW_MEMBERS.md)
 - [Roadmap](Documentation/ROADMAP.md) and [contribution guide](CONTRIBUTING.md)
+
+## Current software scope
+
+The simulator includes compact sidebar controls, a DVL-estimated path display, tether forces, run review, audio, animated thrusters and adjustable FPV visibility. ROS 2 Humble combines simulated DVL, IMU and pressure measurements, and the external-navigation profile feeds ArduSub SITL for Position Hold and autonomous exercises. Calibration, recording and prequalification tooling are available under `ROS2`.
+
+The delivered sensor-course policy uses a learned landmark estimator, a learned map prior and visual/sensor feedback. Its recorded standard-layout evaluation completed 39 of 40 courses. Its randomized-layout evaluation completed 0 of 20. Earlier PPO experiments with privileged simulator observations are documented separately. These results describe simulated behavior, and physical vehicle integration remains in progress.
+
+The circular five-LP12 rear endcap has been laser-cut. Installed fitting clearance and enclosure testing are pending. See the [hardware revision index](Hardware/README.md) and [physical build status](Documentation/STATUS.md) before fabrication or water testing.

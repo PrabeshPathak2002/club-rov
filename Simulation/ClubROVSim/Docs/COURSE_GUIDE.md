@@ -1,0 +1,11 @@
+# Live course guidance
+
+The on-screen objective card stays visible with the main HUD while COURSE is closed. The bottom-left card shows only the current action, target distance/bearing/depth and completion count. **COURSE** opens the full briefing and NOW / NEXT / DONE checklist. The card hides while a menu drawer is open and sits above the flight instruments in FPV. H hides the guide with the rest of the main HUD; MENU restores it. A projected target label appears when the active target is in the camera view, in chase, FPV or top-down mode.
+
+Pool course: three numbered yellow gates, cyan hover hold, green dock hold (five steps). Slalom: five gates then hover and dock (seven steps). Gate & pillar: outbound gate, pillar orbit, inbound gate (three steps). Empty pool and both RoboSub maps explicitly report exploration with no automatic task judging or completion. The existing handbook targets remain static practice objects.
+
+Checklist completion is derived directly from `RovTrainingCourse`, not proximity alone. Missed or out-of-order gates do not count. Each advancement displays a five-second completion message; reset clears progress and the previous message. Hover/dock instructions identify target position, heading and speed conditions, display continuous hold time, and explain which conditions prevent the hold from counting.
+
+`CheckHold` is shared by course evaluation and guidance: hover within 0.45 m, dock within 0.4 m horizontally and 0.18 m vertically; heading error at most 15 degrees; speed strictly below 0.15 m/s for hover or 0.10 m/s for docking. Each requires three continuous simulation seconds. Existing gate, orbit and completion logic is retained. Guidance adds only UI, with no physical objects, control commands or sensor changes.
+
+Validation: `ClubROV.Simulation.Editor.RovCourseGuideChecks.Run()` uses an isolated temporary vehicle against read-only map target references. It checks all six map briefings/counts, rejected crossings, real checklist transitions, toast/reset, hold failure reasons and timing, docking threshold, course completion, pillar orbit/return and exploration messaging. The user's vehicle pose and selected map are checked unchanged. Run-review regression checks are also available through `RovRunReviewChecks.Run()`. Live Game-view inspection verifies card and target-label layout.

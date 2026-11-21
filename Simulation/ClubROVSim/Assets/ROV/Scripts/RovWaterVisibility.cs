@@ -12,6 +12,7 @@ namespace ClubROV.Simulation
         private FogMode originalMode;
         private float originalDensity;
         private Color originalColor;
+        private RovPoolAppearance poolAppearance;
         public float VisibilityMetres => visibilityMetres;
         public void SetVisibility(float metres) => visibilityMetres = Mathf.Clamp(metres, 1, 20);
         private void OnEnable()
@@ -19,6 +20,7 @@ namespace ClubROV.Simulation
             view = GetComponent<Camera>();
             originalFog = RenderSettings.fog; originalMode = RenderSettings.fogMode;
             originalDensity = RenderSettings.fogDensity; originalColor = RenderSettings.fogColor;
+            poolAppearance = new RovPoolAppearance(gameObject.scene);
             RenderPipelineManager.beginCameraRendering += BeforeCamera;
         }
         private void BeforeCamera(ScriptableRenderContext context, Camera camera)
@@ -32,11 +34,12 @@ namespace ClubROV.Simulation
             RenderSettings.fogMode = FogMode.Exponential;
             // Artistic visibility control: remaining scene contrast is ~2% at this distance.
             RenderSettings.fogDensity = Mathf.Log(50) / visibilityMetres;
-            RenderSettings.fogColor = Color.Lerp(new Color(0.035f, 0.17f, 0.16f), new Color(0.055f, 0.3f, 0.36f), visibilityMetres / 20);
+            RenderSettings.fogColor = Color.Lerp(new Color(0.035f, 0.17f, 0.16f), new Color(0.08f, 0.36f, 0.49f), visibilityMetres / 20);
             if (view != null) view.backgroundColor = underwater ? RenderSettings.fogColor : new Color(0.34f, 0.55f, 0.68f);
         }
         private void OnDisable()
         {
+            poolAppearance?.Dispose(); poolAppearance = null;
             RenderPipelineManager.beginCameraRendering -= BeforeCamera;
             RenderSettings.fog = originalFog; RenderSettings.fogMode = originalMode;
             RenderSettings.fogDensity = originalDensity; RenderSettings.fogColor = originalColor;

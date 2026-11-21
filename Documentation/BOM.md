@@ -1,8 +1,8 @@
 # Current ROV bill of materials
 
-Build selection reviewed 24 October 2026. Quantities below are for one six-thruster ROV. This is the primary build list.
+Connector selection and endcap status updated 21 November 2026. Other build selections retain the 24 October 2026 review. Quantities below are for one six-thruster ROV. This is the primary build list.
 
-**On hand** and **ordered** reflect the last recorded inventory on 23 October; confirm stock before purchasing. **Selected** identifies a build choice, not confirmed ownership. **Provisional** quantities or dimensions require a final fit/wiring check.
+**On hand** and **ordered** retain the 23 October inventory except for the LP12 counts reported on 18 November; confirm stock before purchasing. **Selected** identifies a build choice, not confirmed ownership. **Provisional** quantities or dimensions require a final fit/wiring check.
 
 ## Electronics and propulsion
 
@@ -21,7 +21,8 @@ ESC firmware identification, settings and wiring belong in [electronics setup](E
 
 - **6 × AMASS MR30 mated pairs** — ordered; one three-phase connection per thruster. Not yet soldered in the last bench record.
 - **4 × XT60 mated pairs** — provisional harness count; confirm the final branch arrangement before ordering.
-- **3 × EW-LP12 six-pin motor connector sets** — selected; each set requires a panel socket and matching cable plug, carrying two thrusters. Electrical and sealing suitability still require verification.
+- **4 × EW-LP12 three-pin motor connector sets** — one per horizontal thruster. Five mated sets are on hand, leaving one spare.
+- **1 × EW-LP12 six-pin motor connector set** — carries both vertical thrusters on three separate contacts per motor. Two mated sets are on hand, leaving one spare. Contact-current capacity and sealing suitability require verification for both connector types.
 - **1 × LP20 single-hole RJ45 connector set** — selected; panel socket and matching plug. This is the selected Ethernet fitting, replacing the earlier M20/LP16 options.
 - **2 × copper distribution bars** — one positive, one negative; planned from approximately 6.35 mm stock. Finished size, terminal spacing, current capacity and insulating enclosure remain provisional.
 - **1 × PRV/vacuum fitting** — exact fitting and ownership to confirm; an M10 clearance opening is reserved in the endcap study.
@@ -31,7 +32,7 @@ A **mated pair/set** includes both connecting halves; it is not two additional i
 ## Enclosure and printed parts
 
 - **1 × reusable enclosure assembly** — existing 4-inch, 200 mm tube with its flanges and retained endcap/seal hardware. Verify the actual assembly before replacing or ordering parts.
-- **1 × replacement acrylic endcap** — 6.35 mm stock, using the current LP20/LP12 fit-study layout. Coupon fit and pressure qualification remain pending; count it as a replacement, not a second enclosure.
+- **1 × replacement acrylic endcap** — 6.35 mm stock, laser-cut with five LP12 openings in a circular pattern around the LP20 Ethernet opening. Installed fitting clearance and pressure qualification remain pending; count it as a replacement, not a second enclosure.
 - **1 × printed frame set** — collars, decks, covers, side frames and handle. Use the revisions identified in [Hardware](../Hardware/README.md); a complete combined frame export is still pending.
 - **6 × revised integral rail-slot thruster mounts** — four horizontal and two vertical; use [current mount exports](../Hardware/ThrusterMounts/README.md). The obsolete separate clamp jaws are not additional parts.
 - **1 × ARK/ESC stack adapter** and **4 × 7 mm M3 spacers** — use the [stack exports](../Hardware/StackAdapter/README.md).

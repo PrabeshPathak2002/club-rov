@@ -16,6 +16,8 @@ This roadmap separates recorded milestones from outstanding physical integration
 
 ## Next integration work
 
+The simulated navigation stack now includes DVL/IMU/depth odometry, ArduSub external navigation, mission recovery, camera calibration and prequalification tools. The delivered fixed-course sensor policy is available with explicit fixed/randomized evaluation results. Physical integration and changed-layout sensor-policy robustness remain open work.
+
 - [ ] Install MR30s and inspect the complete harness.
 - [ ] Verify neutral, motor mapping and forward/reverse thrust in water.
 - [ ] Complete calibration, joystick setup and full parameter export.

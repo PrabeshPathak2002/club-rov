@@ -47,6 +47,12 @@ namespace ClubROV.Simulation
             Slider("delay",s=>s.videoDelayMs,(s,v)=>s.videoDelayMs=v);
             Slider("particles",s=>s.particles,(s,v)=>s.particles=v);
             Slider("light",s=>s.light,(s,v)=>s.light=v);
+            Slider("tether-length",s=>s.tetherLengthMetres,(s,v)=>s.tetherLengthMetres=v);
+            Slider("tether-drag",s=>s.tetherDragScale,(s,v)=>s.tetherDragScale=v);
+            Slider("tether-weight",s=>s.tetherWeightScale,(s,v)=>s.tetherWeightScale=v);
+            var tetherToggle = root.Q<Toggle>("tether-enabled");
+            EventCallback<ChangeEvent<bool>> onTether = e => Change(s => s.tetherEnabled = e.newValue);
+            tetherToggle.RegisterValueChangedCallback(onTether); unbind.Add(() => tetherToggle.UnregisterValueChangedCallback(onTether));
             Action load=()=>Try(()=>{settings.Apply(scenario.index);Sync();});
             apply.clicked+=load; unbind.Add(()=>apply.clicked-=load);
             var save=root.Q<Button>("scenario-save");
@@ -83,6 +89,10 @@ namespace ClubROV.Simulation
             root.Q<Slider>("delay").SetValueWithoutNotify(s.videoDelayMs);
             root.Q<Slider>("particles").SetValueWithoutNotify(s.particles);
             root.Q<Slider>("light").SetValueWithoutNotify(s.light);
+            root.Q<Toggle>("tether-enabled").SetValueWithoutNotify(s.tetherEnabled);
+            root.Q<Slider>("tether-length").SetValueWithoutNotify(s.tetherLengthMetres);
+            root.Q<Slider>("tether-drag").SetValueWithoutNotify(s.tetherDragScale);
+            root.Q<Slider>("tether-weight").SetValueWithoutNotify(s.tetherWeightScale);
             root.Q<Slider>("visibility").SetValueWithoutNotify(s.visibility);
             failed.SetValueWithoutNotify(failed.choices[s.failedThruster+1]);
         }

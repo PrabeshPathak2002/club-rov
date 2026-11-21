@@ -1,4 +1,12 @@
-# Build and test notes — 23 October 2026
+# Build and test status
+
+## Current publication status — 21 November 2026
+
+The circular five-LP12 acrylic endcap has been laser-cut, as reported by the builder. Installed connector/seal clearance and enclosure qualification remain pending. Four 3-contact connectors serve individual horizontal thrusters, and one 6-contact connector carries the two vertical thrusters on separate contacts. Close LP12/M10 hardware spacing requires physical inspection.
+
+The published software includes ROS 2 Humble navigation, SITL missions, camera calibration/prequalification tools, the expanded simulator and course-learning tools. During publication review, 82 ROS package tests and 35 learning-tool tests passed. A fresh Unity import was blocked before compilation by the host Editor license. Historical live simulation results and limitations are documented in the simulator validation guide and model manifest. Physical bench results below retain their original observation date.
+
+## Physical bench record — 23 October 2026
 
 This page records physical-hardware bench results and outstanding work as of 23 October 2026. The vehicle has not completed water or depth qualification. Software-only [SITL results](../Simulation/SITL/README.md#validation), including joystick and depth/heading-hold checks, are tracked separately and do not complete the physical-vehicle tests listed here.
 
@@ -24,9 +32,9 @@ Earlier ARK passthrough attempts returned zero bytes from every ESC. The exact c
 - Finish joystick setup and verify manual-control input. The last startup screenshot included `Lost manual control`, which remains unresolved.
 - Test pilot-input loss, GCS-link loss and power-loss behavior.
 - Install Bar02 and leak detection. A Bar02 is available for shallow-water work, but its roughly 10 m measuring range will not cover the full 20–50 m target.
-- Check connector coupons, seal seating, panel thickness and nut engagement before cutting and qualifying the endcap.
+- Check installed connector fit, seal seating, panel thickness and nut engagement on the laser-cut endcap, then qualify the enclosure.
 - Replace the long FC mounting screw that protrudes into the Zeee battery envelope.
 - Measure power draw, internal temperatures, video latency, endurance, buoyancy and trim.
-- Add ROS 2 and define how manual and autonomous control will share command authority.
+- Integrate the existing ROS 2 software with the physical vehicle and validate manual/autonomous command authority.
 
 Add dated [test reports](templates/TEST_REPORT.md) as these checks are completed. MR30 installation, propulsion tests and water trials are still pending.

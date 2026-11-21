@@ -29,6 +29,9 @@
 Thumbs.db
 .DS_Store
 
+# Local agent handoff notes shared between coding assistants.
+/HANDOFF.md
+
 # Superseded design documents belong in the separate local archive.
 /Final Design/
 # Generated SITL validation output.
@@ -36,3 +39,21 @@ Thumbs.db
 
 # Keep the TDR draft local until the finalized report is approved for publication.
 /Documentation/TDR/
+
+# Local copy of Inference Engine with its Editor-only Protobuf DLL excluded from players (ML-Agents player-build fix).
+/Simulation/ClubROVSim/Packages/com.unity.ai.inference/
+
+# ROS 2 generated workspaces and test caches.
+/ROS2/install/
+/ROS2/log/
+**/.pytest_cache/
+
+# Unity runtime diagnostics and local Editor assistant preferences.
+/Simulation/ClubROVSim/Assets/ML-Agents/
+/Simulation/ClubROVSim/Assets/ML-Agents.meta
+/Simulation/ClubROVSim/Assets/Logs/
+/Simulation/ClubROVSim/Assets/Logs.meta
+/Simulation/ClubROVSim/Assets/Temp.meta
+/Simulation/ClubROVSim/ProjectSettings/Packages/com.unity.ai.assistant/
+
+/Simulation/ClubROVSim/Packages/com.unity.ai.inference.prepare-*/

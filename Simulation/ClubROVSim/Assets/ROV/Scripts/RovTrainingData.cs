@@ -22,19 +22,23 @@ namespace ClubROV.Simulation
         public float videoDelayMs;
         public float particles = 0.35f;
         public float light = 0.65f;
+        public bool tetherEnabled = true;
+        public float tetherLengthMetres = RovTether.DefaultLength;
+        public float tetherDragScale = 1, tetherWeightScale;
         public RovScenario Copy() => JsonUtility.FromJson<RovScenario>(JsonUtility.ToJson(this));
         public void Validate()
         {
             if (map<0 || map>5) throw new ArgumentException("Unknown training map.");
             if (string.IsNullOrWhiteSpace(name) || name.Length > 40) throw new ArgumentException("Use a scenario name of 1–40 characters.");
             foreach (float value in new[] {startPosition.x,startPosition.y,startPosition.z,startHeading,current.x,current.y,current.z,
-                         buoyancyPercent,thrusterPercent,visibility,videoDelayMs,particles,light})
+                         buoyancyPercent,thrusterPercent,visibility,videoDelayMs,particles,light,tetherLengthMetres,tetherDragScale,tetherWeightScale})
                 if (!float.IsFinite(value)) throw new ArgumentException("Scenario contains a non-finite number.");
             if (Mathf.Abs(startPosition.x)>(map>=4?24:9) || Mathf.Abs(startPosition.z)>(map>=4?10.9f:11) || startPosition.y> -0.2f || startPosition.y< (map>=4?-1.85f:-3.1f))
                 throw new ArgumentException("Start must stay inside the selected pool and below the surface (handbook maps: 0.2–1.85 m deep).");
             if (current.magnitude>1.001f || Mathf.Abs(buoyancyPercent)>10 || failedThruster< -1 || failedThruster>5 ||
                 thrusterPercent<0 || thrusterPercent>100 || visibility<1 || visibility>20 || videoDelayMs<0 || videoDelayMs>500 ||
-                particles<0 || particles>1 || light<0 || light>1) throw new ArgumentException("Scenario settings exceed the supported range.");
+                particles<0 || particles>1 || light<0 || light>1 || tetherLengthMetres<3 || tetherLengthMetres>60
+                || tetherDragScale<0 || tetherDragScale>3 || tetherWeightScale<0 || tetherWeightScale>3) throw new ArgumentException("Scenario settings exceed the supported range.");
         }
         public string Key()
         {
@@ -48,8 +52,9 @@ namespace ClubROV.Simulation
         public string scenarioKey, scenarioName, completedUtc;
         public float seconds, depthRms, headingRms;
         public int collisions, score;
+        public RovPilotFeedback feedback;
     }
-    [Serializable] public sealed class RovRunFile { public int version = 1; public List<RovRunResult> runs = new(); public List<RovRunResult> bestRuns = new(); }
+    [Serializable] public sealed class RovRunFile { public int version = 1; public List<RovRunResult> runs = new(); public List<RovRunResult> bestRuns = new(); public List<RovRunResult> practiceReviews = new(); }
     public static class RovTrainingData
     {
         public static T Read<T>(string path) where T : class
@@ -70,12 +75,29 @@ namespace ClubROV.Simulation
             Mathf.Max(0, Mathf.RoundToInt(1000 - 2 * seconds - 50 * collisions - 100 * depthRms - 2 * headingRms));
         public static RovRunFile AppendRun(RovRunFile history,RovRunResult run)
         {
-            var next=new RovRunFile {runs=new List<RovRunResult>(history.runs),bestRuns=new List<RovRunResult>(history.bestRuns)};
+            var next=new RovRunFile {runs=new List<RovRunResult>(history.runs),bestRuns=new List<RovRunResult>(history.bestRuns),
+                practiceReviews=new List<RovRunResult>(history.practiceReviews ?? new List<RovRunResult>())};
             next.runs.Add(run); if(next.runs.Count>100) next.runs.RemoveAt(0);
             int best=next.bestRuns.FindIndex(r=>r.scenarioKey==run.scenarioKey);
             if(best<0) next.bestRuns.Add(run); else if(run.score>next.bestRuns[best].score) next.bestRuns[best]=run;
             if(next.bestRuns.Count>256) next.bestRuns.RemoveAt(0);
             return next;
+        }
+        public static RovRunFile AppendPracticeReview(RovRunFile history, RovRunResult run)
+        {
+            var next = new RovRunFile { runs = new List<RovRunResult>(history.runs), bestRuns = new List<RovRunResult>(history.bestRuns),
+                practiceReviews = new List<RovRunResult>(history.practiceReviews ?? new List<RovRunResult>()) };
+            next.practiceReviews.Add(run);
+            if (next.practiceReviews.Count > 20) next.practiceReviews.RemoveAt(0);
+            return next;
+        }
+        public static RovRunResult PreviousReview(RovRunFile history, string key, bool completed)
+        {
+            var runs = completed ? history?.runs : history?.practiceReviews;
+            if (runs == null) return null;
+            for (int i = runs.Count - 1; i >= 0; i--)
+                if (runs[i].scenarioKey == key && (runs[i].feedback == null || runs[i].feedback.version == 0 || runs[i].feedback.version == 1 && runs[i].feedback.qualified)) return runs[i];
+            return null;
         }
     }
 }

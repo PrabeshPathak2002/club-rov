@@ -252,7 +252,7 @@ Developed and measured on a **Waveshare ESP32-P4-WIFI6** (P4 v1.3) with
 **ESP-IDF v5.4.0**. The IMX708 also records H.264 with the driver unchanged on a
 **Wireless-Tag WT9932P4-TINY** (P4 v3.2) with **ESP-IDF v5.5.5**: 27.8 fps at
 1080p and 56.0 fps at 720p (see
-[`imx708_video`](examples/imx708_video/README.md#on-the-wt9932p4-tiny-esp32-p4-v32)).
+`imx708_video`).
 Those are the only two combinations this has run on. The manifest's
 `idf: ">=5.4"` reflects what has been on the bench, not the oldest release that
 might compile.
@@ -338,13 +338,13 @@ worth copying.
 
 | Example | What it does |
 | ------- | ------------ |
-| [`imx708_capture`](examples/imx708_capture/) | Streams frames and logs size and brightness per frame. Start here. |
-| [`imx708_snapshot`](examples/imx708_snapshot/) | One still, hardware-JPEG encoded, sent down USB serial. Its console switches mode, flips, exposure bias, frame rate, test pattern and link frequency without a reflash. Also carries the focus-sweep and buffer-poison diagnostics. |
-| [`imx708_video`](examples/imx708_video/) | ~8 s of H.264 into PSRAM, then the whole clip down USB serial. Any mode, 2–56 fps; measured **27.3 fps at 1080p** (encoder-bound) and a true **56.0 at 720p**. |
-| [`imx708_wifi_snapshot`](examples/imx708_wifi_snapshot/) | Camera + WiFi + an HTTP server: `GET /snapshot.jpg` from a browser. |
-| [`imx708_wifi_video`](examples/imx708_wifi_video/) | **Live 1080p H.264 over WiFi**, played in a browser tab. Fragmented MP4 muxed on the board, plus a raw Annex-B endpoint for `ffplay`. |
-| [`imx219_snapshot`](examples/imx219_snapshot/) | One still from a **Camera Module v2 / NoIR v2** (IMX219), hardware-JPEG encoded, sent down USB serial. No autofocus — the v2 is fixed-focus — and an AE convergence trace in its place. |
-| [`imx219_video`](examples/imx219_video/) | ~8 s of H.264 from the IMX219 into PSRAM, then the clip down USB serial. Measured **28.1 fps at 1632x1232**; uses the driver's 16-aligned sensor mode because the P4's ISP crop needs chip revision v3.0. |
+| `imx708_capture` | Streams frames and logs size and brightness per frame. Start here. |
+| `imx708_snapshot` | One still, hardware-JPEG encoded, sent down USB serial. Its console switches mode, flips, exposure bias, frame rate, test pattern and link frequency without a reflash. Also carries the focus-sweep and buffer-poison diagnostics. |
+| `imx708_video` | ~8 s of H.264 into PSRAM, then the whole clip down USB serial. Any mode, 2–56 fps; measured **27.3 fps at 1080p** (encoder-bound) and a true **56.0 at 720p**. |
+| `imx708_wifi_snapshot` | Camera + WiFi + an HTTP server: `GET /snapshot.jpg` from a browser. |
+| `imx708_wifi_video` | **Live 1080p H.264 over WiFi**, played in a browser tab. Fragmented MP4 muxed on the board, plus a raw Annex-B endpoint for `ffplay`. |
+| `imx219_snapshot` | One still from a **Camera Module v2 / NoIR v2** (IMX219), hardware-JPEG encoded, sent down USB serial. No autofocus — the v2 is fixed-focus — and an AE convergence trace in its place. |
+| `imx219_video` | ~8 s of H.264 from the IMX219 into PSRAM, then the clip down USB serial. Measured **28.1 fps at 1632x1232**; uses the driver's 16-aligned sensor mode because the P4's ISP crop needs chip revision v3.0. |
 
 Each example is self-contained: the glue it needs is vendored into its own
 `components/` directory rather than shared, so it still builds after being
@@ -407,3 +407,5 @@ GPL-2.0; only non-copyrightable facts — register addresses and the standard
 initialisation values published by Sony and in the Raspberry Pi firmware — were
 used, and no source lines were copied. If you believe any content here is
 copyrightable and improperly included, please open an issue.
+
+The standalone example projects named above are not included in this ROV checkout. The integrated camera application is built from the firmware root using its README instructions.

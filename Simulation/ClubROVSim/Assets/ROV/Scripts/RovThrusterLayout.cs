@@ -25,13 +25,15 @@ namespace ClubROV.Simulation
 
         // Minimum-norm allocation for sway, surge and yaw, using measured lever arms.
         // Axis signs remain a simulation convention, not a verified ArduSub mapping.
-        public static void Mix(Vector3 translation, float yaw, float[] commands)
+        public static void Mix(Vector3 translation, float yaw, float[] commands, float roll = 0)
         {
             Vector3 wrench = new(2 * translation.x, 2 * translation.z, 4 * yaw);
             float peak = 1;
             for (int i = 0; i < Count; i++)
             {
-                commands[i] = i < 4 ? Vector3.Dot(Allocation[i], wrench) : translation.y;
+                // Positive pilot roll lowers starboard: port thrust up, starboard down.
+                commands[i] = i < 4 ? Vector3.Dot(Allocation[i], wrench)
+                    : translation.y + (i == 4 ? roll : -roll);
                 peak = Mathf.Max(peak, Mathf.Abs(commands[i]));
             }
             for (int i = 0; i < Count; i++) commands[i] /= peak;

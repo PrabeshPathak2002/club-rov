@@ -1,0 +1,10 @@
+# Tracker 650 profile, loaded after external-nav.parm. Matches Cerulean's ArduPilot settings
+# (Sub-4.7 names rangefinder limits RNGFND1_MIN/MAX in metres, not *_CM).
+# DVL acoustic centre relative to the vehicle centre, FRD metres (RovDvlSensor sensorOffsetFlu).
+VISO_POS_X -0.000857
+VISO_POS_Y 0
+VISO_POS_Z 0.18
+RNGFND1_TYPE 10
+RNGFND1_ORIENT 25
+RNGFND1_MIN 0.5
+RNGFND1_MAX 50

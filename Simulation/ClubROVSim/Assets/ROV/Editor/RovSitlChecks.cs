@@ -10,6 +10,19 @@ namespace ClubROV.Simulation.Editor
 {
     public static class RovSitlChecks
     {
+        public static string TimingBudget()
+        {
+            if (Math.Abs(RovSitlBridge.PumpBudgetSeconds(1.0 / 120) - 0.010) > 1e-8)
+                throw new Exception("High FPS retains the minimum work budget");
+            if (Math.Abs(RovSitlBridge.PumpBudgetSeconds(1.0 / 60) - 0.0125) > 1e-8)
+                throw new Exception("60 FPS work budget");
+            if (Math.Abs(RovSitlBridge.PumpBudgetSeconds(1.0 / 30) - 0.025) > 1e-8)
+                throw new Exception("30 FPS gets enough lockstep service time");
+            if (Math.Abs(RovSitlBridge.PumpBudgetSeconds(0.5) - 0.025) > 1e-8)
+                throw new Exception("Stalls cannot create an unbounded work budget");
+            return "4 SITL timing budget checks passed";
+        }
+
         public static string Protocol()
         {
             int checks = 0;
