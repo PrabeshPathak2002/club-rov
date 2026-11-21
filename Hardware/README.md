@@ -3,7 +3,7 @@
 This directory contains current mechanical revisions. Latest exports are separated from the older frame baseline to identify the applicable files. Dimensions are in millimetres.
 
 - [ThrusterMounts](ThrusterMounts/README.md): current four smooth-support horizontal mounts and two rounded vertical mounts; seven STLs including a rail-fit coupon. Slicing and physical load tests remain pending.
-- [StackAdapter](StackAdapter/README.md): ARK below / 20 Ã— 20 mm ESC above, M3 adapter and four 7 mm spacers. Adapter fit has been checked.
+- [StackAdapter](StackAdapter/README.md): ARK below / 20 × 20 mm ESC above, M3 adapter and four 7 mm spacers. Adapter fit has been checked.
 - [WireManagement](WireManagement/README.md): Zeee 3300 mAh, six MR30 pairs, four XT60 pairs and two Basic ESC envelopes. Packaging study only; no holder print release. Replace the long FC screw that intrudes into the battery envelope.
 - [Endcap](Endcap/README.md): 6.35 mm acrylic with five LP12 openings on a 76 mm pitch circle, central LP20 Ethernet and two M10 ports. The circular DXF/SVG plate has been laser-cut. Installed fitting clearance and leak/pressure tests remain pending. The STEP export represents the earlier three-LP12 revision.
 
